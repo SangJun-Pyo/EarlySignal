@@ -34,11 +34,11 @@
 
 ## 산출물과 시연
 
-- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min-DRAFT.pdf): 본문9장+부록9장, 총18장.
-- [결선 PDF](presentation/output/pdf/EarlySignal-finals-10min-DRAFT.pdf): 본문9장+부록12장, 총21장.
-- [공개 제품](https://earlysignal.pages.dev/): main8b50a75 배포 확인. 최신 요청서 저장2026-10-09 13:17:28 KST, Markdown과 판단JSON 다운로드 확인.
+- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min.pdf): 본문9장+부록9장, 총18장.
+- [결선 PDF](presentation/output/pdf/EarlySignal-finals-8min-qa2min.pdf): 본문9장+부록12장, 총21장.
+- [공개 제품](https://earlysignal.pages.dev/): main8b50a75 배포 확인. 검수 시 요청서 저장2026-10-09 13:17:28 KST, Markdown과 판단JSON 다운로드 확인.
 - [캡처 출처](presentation/assets/screenshots/request-public.json): 원본 두 장·공개console의 해시를 연결한다. 촬영 시각과 요청서 저장 시각은 구분한다.
 
 시연은10초 데모신호 열기,20초 원문 인용·제외,20초 요약 검토·판단·저장,10초 내려받은 문서 확인으로 편성한다. 예선4분·결선8분의 실제 타이머 리허설과 동일버전 장애 대비 녹화는 미완료다.
 
-수정 전 발표 초안은 [보존용 과거 기록](presentation/history/PRESENTATION-before-approved-nine-slide-update.md)에 남겼다. 그 기록의 폐기된 수치·주장을 현재 발표에 사용하지 않는다. 검증·렌더·파일 해시는 최신 [QA](presentation/qa.json)에서 확인한다.
+수정 전 발표 초안은 [보존용 과거 기록](presentation/history/PRESENTATION-before-approved-nine-slide-update.md)에 남겼다. 그 기록의 폐기된 수치·주장을 현재 발표에 사용하지 않는다. 검증·렌더·파일 해시는 발표 확정 당시 [QA 스냅샷](presentation/qa.json)에서 확인한다.

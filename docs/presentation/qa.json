@@ -109,7 +109,7 @@
   "independent_review": {
     "status": "passed",
     "reviewer": "/root/label_failure_review",
-    "report": "docs/Reviews/R09-final-presentation.md (root integration pending)",
+    "report": "docs/Reviews/R09-final-presentation.md",
     "scope_completed": "All39pages independently re-rendered with Poppler and visually reviewed. Final text difference is limited to three presentation-status substitutions and US context on two covers; other37page body pixels identical. No clipping or missing glyphs.36 source hashes and two PDF hashes verified.",
     "preliminary_sha256": "76d136a4d9204e1efebc3329abce0915715a4274a1834ed4a2ef967abb207114",
     "finals_sha256": "457273b7ca21fb719946beb2fb4a4939198117b95a16162fc9196d4b17393199"
@@ -179,5 +179,25 @@
     "docs/presentation/assets/screenshots/request-public.json": "8adae8655f6d66fb53ba327122acfcf2a7bfd53f02e4b230aa1b72a5b5544ad0",
     "docs/presentation/assets/screenshots/request-public-llm-top.jpg": "5afb10fc2fabd06d86cb6b92b02fc1428d43a8e5a9e1ad56193f3274537ef2f5",
     "docs/presentation/assets/screenshots/request-public-llm-detail.jpg": "8a3319bc42628a42c1c33a2818178e4af0ff8672721989621a2f18025cc86651"
-  }
+  },
+  "verification_snapshot": {
+    "commit": "08ba7e08d1278c3f249d69a2b93ff2ce3e0fb1cd",
+    "report": "docs/Reviews/R09-final-presentation.md",
+    "scope": "checks and source_files_sha256 preserve the final PDF review snapshot; source hashes refer to files at this commit, not current HEAD. Subsequent documentation updates do not re-certify the original review.",
+    "post_review_changes_session": "docs/Sessions/S36-current-docs-copy.md"
+  },
+  "artifact_aliases": [
+    {
+      "canonical": "EarlySignal-preliminary-4min.pdf",
+      "compatibility": "EarlySignal-preliminary-4min-DRAFT.pdf",
+      "sha256": "76d136a4d9204e1efebc3329abce0915715a4274a1834ed4a2ef967abb207114",
+      "verification": "byte-identical copy of the reviewed PDF; no content regeneration or new visual review"
+    },
+    {
+      "canonical": "EarlySignal-finals-8min-qa2min.pdf",
+      "compatibility": "EarlySignal-finals-10min-DRAFT.pdf",
+      "sha256": "457273b7ca21fb719946beb2fb4a4939198117b95a16162fc9196d4b17393199",
+      "verification": "byte-identical copy of the reviewed PDF; no content regeneration or new visual review"
+    }
+  ]
 }

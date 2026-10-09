@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the review drafts. No measured product results are fabricated.
+"""Build the presentation PDFs. No measured product results are fabricated.
 
 Run with Python + reportlab. Paths resolve relative to this file on any OS.
 Fonts are redistributed under OFL (assets/OFL.txt).
@@ -9,6 +9,7 @@ from html import escape
 import argparse
 import json
 import hashlib
+import shutil
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -827,9 +828,12 @@ def main():
     assert sum(not s.get('appendix', False) for s in prelim)==9
     assert prelim[3]['time']==60
     assert all(prelim[i]['kind']=='figure' for i in (4,5))
-    build('4분 예선',prelim,args.output_dir/'EarlySignal-preliminary-4min-DRAFT.pdf')
-    build('결선 8분 + Q&A 2분',finals,args.output_dir/'EarlySignal-finals-10min-DRAFT.pdf')
-    source={'draft':True,'measured_product_results_included':bool(MEASURED),'product_capture':str(SCREENSHOT.relative_to(ROOT)) if SCREENSHOT.exists() else None,'finals_presentation_seconds':480,'finals_qa_seconds':120,'appendix_seconds':0,'preliminary':prelim,'finals':finals}
+    build('4분 예선',prelim,args.output_dir/'EarlySignal-preliminary-4min.pdf')
+    build('결선 8분 + Q&A 2분',finals,args.output_dir/'EarlySignal-finals-8min-qa2min.pdf')
+    # Preserve existing shared links with byte-identical compatibility copies.
+    shutil.copyfile(args.output_dir/'EarlySignal-preliminary-4min.pdf', args.output_dir/'EarlySignal-preliminary-4min-DRAFT.pdf')
+    shutil.copyfile(args.output_dir/'EarlySignal-finals-8min-qa2min.pdf', args.output_dir/'EarlySignal-finals-10min-DRAFT.pdf')
+    source={'draft':False,'status':'presentation','measured_product_results_included':bool(MEASURED),'product_capture':str(SCREENSHOT.relative_to(ROOT)) if SCREENSHOT.exists() else None,'finals_presentation_seconds':480,'finals_qa_seconds':120,'appendix_seconds':0,'preliminary':prelim,'finals':finals}
     (ROOT/'storyboard.json').write_text(json.dumps(source,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(f'Built preliminary 9 + {len(prelim)-9} appendix pages / 240 seconds; finals 9 + {len(finals)-9} appendix pages / 480 seconds + 120 seconds Q&A.')
 
