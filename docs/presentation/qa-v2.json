@@ -1,0 +1,85 @@
+{
+  "review_date": "2026-10-09",
+  "status": "pass",
+  "reviewer": "year_issue_review (independent, read-only)",
+  "report": "../Reviews/R12-year-appendix-script.md",
+  "decks": [
+    {
+      "file": "EarlySignal-preliminary-4min-3d-v2.pdf",
+      "pages": 20,
+      "preserved_pages": 18,
+      "added_pages": [
+        19,
+        20
+      ],
+      "source_file": "EarlySignal-preliminary-4min-3d.pdf",
+      "source_sha256": "1e612e3fda7ccae8dc42f6897e0de7e5bc086ade7e548ef5ae17ddee93bfaaec",
+      "sha256": "4b16deab85ab8237bfb285286ea8aada9746aebb8feccd41bbcbdbb4a831c3db"
+    },
+    {
+      "file": "EarlySignal-finals-8min-qa2min-3d-v2.pdf",
+      "pages": 23,
+      "preserved_pages": 21,
+      "added_pages": [
+        22,
+        23
+      ],
+      "source_file": "EarlySignal-finals-8min-qa2min-3d.pdf",
+      "source_sha256": "228b5c009147c6599c0ea94c2c4f712481de81da67886102c25b9d9263f57969",
+      "sha256": "58163259c686680ff157eb9c994f70131272a4a2a3113249b4907d9499d63f18"
+    }
+  ],
+  "script": {
+    "file": "EarlySignal-presentation-script.pdf",
+    "pages": 10,
+    "sha256": "00730aed51988169a555713f50b52f061de0068d41e7ffc82c65ebb882fd050a",
+    "source": "speaker-script.json",
+    "source_sha256": "6a532e25db4c20816cbd26c2f0422e4974e1b3596e9b58521c68d93abe6974e5",
+    "spoken_nonspace_characters": {
+      "preliminary": 922,
+      "finals": 2309
+    },
+    "preliminary_seconds": 240,
+    "finals_seconds": 480,
+    "qa_seconds": 120,
+    "actual_rehearsal_completed": false
+  },
+  "model_year_fact": {
+    "labeler": "llm",
+    "evidence_key": "HYUNDAI|SONATA:fire_thermal:2018-08-01",
+    "count": 17,
+    "years": [
+      [
+        "2011",
+        4
+      ],
+      [
+        "2012",
+        5
+      ],
+      [
+        "2013",
+        7
+      ],
+      [
+        "2014",
+        1
+      ]
+    ],
+    "unknown": 0,
+    "duplicate_ids": 0,
+    "source": "web/public/data/console.json",
+    "source_sha256": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8"
+  },
+  "original_3d_pages_preserved": 39,
+  "preserved_page_text_and_content_streams_identical": true,
+  "preserved_pages_independent_pixel_comparison_dpi": 50,
+  "preserved_pages_pixel_differences": 0,
+  "added_pages_reviewed": 4,
+  "added_page_outside_or_broken_characters": 0,
+  "script_pages_reviewed": 10,
+  "script_outside_or_broken_characters": 0,
+  "public_data_and_product_changed": false,
+  "issue_35_implementation_completed": false,
+  "actual_rehearsal_completed": false
+}

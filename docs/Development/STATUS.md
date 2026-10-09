@@ -24,11 +24,12 @@
 
 ## 발표 산출물
 
-- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min.pdf): 본문9+부록9=18페이지,240초 배분·데모60초·통계본문2장.
-- [결선 최종 PDF](../presentation/output/pdf/EarlySignal-finals-8min-qa2min.pdf): 본문9+부록12=21페이지,480초 발표·데모+질의응답120초.
+- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min-3d-v2.pdf): 본문9+부록11=20페이지,240초 배분·데모60초·통계본문2장.
+- [결선 최종 PDF](../presentation/output/pdf/EarlySignal-finals-8min-qa2min-3d-v2.pdf): 본문9+부록14=23페이지,480초 발표·데모+질의응답120초.
+- [전체 발표 대본](../presentation/speaker-script.md)·[인쇄용 대본PDF](../presentation/output/pdf/EarlySignal-presentation-script.pdf): 읽을 문장·조작·예상질문 포함. S39에서 이슈#35 연식 분석 후속 부록을 각2쪽 추가했다. 기존39쪽과 검수 스냅샷은 보존한다.
 - [노트](../presentation/speaker-notes.md)·[근거표](../presentation/evidence-manifest.md)·[R09](../Reviews/R09-final-presentation.md). 총39페이지 독립 렌더·글리프·수치·출처·외관 검수 완료.
 
-PDF 내용은 최종 검수본 그대로다. 기존 DRAFT 파일은 동일 바이트 호환본으로 보존한다. `qa.json`은 당시 PDF와 입력 파일의 검수 스냅샷이며 현재 문서의 모든 해시를 뜻하지 않는다.
+기본 근거판·DRAFT 호환본과 `qa.json`은 과거 검수 스냅샷으로 보존한다. 현재 3D v2와 대본은 [R12](../Reviews/R12-year-appendix-script.md)·`qa-v2.json`에서 별도로 검수했다. R09의39쪽은 기본판, R11은3D장식판, R12는연식부록·대본의 검수다.
 
 ## 남은 검증과 범위
 

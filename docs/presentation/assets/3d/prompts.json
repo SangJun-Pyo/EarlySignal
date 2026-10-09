@@ -1,0 +1,28 @@
+{
+  "tool": "built-in image_gen",
+  "created_date": "2026-10-09",
+  "purpose": "Conceptual decorative 3D imagery; no actual evidence or branded vehicle is represented.",
+  "reference": "User-supplied Truve PPTX and PDF; material and composition only.",
+  "assets": [
+    {
+      "name": "cover",
+      "prompt": "Use case: stylized-concept. Create a premium cinematic 3D rendered BACKGROUND for a 16:9 automotive safety research presentation. Deep midnight navy #0B1626 seamless environment, cyan #22D3EE luminous accents, realistic clear blue glass and brushed silver. On the RIGHT HALF only: an elegant generic unbranded silver sedan in three-quarter view on a thick transparent glass disc, surrounded by a few vertical translucent blank complaint-document sheets and restrained concentric cyan signal rings. The vehicle is a conceptual model, not a real named model. Sophisticated product-render quality, crisp glass refraction, subtle bloom, elegant studio lighting, no toy/cartoon feel. LEFT HALF must be empty nearly uniform midnight navy for large white Korean headline, no objects or bright lines there. Keep all hero objects within x=55%-97%, y=15%-68%, leaving BOTTOM 28% dark and almost empty for a timeline. Full bleed wide landscape 16:9. No text, letters, numbers, logos, watermark, checkmarks, shields, smoke, fire, charts or rendered UI. This is a conceptual illustration of finding investigation candidates, not defect confirmation.",
+      "file": "cover.png"
+    },
+    {
+      "name": "evidence",
+      "prompt": "Use case: stylized-concept. Create a premium cinematic 3D rendered BACKGROUND for an EarlySignal presentation, 16:9 landscape. Deep midnight navy #0B1626 seamless background, luminous cyan #22D3EE with frosted white and silver glass materials. RIGHT HALF: a beautiful sculptural collection of several clear glass complaint document sheets, a large clear glass magnifying lens tilted above one sheet, and a small generic unbranded silver car model in the background. A few delicate cyan filaments connect the floating documents to the lens. Clean realistic architectural/product CGI, glass edge highlights, ambient depth, sharp but restrained glow. LEFT 52% must stay empty flat dark navy for explanatory text. TOP 27% and BOTTOM 18% empty dark navy for slide header and footnote. Objects entirely within right x=56%-96%, y=29%-77%. No writing on documents, no letters, no numbers, no logos, no people, no checkmarks, no shield, no flame, no screens or data charts. Unambiguous conceptual illustration, not actual evidence photographs.",
+      "file": "evidence.png"
+    },
+    {
+      "name": "roles",
+      "prompt": "Use case: stylized-concept. Create a premium restrained 3D rendered illustration as a full-slide BACKGROUND for 16:9 presentation. Midnight navy #0B1626 background, cyan #22D3EE glass edge light and brushed silver, soft subtle amber only on center object. Three independent yet visually consistent glass sculptures in one horizontal row: LEFT at x=20% a stack of blank translucent complaint document sheets passing through a small elegant glass prism; CENTER at x=50% a silver signal-wave sculptural object in a transparent circular ring, NOT a chart and not bars; RIGHT at x=80% a blank open investigation folio with a tilted glass magnifying lens. Each sculpture about 20% canvas width. All objects sit in a shallow band between y=30% and y=56%; top 27% fully empty dark navy, bottom 40% fully empty dark navy for native slide text. Sophisticated product CGI like luxury glass sculpture, subtle contact shadows, gentle luminous filaments, consistent camera angle. No text, letters, numbers, labels, logos, shields, checkmarks, humans, charts, UI, futuristic robots. The concept is measurement, statistical judgement, human decision with separate responsibilities.",
+      "file": "roles.png"
+    },
+    {
+      "name": "closing",
+      "prompt": "Use case: stylized-concept. Create a premium cinematic 3D rendered BACKGROUND for the closing slide of an automotive safety investigation support presentation, 16:9 landscape. Midnight navy #0B1626 seamless background, translucent ice-blue glass and luminous cyan #22D3EE, brushed silver details. Large hero sculpture only on RIGHT 39%: several small blank translucent evidence sheets floating in perspective connected by elegant cyan light strands to one larger upright frosted glass investigation folio; a small silver magnifying lens rests by the folio. The composition suggests gathering evidence for a human decision. Beautiful glass refraction, architectural studio lighting, gentle glow, restrained sophistication. LEFT 58% and TOP 13% and BOTTOM 13% almost uniform dark navy and completely empty for slide text. Hero concentrated x=66%-96%,y=22%-78%. No letters, words, numbers, brand marks, checkmarks, shield, seal, stamps, charts, automatic approval icons, human figures. Do not depict verified safety or confirmed defect; abstract document workflow only.",
+      "file": "closing.png"
+    }
+  ]
+}

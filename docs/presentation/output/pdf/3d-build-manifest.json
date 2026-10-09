@@ -1,0 +1,53 @@
+{
+  "outputs": [
+    {
+      "file": "EarlySignal-preliminary-4min-3d.pdf",
+      "pages": 18,
+      "changed_pages": [
+        1,
+        2,
+        3,
+        9
+      ],
+      "sha256": "1e612e3fda7ccae8dc42f6897e0de7e5bc086ade7e548ef5ae17ddee93bfaaec",
+      "original_sha256": "76d136a4d9204e1efebc3329abce0915715a4274a1834ed4a2ef967abb207114"
+    },
+    {
+      "file": "EarlySignal-finals-8min-qa2min-3d.pdf",
+      "pages": 21,
+      "changed_pages": [
+        1,
+        2,
+        3,
+        9
+      ],
+      "sha256": "228b5c009147c6599c0ea94c2c4f712481de81da67886102c25b9d9263f57969",
+      "original_sha256": "457273b7ca21fb719946beb2fb4a4939198117b95a16162fc9196d4b17393199"
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/3d/closing.png",
+      "sha256": "5b2c0d1fb91929fd84af7968d271cadfc68bedd8e53ae0cf2fe477641fb9d822"
+    },
+    {
+      "path": "assets/3d/cover.png",
+      "sha256": "1a56941be2be1abe8dba74aaec678484d606a9f4a226828c5a7439763458b5f3"
+    },
+    {
+      "path": "assets/3d/evidence.png",
+      "sha256": "201cc5ae9115dc53f5f0b1f6d650a263421342086394bd8a5b7fad04550392e6"
+    },
+    {
+      "path": "assets/3d/roles.png",
+      "sha256": "a606dd903a39e774b978146bad91d6d108f44083a12137d0b6b9e7141219d7d2"
+    }
+  ],
+  "generated_art_tool": "built-in image_gen",
+  "prompt_file": "assets/3d/prompts.json",
+  "main_pages": 9,
+  "preliminary_seconds": 240,
+  "finals_seconds": 480,
+  "qa_seconds": 120,
+  "timing_is_allocation_not_rehearsal": true
+}
