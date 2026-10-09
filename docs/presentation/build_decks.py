@@ -39,6 +39,7 @@ PILOT_DONE = PILOT.get('cohort_completed', PILOT.get('completed', 0)) if PILOT e
 CAPTURE_META_PATH = ROOT / 'assets/screenshots/request-public.json'
 CAPTURE_META = json.loads(CAPTURE_META_PATH.read_text()) if CAPTURE_META_PATH.exists() else None
 SCREENSHOT = ROOT / (CAPTURE_META['image'] if CAPTURE_META else 'assets/screenshots/request-public.jpg')
+DETAIL_SCREENSHOT = ROOT / CAPTURE_META['detail_image'] if CAPTURE_META else SCREENSHOT
 FIGURES = ROOT / 'figures'
 W, H = 1280, 720
 BG = '#0B1626'
@@ -279,7 +280,7 @@ def boundary(c, s):
     text(c, '탐지에 사용', 80, 309, 21, CYAN, True)
     block(c, '기준일까지 접수된 신고\n원문 · 증상 라벨 · 과거 건수', 80, 355, 670, 28, leading=41)
     text(c, '평가에서만 확인', 830, 309, 21, AMBER, True)
-    block(c, '이후 실제 신고\n공식 조사 개시와 결과', 830, 355, 370, 26, leading=41)
+    block(c, '이후 실제 신고\n등록 조사 기록의 개시·결과', 830, 355, 370, 26, leading=41)
     line(c, 80, 505, 1197, 505, MUTED, 3)
     for x in [120,280,440,600]:
         line(c,x,498,x,512,CYAN,3)
@@ -305,7 +306,7 @@ def results(c, s):
         cases={case['case_id']:case for case in CASE_RESULTS['cases']}
         text(c,f"현대 {cases['PE19003']['lead_days']}일 · 기아 {cases['PE19004']['lead_days']}일",330,486,25,TEXT,True)
         text(c,'볼트 EV 놓침',860,486,25,AMBER,True)
-        text(c,'키워드 기준선 · 일수는 공식 조사 개시보다 선행 · 현재 파일의 접수일 기준 재현',56,555,20,MUTED)
+        text(c,'키워드 기준선 · 일수는 지정 예비조사(PE) 개시일 대비 · 현재 파일의 접수일 기준 재현',56,555,20,MUTED)
         takeaway(c,'선정된 사례의 경보 발생 비율입니다. 일반 정확도·오탐률이나 실제 사고 예방 효과가 아닙니다.')
         return
     rows = [('개발용', '조사 사례 / 비교 차종', '규칙 선택에 사용'),
@@ -390,7 +391,7 @@ def validation(c,s):
     cards(c,s|dict(cards=[
         ('선정 · 분할','선정 기준에 맞는 사례\n사전 목록을 사용합니다.\n\n개발용 dev\n규칙 고정 후 holdout','',CYAN),
         ('동일 규칙 비교','같은 제조사의 대조군과\n동일한 경보 규칙을 적용.\n\n사례 수 · 차종 수 · 관측월\n분모를 함께 공개합니다.','',AMBER),
-        ('선행 정의','공식 조사 전후 정해진\n기간 안 첫 경보를 평가.\n\n확인 가능일은\n경보 월 다음 달 첫날.','',GREEN),
+        ('선행 정의','등록 조사일 전후 정해진\n기간 안 첫 경보를 평가.\n\n확인 가능일은\n경보 월 다음 달 첫날.','',GREEN),
     ]))
 
 
@@ -430,11 +431,11 @@ def screenshot_region(c, path, source_box, target_box):
 
 def product(c, s):
     box(c, 52, 278, 810, 280)
-    screenshot_region(c, SCREENSHOT, (110, 390, 1120, 470), (60, 286, 794, 264))
+    screenshot_region(c, SCREENSHOT, (109, 386, 1267, 535), (60, 286, 794, 264))
     box(c, 886, 278, 342, 280)
     text(c, '실제 저장된 요청서', 909, 300, 24, CYAN, True)
-    block(c, '원문 인용·제외 → 판단 입력\n요청서와 결정 기록 저장', 909, 346, 296, 21, leading=31)
-    screenshot_region(c, SCREENSHOT, (800, 1080, 430, 207), (902, 414, 310, 125))
+    block(c, 'AI 요약 인용·담당자 검토\n판단 입력 → 확정·저장', 909, 346, 296, 21, leading=31)
+    screenshot_region(c, DETAIL_SCREENSHOT, (889, 106, 488, 197), (902, 414, 310, 125))
     takeaway(c, s['takeaway'])
 
 
@@ -530,7 +531,7 @@ def llm_comparison(c,s):
          f"{100*agreement['agree']/agreement['n']:.2f}% · 방법 간 일치율",'정답을 맞힌 비율은 아닙니다.',CYAN),
         ('월별 경보 칸',f"{alerts['keyword']} → {alerts['llm']}",
          f"키워드 → LLM · 같은 {COMPARISON['detector_cells']['llm']:,}칸",'경보 증가만으로 우위를 말하지 않습니다.',AMBER),
-        ('대표 사례의 선행 시점',f"{lead_h}일 · {lead_k}일",'현대·기아: 두 방식 동일',
+        ('지정 예비조사(PE) 대비',f"{lead_h}일 · {lead_k}일",'2019.03.29 개시 · 두 방식 동일',
          f"볼트: 키워드 놓침 · LLM {abs(bolt)}일 늦음",GREEN),
     ]
     for i,(title,value,label,note,accent) in enumerate(entries):
@@ -564,6 +565,24 @@ def validation_graph(c, s):
     takeaway(c,s['takeaway'])
 
 
+def investigation_context(c,s):
+    text(c,'더 앞선 2017년에도 현대 RQ17-004 · 기아 RQ17-003 리콜 검토가 있었습니다.',57,273,20,MUTED)
+    events=[('2018.06.11','CAS 청원','현대·기아 비충돌 화재에\n안전성 조사 요청',CYAN),
+            ('2018.08.21','DP18-003 검토','청원을 받아들일지\n기관이 검토 시작',AMBER),
+            ('2019.03.29','PE19-003 · PE19-004','예비조사 개시\n209일·240일의 비교 지점',GREEN)]
+    for i,(date,title,body,accent) in enumerate(events):
+        x=52+i*400
+        box(c,x,313,376,177)
+        text(c,date,x+23,334,27,accent,True)
+        text(c,title,x+23,380,24,TEXT,True)
+        block(c,body,x+23,426,330,20,leading=27)
+        if i<2:arrow(c,x+380,399,x+396,AMBER)
+    text(c,'검증 범위',57,514,20,CYAN,True)
+    text(c,'38사례 키워드 규칙은 dev에서 선택·고정 후 holdout 평가. 현재 데모 비교는 별도 관측창입니다.',183,514,19,TEXT)
+    text(c,'출처: NHTSA PE19-003·PE19-004 개시서 1쪽 · 사건 이력은 사후 해석용이며 탐지 입력에 쓰지 않습니다.',57,550,18,MUTED)
+    takeaway(c,s['takeaway'])
+
+
 def technical_stats(c, s):
     cards(c,s | dict(cards=[
         ('월별 기준선','n = 그달 고유 신고 수\n평균 = 직전 12개월 평균\n\n당월 제외 · 0건 월 포함\n이력 6개월 이상부터 판단\n평균의 하한은 0.5','',CYAN),
@@ -579,8 +598,8 @@ def comparison_stats(c,s):
     observed=source['example']['observed']
     cards(c,s | dict(cards=[
         ('이항 비교 계산',f"전체 신고 중 증상 비율 비교\n과거 {alt['historical_category_sum']}/{alt['historical_total_sum']} → 이번 달 {observed}/{alt['current_total']}\n\np = {comparison_p}\n코드에서 비교용으로 계산\n주 경보·평가에는 미사용",'',CYAN),
-        ('검토 업무량 관측',f"차종·월당 경보 수\n사례 {MEASURED['burden']['case_alerts_per_group_month']:.3f} · 대조 {MEASURED['burden']['control_alerts_per_group_month']:.3f}\n\n등록 평가창의 관측치\n증상별 경보를 합산한 값\n현업 검토 시간은 미측정",'',AMBER),
-        ('단일 차종 보조 분석','같은 단위로 좁혀 비교\n사례 8/20 · 대조 1/19\n\n기존 주 분석 결과는 보존\n결과를 보고 규칙 미조정\n차종 중복 등 한계는 유지','',GREEN),
+        ('키워드 경보 업무량',f"차종·월당 경보 수\n사례 {MEASURED['burden']['case_alerts_per_group_month']:.3f} · 대조 {MEASURED['burden']['control_alerts_per_group_month']:.3f}\n\n등록 평가창의 관측치\n증상별 경보를 합산한 값\n현업 검토 시간은 미측정",'',AMBER),
+        ('키워드 보조 분석','단일 차종으로 좁혀 비교\n사례 8/20 · 대조 1/19\n\n기존 주 분석 결과는 보존\n결과를 보고 규칙 미조정\n차종 중복 등 한계는 유지','',GREEN),
     ]))
 
 
@@ -611,7 +630,7 @@ def proposal_scope(c,s):
         ('신호 추출','고정 16개 증상 코드로 분류\n위험 요소·인용 출력 검사','별도 부품 추출 미구현\n자유 군집화·벡터 검색 없음','같은 표본의 사람 정답 대조\n검수 예시는 평가와 분리'),
         ('변화 탐지',f'월별 집계·포아송 경보\n현재 제품은 {LABELER_NAME}','주 38사례 검증은 키워드\n방법 간 일치율 ≠ 정확도','전문가의 원문·정답 검수\n현업 검토 시간·효용 측정'),
         ('신호 브리프','대표 신고의 AI 요약 인용\n담당자 판단을 요청서로 저장','새 종합 문장 대신 기존 요약\n유사 과거 사례 검색 미구현','원래 기획의 검색 기능 보완\n근거·인용·시점 검증'),
-        ('과거 재현','접수일 기준으로 잘라 계산\n공식 조사 대비 선행일 측정','당시 공개 파일 수정 이력은\n복원하지 못한 한계','공개 가능 시점·자료 변경\n민감도 분석 필요'),
+        ('과거 재현','접수일 기준으로 잘라 계산\n지정 조사일 대비 일수 측정','당시 공개 파일 수정 이력은\n복원하지 못한 한계','공개 가능 시점·자료 변경\n민감도 분석 필요'),
     ]
     for r,values in enumerate(rows):
         y=333+r*57
@@ -717,11 +736,11 @@ def revise_stat_story(prelim, finals):
         status='실패·의미 과장·사용자 선택·수정 기록',time=0,appendix=True,refs='E06 · E27',
         takeaway='기존 AI 요약 자체의 의미 정확도는 미측정입니다. 대표 인용을 전체 신고의 공통 상황이나 원인으로 확대하지 않습니다.')
     # Compact core story preserves the two statistical chart pages in the timed body.
-    comparison_slide=slide('같은 신고에 적용해도, 더 정확한지는 별도입니다.', '동일 데모 모집단의 키워드·LLM 비교입니다. 등록 38사례의 주 검증과 관측 범위가 다릅니다.', 'llm_comparison',status='같은 모집단 비교 · 일치율은 정확도 아님',time=15,refs='E09 · E10 · E11 · E26',takeaway='대표 사례의 선행 시점은 같고 볼트는 여전히 늦었습니다. 사람 정답 없이 LLM의 정확도 우위를 주장하지 않습니다.') if LABELER == 'llm' else prelim[5]|dict(time=15)
+    comparison_slide=slide('같은 신고에 적용해도, 더 정확한지는 별도입니다.', '동일 데모 모집단의 키워드·LLM 비교입니다. 등록 38사례의 주 검증과 관측 범위가 다릅니다.', 'llm_comparison',status='같은 모집단 비교 · 일치율은 정확도 아님',time=15,refs='E09 · E10 · E11 · E26 · E28',takeaway='2018년 청원·검토가 이미 있었습니다. 지정 PE 대비 일수이며 기관 최초 인지·조사보다 먼저 찾았다는 뜻은 아닙니다.') if LABELER == 'llm' else prelim[5]|dict(time=15)
     main=[prelim[0]|dict(time=15),prelim[1]|dict(time=15),prelim[2]|dict(time=10),llm,
           monthly,poisson,val,prelim[4]|dict(time=15,subtitle='키워드 기준선: 38회 과거 경보 재계산·64칸 독립 검산. 당시 파일의 공개·수정 이력은 미복원입니다.'),comparison_slide,
           prelim[3]|dict(time=50),prelim[7]|dict(time=10,refs='E12 · E13 · E27'),prelim[8]|dict(time=10)]
-    appendix_eval=finals[14] | dict(title='부록. 등록 평가와 선행 일수의 정의.',appendix=True,time=0)
+    appendix_eval=slide('부록. 지정 예비조사 이전에도 검토가 있었습니다.', '209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.', 'investigation_context',appendix=True,time=0,status='공식 사건 이력 · 비교 시점의 한계',refs='E08 · E09 · E28',takeaway='접수일로 재현한 경보와 지정 기록의 날짜를 비교합니다. 실제 당시 조사 착수나 사고 예방을 앞당긴 효과는 미측정입니다.')
     extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. 사람 정답 검수·유사 사례 검색은 미완료로 남깁니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
     extra.insert(4,brief)
     fm=[s | dict(time=t) for s,t in zip(main,[15,25,25,40,45,45,50,35,40,100,35,25])]
@@ -748,12 +767,14 @@ def main():
             raise ValueError('Product capture and current console do not match')
         if CAPTURE_META.get('image_sha256') != hashlib.sha256(SCREENSHOT.read_bytes()).hexdigest():
             raise ValueError('Product capture image does not match its provenance')
+        if CAPTURE_META.get('detail_image_sha256') != hashlib.sha256(DETAIL_SCREENSHOT.read_bytes()).hexdigest():
+            raise ValueError('Saved request capture image does not match its provenance')
     pdfmetrics.registerFont(TTFont('KR',str(args.font_dir/'IBMPlexSansKR-Regular.ttf')))
     pdfmetrics.registerFont(TTFont('KR-Bold',str(args.font_dir/'IBMPlexSansKR-SemiBold.ttf')))
     args.output_dir.mkdir(parents=True,exist_ok=True)
     prelim,finals=prepare_slides()
     prelim,finals=revise_stat_story(prelim,finals)
-    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,rag_scope=rag_scope,llm_detail=llm_detail,brief_revision=brief_revision,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
+    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,investigation_context=investigation_context,rag_scope=rag_scope,llm_detail=llm_detail,brief_revision=brief_revision,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
     assert sum(s['time'] for s in prelim)==240
     assert sum(s['time'] for s in finals)==480
     assert sum(not s.get('appendix', False) for s in finals)==12

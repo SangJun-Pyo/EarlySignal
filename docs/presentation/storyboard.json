@@ -1,7 +1,7 @@
 {
   "draft": true,
   "measured_product_results_included": true,
-  "product_capture": "assets/screenshots/request-public.jpg",
+  "product_capture": "assets/screenshots/request-public-llm-top.jpg",
   "finals_presentation_seconds": 480,
   "finals_qa_seconds": 120,
   "appendix_seconds": 0,
@@ -141,8 +141,8 @@
       "kind": "llm_comparison",
       "status": "같은 모집단 비교 · 일치율은 정확도 아님",
       "time": 15,
-      "refs": "E09 · E10 · E11 · E26",
-      "takeaway": "대표 사례의 선행 시점은 같고 볼트는 여전히 늦었습니다. 사람 정답 없이 LLM의 정확도 우위를 주장하지 않습니다."
+      "refs": "E09 · E10 · E11 · E26 · E28",
+      "takeaway": "2018년 청원·검토가 이미 있었습니다. 지정 PE 대비 일수이며 기관 최초 인지·조사보다 먼저 찾았다는 뜻은 아닙니다."
     },
     {
       "title": "한 가지 업무를 끝까지 보여줍니다.",
@@ -192,14 +192,14 @@
       "takeaway": "서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다."
     },
     {
-      "title": "부록 3. 등록 평가와 선행 일수의 정의.",
-      "subtitle": "사례 선정 · 분할 · 대조군 · 선행 기간의 정의를 결과와 함께 남깁니다.",
-      "kind": "validation",
-      "takeaway": "사례·대조군의 규모 차이와 분할 간 차종 중복이 있습니다. 일반화 성능은 추가 검증이 필요합니다.",
+      "title": "부록 3. 지정 예비조사 이전에도 검토가 있었습니다.",
+      "subtitle": "209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.",
+      "kind": "investigation_context",
+      "appendix": true,
       "time": 0,
-      "refs": "E08 · E09",
-      "status": "등록된 평가 완료",
-      "appendix": true
+      "status": "공식 사건 이력 · 비교 시점의 한계",
+      "refs": "E08 · E09 · E28",
+      "takeaway": "접수일로 재현한 경보와 지정 기록의 날짜를 비교합니다. 실제 당시 조사 착수나 사고 예방을 앞당긴 효과는 미측정입니다."
     },
     {
       "title": "부록 4. 분류와 대표 신고 선택을 구분합니다.",
@@ -388,8 +388,8 @@
       "kind": "llm_comparison",
       "status": "같은 모집단 비교 · 일치율은 정확도 아님",
       "time": 40,
-      "refs": "E09 · E10 · E11 · E26",
-      "takeaway": "대표 사례의 선행 시점은 같고 볼트는 여전히 늦었습니다. 사람 정답 없이 LLM의 정확도 우위를 주장하지 않습니다."
+      "refs": "E09 · E10 · E11 · E26 · E28",
+      "takeaway": "2018년 청원·검토가 이미 있었습니다. 지정 PE 대비 일수이며 기관 최초 인지·조사보다 먼저 찾았다는 뜻은 아닙니다."
     },
     {
       "title": "한 가지 업무를 끝까지 보여줍니다.",
@@ -439,14 +439,14 @@
       "takeaway": "서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다."
     },
     {
-      "title": "부록 3. 등록 평가와 선행 일수의 정의.",
-      "subtitle": "사례 선정 · 분할 · 대조군 · 선행 기간의 정의를 결과와 함께 남깁니다.",
-      "kind": "validation",
-      "takeaway": "사례·대조군의 규모 차이와 분할 간 차종 중복이 있습니다. 일반화 성능은 추가 검증이 필요합니다.",
+      "title": "부록 3. 지정 예비조사 이전에도 검토가 있었습니다.",
+      "subtitle": "209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.",
+      "kind": "investigation_context",
+      "appendix": true,
       "time": 0,
-      "refs": "E08 · E09",
-      "status": "등록된 평가 완료",
-      "appendix": true
+      "status": "공식 사건 이력 · 비교 시점의 한계",
+      "refs": "E08 · E09 · E28",
+      "takeaway": "접수일로 재현한 경보와 지정 기록의 날짜를 비교합니다. 실제 당시 조사 착수나 사고 예방을 앞당긴 효과는 미측정입니다."
     },
     {
       "title": "부록 4. 분류와 대표 신고 선택을 구분합니다.",
