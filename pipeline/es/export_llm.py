@@ -81,6 +81,24 @@ def prepare(con,config):
     return source,labels,detections,keyword_detections,provenance,comparison
 
 
+
+def write_development_comparison(frame, root):
+    """Visible predictions from the development cohort; never reset annotations."""
+    path=Path(root)/"data/labels/sample60_compare.csv"
+    path.parent.mkdir(parents=True,exist_ok=True)
+    try:
+        frame.to_csv(path,index=False,mode="x")
+    except FileExistsError:
+        pass  # Existing human values and notes survive every export rerun.
+    note={"purpose":"development comparison with visible predictions; not independent blind evaluation",
+          "selection":"seed42 first60, includes the development first50",
+          "independent_evaluation":False,"predictions_visible":True,
+          "existing_csv_preserved":True,
+          "human_gold_authority":"data/private/human_review_independent30/blind.csv",
+          "accuracy":None}
+    (path.with_suffix(".purpose.json")).write_text(json.dumps(note,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+
 def run(con,config,args=None):
     # Completion/privacy/provenance guards run before any output mutation.
     source,labels,detections,keyword_detections,provenance,comparison=prepare(con,config)
@@ -138,5 +156,5 @@ def run(con,config,args=None):
     comparison_labels["snippet"]=[public_text(source_by_id.loc[odino,"text"],520,denied=denied[odino]) for odino in sample_ids]
     comparison_labels["human_gold"]=""
     comparison_labels["human_notes"]=""
-    comparison_labels.to_csv(config.root/"data/labels/sample60_compare.csv",index=False)
+    write_development_comparison(comparison_labels,config.root)
     return {"output":str(output),"files":len(manifest["files"])+1,"console_complaints":len(console["complaints"]),"evidence_cells":len(console["evidence"]),"labeler":"llm","labeled":len(labels),"briefs":len(console["briefs"]),"main_validation_labeler":"keyword","comparison":str(report)}
