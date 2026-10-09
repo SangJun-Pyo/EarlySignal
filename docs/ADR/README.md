@@ -26,7 +26,6 @@
 | [ADR-020](ADR-020-independent-blind-human-review.md) | 개발 표본과 분리한 예측 비공개 사람 정답 검수 |
 | [ADR-021](ADR-021-approved-full-labeling.md) | 승인된 전체 분류와 고정 시험 결과 분리 |
 | [ADR-022](ADR-022-issue-branch-pr-review.md) | 이슈·브랜치·PR·독립 검수 연결 |
-
 | [ADR-023](ADR-023-structured-brief-citations.md) | 문장별 상황 서술 실험 — ADR-024로 대체 |
 | [ADR-024](ADR-024-source-summary-selection.md) | 대표 ID 선택과 기존 신고별 AI 요약 그대로 인용 |
 | [ADR-025](ADR-025-designated-pe-comparison-context.md) | 선행 기간은 지정 예비조사(PE) 개시일과 비교 |
