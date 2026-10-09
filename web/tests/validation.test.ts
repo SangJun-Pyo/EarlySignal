@@ -56,7 +56,7 @@ test("unrun LLM and absent human gold remain unmeasured rather than a zero accur
 test("request workflow footer continues to describe its actual console classification", () => {
   const llm = renderToStaticMarkup(createElement(SourceAttribution, { view: "request", labeler: "llm" }));
   const keyword = renderToStaticMarkup(createElement(SourceAttribution, { view: "signals", labeler: "keyword" }));
-  assert.equal(llm, "콘솔 분류 출처: 사전 실행 LLM");
+  assert.equal(llm, "콘솔 분류 출처: 완료된 LLM 분류");
   assert.equal(keyword, "콘솔 분류 출처: 키워드 규칙");
 });
 
