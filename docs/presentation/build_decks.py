@@ -23,6 +23,9 @@ MEASURED = json.loads(META_PATH.read_text()) if META_PATH.exists() else None
 CONSOLE = json.loads((REPO/'web/public/data/console.json').read_text())
 LABELER = CONSOLE['labeler']
 LABELER_NAME = {'keyword':'키워드 기준선','llm':'LLM 분류'}[LABELER]
+COMPARISON_PATH = REPO/'data/results/llm_demo_comparison.json'
+COMPARISON = json.loads(COMPARISON_PATH.read_text()) if COMPARISON_PATH.exists() else None
+BRIEF_COUNT = len(CONSOLE.get('briefs', {}))
 CASE_RESULTS = json.loads(CASE_PATH.read_text()) if CASE_PATH.exists() else None
 PILOT_PATH = REPO / 'data/results/llm_pilot.json'
 PILOT = json.loads(PILOT_PATH.read_text()) if PILOT_PATH.exists() else None
@@ -199,7 +202,7 @@ def frame(c, s, index, total, deck):
         block(c, s['subtitle'], 54, 156, 1140, 21, MUTED, leading=29, max_height=60)
         pill(c, s.get('status', '검토용 초안'), 54, 224)
     line(c, 52, 661, 1228, 661)
-    text(c, 'DRAFT · 키워드 제품 실측 · AI 검증 진행 중' if MEASURED else 'DRAFT · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
+    text(c, f'DRAFT · {LABELER_NAME} 제품 · 38사례는 키워드 검증' if MEASURED else 'DRAFT · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
     text(c, f'근거 {s["refs"]}', 640, 681, 14, MUTED)
     text(c, f'부록 {index-12}' if s.get('appendix') else f'{index:02d} / 12', 1140, 678, 17, TEXT, True)
 
@@ -436,7 +439,7 @@ def prepare_slides():
             if s['kind']=='results':
                 s.update(subtitle='실행한 키워드 기준선의 결과입니다. 실패와 비교 집단의 한계를 함께 봅니다.', status='실데이터 · 독립 검수 완료',takeaway='선정된 사례의 경보 발생 비율입니다. 일반 정확도·오탐률이나 실제 사고 예방 효과가 아닙니다.')
             elif s['kind']=='boundary':
-                s.update(status='미래 접수 차단 확인',takeaway=f"{lookahead['complete_month_cutoffs']}개 조사 사례의 기준일에서 잘라 재계산한 완료월 경보가 전체 계산과 일치했습니다.")
+                s.update(status='미래 접수 차단 확인',takeaway=f"{lookahead['complete_month_cutoffs']}개 조사 사례의 기준일에서 키워드 경보를 잘라 재계산해 완료월 결과가 일치했습니다.")
             elif s['kind']=='validation':
                 s.update(status='등록된 평가 완료',takeaway='사례·대조군의 규모 차이와 분할 간 차종 중복이 있습니다. 일반화 성능은 추가 검증이 필요합니다.')
             elif s['kind']=='compare':
@@ -446,9 +449,9 @@ def prepare_slides():
             elif s['kind']=='workflow':
                 s.update(status='독립 검수·수정 기록 확인',takeaway='검수 지적 → 수정: 요청서 문서번호 충돌 · 잘못된 인용 · 제외한 신고의 AI 재인용 차단.')
             elif s['kind']=='roles':
-                s.update(status='역할 분리 설계 · 현재 화면은 키워드 기준선')
+                s.update(status=f'역할 분리 설계 · 현재 화면은 {LABELER_NAME}')
             elif s['kind']=='requestflow' and SCREENSHOT.exists():
-                s.update(kind='product', subtitle='공개 배포에서 직접 저장·다운로드한 실제 화면입니다. earlysignal.pages.dev · 키워드 기준선', status='실제 브라우저 저장 확인', takeaway='경보 선택 → 원문 인용·제외 → 담당자 판단 → 요청서 저장. 내려받은 문서까지 확인합니다.')
+                s.update(kind='product', subtitle=f'공개 배포에서 직접 저장·다운로드한 실제 화면입니다. earlysignal.pages.dev · {LABELER_NAME}', status='실제 브라우저 저장 확인', takeaway='경보 선택 → 원문 인용·제외 → 담당자 판단 → 요청서 저장. 내려받은 문서까지 확인합니다.')
             elif s['kind']=='requestdoc':
                 s.update(subtitle='실제 저장 문서는 수치·원문 인용·미확인 사항·담당자 판단을 함께 남깁니다.', status='실제 요청서 저장 확인', takeaway='현재 상황 요약은 비워 둡니다. 검증된 AI 요약이 없을 때 문장을 만들어 채우지 않습니다.')
         FINALS[2].update(status='실데이터 적재 검산 완료',takeaway='원본 1,301,663행 → 소비자 고유 신고 932,821건. 원본 스트리밍 집계와 DB 결과를 독립 대조했습니다.')
@@ -500,12 +503,37 @@ def llm_flow(c, s):
         if i < 3: arrow(c, x+280, 354, x+296)
     box(c, 52, 459, 1176, 100)
     text(c, 'API 출력 검사', 73, 480, 21, AMBER, True)
-    completed = PILOT_DONE
-    selected = PILOT_TOTAL
-    text(c, f'고정 {selected}건 중 {completed}건 통과', 260, 479, 27, TEXT, True)
+    completed = MEASURED['labels']['llm_labeled'] if LABELER == 'llm' else PILOT_DONE
+    selected = COMPARISON['population'] if LABELER == 'llm' else PILOT_TOTAL
+    text(c, f'{selected:,}건 중 {completed:,}건 통과', 260, 479, 27, TEXT, True)
     text(c, '분류 정확도를 뜻하지 않음', 803, 483, 21, AMBER)
     text(c, '38개 조사 사례의 통계 백테스트와 별개입니다. 사람 정답 기반 분류 정확도는 미측정입니다.', 74, 522, 20, MUTED)
     takeaway(c, s['takeaway'])
+
+
+def llm_comparison(c,s):
+    if not COMPARISON:
+        raise ValueError('LLM comparison result is required for this page')
+    agreement=COMPARISON['primary_agreement'];alerts=COMPARISON['alert_cells']
+    cases={v['case_id']:v for v in COMPARISON['cases']}
+    lead_h=cases['PE19003']['llm']['lead_days'];lead_k=cases['PE19004']['llm']['lead_days']
+    bolt=cases['PE20016']['llm']['lead_days']
+    entries=[
+        ('대표 증상 라벨 일치',f"{agreement['agree']:,}/{agreement['n']:,}",
+         f"{100*agreement['agree']/agreement['n']:.2f}% · 방법 간 일치율",'정답을 맞힌 비율은 아닙니다.',CYAN),
+        ('월별 경보 칸',f"{alerts['keyword']} → {alerts['llm']}",
+         f"키워드 → LLM · 같은 {COMPARISON['detector_cells']['llm']:,}칸",'경보 증가만으로 우위를 말하지 않습니다.',AMBER),
+        ('대표 사례의 선행 시점',f"{lead_h}일 · {lead_k}일",'현대·기아: 두 방식 동일',
+         f"볼트: 키워드 놓침 · LLM {abs(bolt)}일 늦음",GREEN),
+    ]
+    for i,(title,value,label,note,accent) in enumerate(entries):
+        x=52+i*400
+        box(c,x,278,376,280)
+        text(c,title,x+22,307,24,accent,True)
+        text(c,value,x+22,364,40,TEXT,True)
+        block(c,label,x+22,431,332,21,leading=29)
+        block(c,note,x+22,498,332,19,MUTED,leading=27)
+    takeaway(c,s['takeaway'])
 
 
 def validation_graph(c, s):
@@ -608,7 +636,7 @@ def llm_detail(c,s):
     cards(c,s | dict(cards=[
         ('신고 분류 출력','주 증상 1개·보조 최대 2개\n위험 요소 6개·심각도 1~3\n\n원문에 있는 인용 200자 이내\n한국어 요약 40자 이내\n모델·프롬프트·원문 해시 저장','',CYAN),
         ('상황 요약 경로','완성된 LLM 근거만 입력\n해당 칸 최대 10건 고정 선택\n\n수치 문장은 코드가 작성\nLLM 상황 문장마다 #신고번호\n다른 칸 인용은 폐기','',AMBER),
-        ('현재 확인한 범위',f"API 출력 검사: {PILOT_DONE}/{PILOT_TOTAL}건 통과\n초기 인용 실패 14건은 수정\n\n제품은 키워드 기준선\n사람 정답 정확도는 미측정\n전체 7,502건 결과 대기",'',GREEN),
+        ('사람 정답 검수','독립 30건 검수 자료 준비\n사용자가 직접 검수 시도\n\n전문성·시간 제약으로 미완료\n사람 정답 정확도는 미측정\n전문가 검수는 후속 계획','',GREEN),
     ]))
 
 
@@ -642,8 +670,8 @@ def revise_stat_story(prelim, finals):
         takeaway='p값은 결함일 확률이 아닙니다. 배수가 커도 확률과 최소 건수 조건을 함께 통과해야 합니다.',
         refs='E04 · E19',time=25)
     llm=slide('LLM은 문장을 정해진 항목으로 바꿉니다.',
-        '직접 분류 → 출력 검사 → 캐시 → 월별 집계. 현재 제품의 통계는 키워드 기준선입니다.', 'llm_flow',
-        status='고정 50건 API 출력 검사 완료 · 분류 정확도 미측정',time=25,refs='E02 · E10 · E11 · E21',
+        f'직접 분류 → 출력 검사 → 캐시 → 월별 집계. 현재 제품은 {LABELER_NAME}입니다.', 'llm_flow',
+        status=f"{MEASURED['labels']['llm_labeled']:,}건 LLM 출력 검사 완료 · 분류 정확도 미측정" if LABELER == 'llm' else '고정 50건 API 출력 검사 완료 · 분류 정확도 미측정',time=25,refs='E02 · E10 · E11 · E21',
         takeaway='사람 정답 검수는 전문성·시간 제약으로 당일 미완료입니다. 방법 간 일치율을 정확도로 해석하지 않습니다.')
     val=slide('경보 규칙과, 그 규칙의 검증을 나눕니다.',
         '규칙 선택에 쓴 개발용(dev)과 고정 규칙으로 평가한 검증용(holdout)을 분리했습니다.', 'validation_graph',
@@ -660,10 +688,11 @@ def revise_stat_story(prelim, finals):
     detail=slide('부록. 분류와 상황 요약은 서로 다른 호출입니다.',
         '라벨 분류는 개별 신고를, 상황 요약은 같은 경보 칸의 선택된 근거만 다룹니다.', 'llm_detail',
         status='현재 코드·캐시의 실제 범위',time=0,appendix=True,refs='E02 · E06 · E10 · E21',
-        takeaway='인용 실패 14건은 원문 후보 번호를 재선택해 통과했습니다. 전체 7,502건과 데모 요약의 추가 실행은 승인됐으며 결과를 기다립니다.')
+        takeaway=f'초기 시험의 인용 실패 14건은 원문 후보 선택으로 수정했습니다. 현재 상황 요약 {BRIEF_COUNT}개는 별도 출력입니다.')
     # Compact core story preserves the two statistical chart pages in the timed body.
+    comparison_slide=slide('같은 신고에 적용해도, 더 정확한지는 별도입니다.', '동일 데모 모집단의 키워드·LLM 비교입니다. 등록 38사례의 주 검증과 관측 범위가 다릅니다.', 'llm_comparison',status='같은 모집단 비교 · 일치율은 정확도 아님',time=15,refs='E09 · E10 · E11 · E26',takeaway='대표 사례의 선행 시점은 같고 볼트는 여전히 늦었습니다. 사람 정답 없이 LLM의 정확도 우위를 주장하지 않습니다.') if LABELER == 'llm' else prelim[5]|dict(time=15)
     main=[prelim[0]|dict(time=15),prelim[1]|dict(time=15),prelim[2]|dict(time=10),llm,
-          monthly,poisson,val,prelim[4]|dict(time=15,subtitle='38회 과거 경보 재계산 · 독립 계산 64칸 대조. 당시 파일의 공개·수정 이력은 복원하지 못했습니다.'),prelim[5]|dict(time=15),
+          monthly,poisson,val,prelim[4]|dict(time=15,subtitle='키워드 기준선: 38회 과거 경보 재계산·64칸 독립 검산. 당시 파일의 공개·수정 이력은 미복원입니다.'),comparison_slide,
           prelim[3]|dict(time=50),prelim[7]|dict(time=10),prelim[8]|dict(time=10)]
     appendix_eval=finals[14] | dict(title='부록. 등록 평가와 선행 일수의 정의.',appendix=True,time=0)
     extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. AI·유사 사례 검색의 미완료를 완료로 표시하지 않습니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
@@ -689,7 +718,7 @@ def main():
     args.output_dir.mkdir(parents=True,exist_ok=True)
     prelim,finals=prepare_slides()
     prelim,finals=revise_stat_story(prelim,finals)
-    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,technical_stats=technical_stats,rag_scope=rag_scope,llm_detail=llm_detail,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
+    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,rag_scope=rag_scope,llm_detail=llm_detail,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
     assert sum(s['time'] for s in prelim)==240
     assert sum(s['time'] for s in finals)==480
     assert sum(not s.get('appendix', False) for s in finals)==12
