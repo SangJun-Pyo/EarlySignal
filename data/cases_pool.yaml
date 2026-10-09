@@ -1,0 +1,805 @@
+cases:
+- case_id: PE14017
+  investigation: PE14017
+  odate: '2014-06-16'
+  campno: 14V438000
+  vehicles:
+  - JEEP|COMMANDER|2006
+  - JEEP|COMMANDER 4X4|2007
+  - JEEP|GRAND CHEROKEE|2006
+  - JEEP|COMMANDER|2007
+  - JEEP|COMMANDER 4X2|2006
+  - JEEP|GRAND CHEROKEE|2005
+  - JEEP|GRAND CHEROKEE|2007
+  target_categories:
+  - airbag
+  - electrical_failure
+  note: Air Bag Non-deployment
+  pre_volume: 3329
+  split: dev
+- case_id: PE14022
+  investigation: PE14022
+  odate: '2014-07-22'
+  campno: 14V634000
+  vehicles:
+  - DODGE|CHARGER|2011
+  - DODGE|CHARGER|2012
+  target_categories:
+  - electrical_failure
+  note: Alternator failure
+  pre_volume: 1030
+  split: dev
+- case_id: PE14028
+  investigation: PE14028
+  odate: '2014-09-11'
+  campno: 20E010000
+  vehicles:
+  - FORD|FIESTA|2012
+  - FORD|FIESTA|2013
+  - FORD|FIESTA|2011
+  target_categories:
+  - structure_body
+  note: Door Latch Failure
+  pre_volume: 396
+  split: dev
+- case_id: PE14030
+  investigation: PE14030
+  odate: '2014-10-02'
+  campno: 15V340000
+  vehicles:
+  - LINCOLN|MKZ|2010
+  - LINCOLN|MKZ|2012
+  - MERCURY|MILAN|2011
+  - FORD|FUSION|2010
+  - FORD|FUSION|2011
+  - FORD|FUSION|2012
+  - FORD|FUSION HYBRID|2010
+  - FORD|FUSION HYBRID|2011
+  - FORD|FUSION HYBRID|2012
+  - LINCOLN|MKZ|2011
+  - LINCOLN|MKZ HYBRID|2012
+  target_categories:
+  - steering
+  note: Electric power steering failure
+  pre_volume: 4090
+  split: dev
+- case_id: PE15003
+  investigation: PE15003
+  odate: '2015-01-13'
+  campno: 15V676000
+  vehicles:
+  - JEEP|CHEROKEE|2015
+  target_categories:
+  - fire_thermal
+  note: Engine compartment fire
+  pre_volume: 372
+  split: holdout
+- case_id: PE15012
+  investigation: PE15012
+  odate: '2015-04-10'
+  campno: 15V419000
+  vehicles:
+  - SUBARU|IMPREZA|2012
+  target_categories:
+  - airbag
+  note: Passenger Front Air Bag Suppression
+  pre_volume: 291
+  split: holdout
+- case_id: PE15028
+  investigation: PE15028
+  odate: '2015-08-10'
+  campno: 15V861000
+  vehicles:
+  - FORD|CROWN VICTORIA|2003
+  - FORD|CROWN VICTORIA|2004
+  - MERCURY|GRAND MARQUIS|2004
+  - MERCURY|GRAND MARQUIS|2005
+  - FORD|CROWN VICTORIA|2005
+  - MERCURY|GRAND MARQUIS|2003
+  target_categories:
+  - lighting
+  note: Loss of headlights
+  pre_volume: 801
+  split: holdout
+- case_id: PE15029
+  investigation: PE15029
+  odate: '2015-08-18'
+  campno: 16V056000
+  vehicles:
+  - HONDA|ACCORD|2010
+  - HONDA|ACCORD|2008
+  - HONDA|ACCORD|2009
+  target_categories:
+  - airbag
+  note: SRS Control Module Failure
+  pre_volume: 2704
+  split: holdout
+- case_id: PE16003
+  investigation: PE16003
+  odate: '2016-02-29'
+  campno: 16V345000
+  vehicles:
+  - FORD|F-150|2014
+  - FORD|F-150|2013
+  target_categories:
+  - brakes
+  note: Master Cylinder External Leak
+  pre_volume: 3137
+  split: dev
+- case_id: PE16013
+  investigation: PE16013
+  odate: '2016-09-28'
+  campno: 17V144000
+  vehicles:
+  - NISSAN|VERSA|2012
+  target_categories:
+  - airbag
+  note: Inadvertent Curtain and Seat Air Bag
+  pre_volume: 838
+  split: dev
+- case_id: PE16016
+  investigation: PE16016
+  odate: '2016-12-16'
+  campno: 18V273000
+  vehicles:
+  - SMART|FORTWO|2009
+  - SMART|FORTWO CABRIO|2009
+  - SMART|FORTWO COUPE|2008
+  - SMART|FORTWO|2008
+  - SMART|FORTWO CABRIO|2008
+  target_categories:
+  - fire_thermal
+  note: Engine Compartment Fire
+  pre_volume: 100
+  split: dev
+- case_id: PE16018
+  investigation: PE16018
+  odate: '2016-12-27'
+  campno: 17V152000
+  vehicles:
+  - HYUNDAI|SONATA|2013
+  target_categories:
+  - seat_belt
+  note: Front Passenger Seat Belt Anchor Failure
+  pre_volume: 2932
+  split: dev
+- case_id: PE17003
+  investigation: PE17003
+  odate: '2017-06-01'
+  campno: 17V640000
+  vehicles:
+  - JEEP|LIBERTY|2012
+  target_categories:
+  - airbag
+  note: Occupant Restraint Controller Failure
+  pre_volume: 2381
+  split: dev
+- case_id: PE17007
+  investigation: PE17007
+  odate: '2017-10-23'
+  campno: 18V167000
+  vehicles:
+  - FORD|FUSION|2014
+  - FORD|FUSION|2015
+  - FORD|FUSION|2016
+  target_categories:
+  - steering
+  note: Steering Wheel Fastening Bolt Loosens
+  pre_volume: 4511
+  split: dev
+- case_id: PE18003
+  investigation: PE18003
+  odate: '2018-03-16'
+  campno: 18E043000
+  vehicles:
+  - HYUNDAI|SONATA|2011
+  - HYUNDAI|SONATA|2012
+  - KIA|FORTE|2010
+  - KIA|FORTE|2011
+  - KIA|FORTE|2012
+  - KIA|FORTE|2013
+  - KIA|FORTE KOUP|2011
+  - KIA|FORTE KOUP|2012
+  - KIA|SEDONA|2012
+  - HYUNDAI|SONATA|2013
+  - HYUNDAI|SONATA HYBRID|2011
+  - HYUNDAI|SONATA HYBRID|2012
+  - KIA|FORTE KOUP|2010
+  - KIA|FORTE KOUP|2013
+  - KIA|SEDONA|2011
+  target_categories:
+  - airbag
+  note: Air bags may be disabled during crash
+  pre_volume: 3970
+  split: holdout
+- case_id: PE18006
+  investigation: PE18006
+  odate: '2018-05-21'
+  campno: 18V631000
+  vehicles:
+  - MAZDA|MAZDA6|2009
+  - MAZDA|MAZDA6|2010
+  target_categories:
+  - structure_body
+  note: Front Subframe Corrosion
+  pre_volume: 786
+  split: dev
+- case_id: PE18008
+  investigation: PE18008
+  odate: '2018-08-03'
+  campno: 18V568000
+  vehicles:
+  - FORD|F-150|2016
+  - FORD|F-150|2018
+  - FORD|F-150|2015
+  - FORD|F-150|2017
+  target_categories:
+  - fire_thermal
+  - seat_belt
+  note: Seatbelt Pretensioner Fire
+  pre_volume: 4342
+  split: dev
+- case_id: PE18010
+  investigation: PE18010
+  odate: '2018-08-21'
+  campno: 19V432000
+  vehicles:
+  - FORD|E-350|2015
+  - FORD|E-450|2015
+  - FORD|ECONOLINE|2010
+  - FORD|ECONOLINE|2011
+  - FORD|ECONOLINE|2013
+  - FORD|ECONOLINE|2014
+  - FORD|ECONOLINE|2015
+  - FORD|ECONOLINE|2016
+  - FORD|ECONOLINE|2009
+  - FORD|ECONOLINE|2012
+  target_categories:
+  - transmission
+  note: Internal transmission failure
+  pre_volume: 126
+  split: holdout
+- case_id: PE18011
+  investigation: PE18011
+  odate: '2018-10-12'
+  campno: 19V864000
+  vehicles:
+  - FORD|F-250 SD|2017
+  - FORD|F-250 SD|2018
+  - FORD|F-350|2018
+  - FORD|F-350|2019
+  - FORD|F-350 SD|2019
+  - FORD|F-450|2018
+  - FORD|F-450 SD|2018
+  - FORD|F-250|2017
+  - FORD|F-250|2018
+  - FORD|F-250|2019
+  - FORD|F-250 SD|2019
+  - FORD|F-350|2017
+  - FORD|F-350 SD|2017
+  - FORD|F-350 SD|2018
+  - FORD|F-450|2017
+  - FORD|F-450|2019
+  - FORD|F-450 SD|2017
+  - FORD|F-450 SD|2019
+  target_categories:
+  - electrical_failure
+  note: Power tailgate opens unintended
+  pre_volume: 977
+  split: holdout
+- case_id: PE18016
+  investigation: PE18016
+  odate: '2018-12-17'
+  campno: 19V021000
+  vehicles:
+  - RAM|2500|2013
+  - RAM|2500|2014
+  - RAM|2500|2015
+  - RAM|2500|2017
+  - RAM|2500|2018
+  - RAM|3500|2015
+  - RAM|3500|2017
+  - RAM|3500|2018
+  - RAM|2500|2016
+  - RAM|3500|2013
+  - RAM|3500|2014
+  - RAM|3500|2016
+  target_categories:
+  - steering
+  note: Steering loss due to linkage separation
+  pre_volume: 688
+  split: holdout
+- case_id: PE19003
+  investigation: PE19003
+  odate: '2019-03-29'
+  campno: 20V061000
+  vehicles:
+  - HYUNDAI|SANTA FE|2011
+  - HYUNDAI|SONATA|2011
+  - HYUNDAI|SONATA|2012
+  - HYUNDAI|SONATA HYBRID|2013
+  - HYUNDAI|SANTA FE|2012
+  - HYUNDAI|SANTA FE|2013
+  - HYUNDAI|SANTA FE|2014
+  - HYUNDAI|SANTA FE SPORT|2013
+  - HYUNDAI|SANTA FE SPORT|2014
+  - HYUNDAI|SONATA|2013
+  - HYUNDAI|SONATA|2014
+  - HYUNDAI|SONATA HYBRID|2011
+  - HYUNDAI|SONATA HYBRID|2012
+  - HYUNDAI|SONATA HYBRID|2014
+  target_categories:
+  - fire_thermal
+  - electrical_failure
+  note: Non-crash Vehicle Fires
+  pre_volume: 4936
+  split: dev
+- case_id: PE19004
+  investigation: PE19004
+  odate: '2019-03-29'
+  campno: 20V088000
+  vehicles:
+  - KIA|OPTIMA|2011
+  - KIA|OPTIMA|2012
+  - KIA|OPTIMA|2013
+  - KIA|OPTIMA|2014
+  - KIA|SOUL|2010
+  - KIA|SOUL|2011
+  - KIA|SOUL|2012
+  - KIA|SOUL|2013
+  - KIA|SOUL|2014
+  - KIA|SOUL|2015
+  - KIA|SOUL EV|2014
+  - KIA|SOUL EV|2015
+  - KIA|OPTIMA HYBRID|2011
+  - KIA|OPTIMA HYBRID|2012
+  - KIA|OPTIMA HYBRID|2013
+  - KIA|OPTIMA HYBRID|2014
+  - KIA|SORENTO|2011
+  - KIA|SORENTO|2012
+  - KIA|SORENTO|2013
+  - KIA|SORENTO|2014
+  target_categories:
+  - fire_thermal
+  - electrical_failure
+  note: Non-crash Vehicle Fires
+  pre_volume: 3632
+  split: dev
+- case_id: PE19008
+  investigation: PE19008
+  odate: '2019-07-29'
+  campno: 19V680000
+  vehicles:
+  - JEEP|WRANGLER|2011
+  - JEEP|WRANGLER|2012
+  - JEEP|WRANGLER|2018
+  - JEEP|WRANGLER|2013
+  - JEEP|WRANGLER|2014
+  - JEEP|WRANGLER|2015
+  - JEEP|WRANGLER|2016
+  - JEEP|WRANGLER|2017
+  target_categories:
+  - seat_belt
+  note: Seat belt buckle bracket failure
+  pre_volume: 2417
+  split: holdout
+- case_id: PE19009
+  investigation: PE19009
+  odate: '2019-08-06'
+  campno: 19V701000
+  vehicles:
+  - SUBARU|FORESTER|2016
+  - SUBARU|FORESTER|2017
+  - SUBARU|FORESTER|2018
+  target_categories:
+  - airbag
+  note: Occupant Detection System (ODS) Failure
+  pre_volume: 1062
+  split: holdout
+- case_id: PE20014
+  investigation: PE20014
+  odate: '2020-09-21'
+  campno: 21V042000
+  vehicles:
+  - MERCEDES-BENZ|SPRINTER 2500|2012
+  - MERCEDES-BENZ|SPRINTER 2500|2015
+  - MERCEDES-BENZ|SPRINTER 3500|2013
+  - MERCEDES-BENZ|SPRINTER 3500|2014
+  - MERCEDES-BENZ|SPRINTER 3500|2015
+  - MERCEDES-BENZ|SPRINTER 3500|2016
+  - MERCEDES-BENZ|SPRINTER 3500|2018
+  - MERCEDES-BENZ|SPRINTER 2500|2011
+  - MERCEDES-BENZ|SPRINTER 2500|2013
+  - MERCEDES-BENZ|SPRINTER 2500|2014
+  - MERCEDES-BENZ|SPRINTER 2500|2016
+  - MERCEDES-BENZ|SPRINTER 2500|2017
+  - MERCEDES-BENZ|SPRINTER 2500|2018
+  - MERCEDES-BENZ|SPRINTER 3500|2011
+  - MERCEDES-BENZ|SPRINTER 3500|2012
+  - MERCEDES-BENZ|SPRINTER 3500|2017
+  target_categories:
+  - brakes
+  note: Rear Wheel Speed Sensor Failure
+  pre_volume: 180
+  split: holdout
+- case_id: PE20016
+  investigation: PE20016
+  odate: '2020-10-09'
+  campno: 20V701000
+  vehicles:
+  - CHEVROLET|BOLT EV|2017
+  - CHEVROLET|BOLT EV|2018
+  - CHEVROLET|BOLT EV|2019
+  - CHEVROLET|BOLT EV|2020
+  target_categories:
+  - fire_thermal
+  - loss_of_power
+  - electrical_failure
+  note: Electric Vehicle Battery Fires
+  pre_volume: 76
+  split: dev
+- case_id: PE21005
+  investigation: PE21005
+  odate: '2021-02-25'
+  campno: 23V734
+  vehicles:
+  - TOYOTA|RAV4|2016
+  - TOYOTA|RAV4|2013
+  - TOYOTA|RAV4|2014
+  - TOYOTA|RAV4|2015
+  - TOYOTA|RAV4|2017
+  - TOYOTA|RAV4|2018
+  target_categories:
+  - fire_thermal
+  - electrical_failure
+  note: Battery Hold Down Bracket Thermal Events
+  pre_volume: 1350
+  split: holdout
+- case_id: PE21009
+  investigation: PE21009
+  odate: '2021-03-29'
+  campno: 22V178000
+  vehicles:
+  - AUDI|A8|2013
+  - AUDI|A8|2016
+  - AUDI|RS7|2013
+  - AUDI|S7|2013
+  - AUDI|S7|2016
+  - AUDI|S8|2013
+  - AUDI|S8|2015
+  - AUDI|A8|2014
+  - AUDI|A8|2015
+  - AUDI|RS7|2014
+  - AUDI|RS7|2015
+  - AUDI|RS7|2016
+  - AUDI|S6|2013
+  - AUDI|S6|2014
+  - AUDI|S6|2015
+  - AUDI|S6|2016
+  - AUDI|S7|2014
+  - AUDI|S7|2015
+  - AUDI|S8|2014
+  - AUDI|S8|2016
+  target_categories:
+  - engine_stall
+  note: Engine Stall - Turbo Failure
+  pre_volume: 126
+  split: dev
+- case_id: PE21022
+  investigation: PE21022
+  odate: '2021-12-09'
+  campno: 22V420000
+  vehicles:
+  - NISSAN|PATHFINDER|2014
+  - NISSAN|PATHFINDER HYBRID|2014
+  - NISSAN|PATHFINDER HYBRID|2016
+  - NISSAN|PATHFINDER|2013
+  - NISSAN|PATHFINDER|2015
+  - NISSAN|PATHFINDER|2016
+  - NISSAN|PATHFINDER HYBRID|2015
+  target_categories:
+  - structure_body
+  note: Hood Latch/Bell Crank Assembly
+  pre_volume: 830
+  split: dev
+- case_id: PE22008
+  investigation: PE22008
+  odate: '2022-07-22'
+  campno: 23V010
+  vehicles:
+  - CHRYSLER|PACIFICA|2018
+  - CHRYSLER|PACIFICA|2019
+  - CHRYSLER|PACIFICA|2020
+  - CHRYSLER|PACIFICA|2022
+  - CHRYSLER|PACIFICA|2024
+  - CHRYSLER|PACIFICA PLUG-IN HYBRID|2018
+  - CHRYSLER|PACIFICA PLUG-IN HYBRID|2020
+  - CHRYSLER|PACIFICA|2021
+  - CHRYSLER|PACIFICA|2023
+  - CHRYSLER|PACIFICA PLUG-IN HYBRID|2019
+  - CHRYSLER|PACIFICA PLUG-IN HYBRID|2022
+  target_categories:
+  - loss_of_power
+  - transmission
+  note: Transmission fault leading to loss of motive power
+  pre_volume: 953
+  split: holdout
+- case_id: PE23001
+  investigation: PE23001
+  odate: '2023-01-27'
+  campno: 24V031
+  vehicles:
+  - FORD|EXPLORER|2011
+  - FORD|EXPLORER|2012
+  - FORD|EXPLORER|2014
+  - FORD|EXPLORER|2015
+  - FORD|EXPLORER|2018
+  - FORD|EXPLORER POLICE INTERCEPT|2013
+  - FORD|EXPLORER POLICE INTERCEPT|2015
+  - FORD|EXPLORER POLICE INTERCEPT|2016
+  - FORD|EXPLORER POLICE INTERCEPT|2017
+  - FORD|EXPLORER POLICE INTERCEPT|2019
+  - FORD|EXPLORER|2013
+  - FORD|EXPLORER|2016
+  - FORD|EXPLORER|2017
+  - FORD|EXPLORER|2019
+  - FORD|EXPLORER POLICE INTERCEPT|2014
+  - FORD|EXPLORER POLICE INTERCEPT|2018
+  - FORD|F-150|2019
+  target_categories:
+  - structure_body
+  note: Windshield trim molding Item detachment
+  pre_volume: 6574
+  split: holdout
+- case_id: PE23002
+  investigation: PE23002
+  odate: '2023-01-27'
+  campno: 24V148
+  vehicles:
+  - KIA|TELLURIDE|2020
+  target_categories:
+  - lighting
+  note: Complete Loss of High Beams
+  pre_volume: 411
+  split: dev
+- case_id: PE23006
+  investigation: PE23006
+  odate: '2023-03-24'
+  campno: 23V488
+  vehicles:
+  - TESLA|MODEL S|2021
+  - TESLA|MODEL S|2022
+  - TESLA|MODEL S|2023
+  - TESLA|MODEL X|2021
+  - TESLA|MODEL X|2022
+  - TESLA|MODEL X|2023
+  target_categories:
+  - seat_belt
+  note: Front seat belt anchor detachment
+  pre_volume: 2337
+  split: holdout
+- case_id: PE23011
+  investigation: PE23011
+  odate: '2023-06-08'
+  campno: 24V204
+  vehicles:
+  - HYUNDAI|IONIQ 5|2023
+  - HYUNDAI|IONIQ 5|2024
+  - HYUNDAI|IONIQ 5|2022
+  target_categories:
+  - loss_of_power
+  - electrical_failure
+  note: Loss of Motive Power
+  pre_volume: 93
+  split: holdout
+- case_id: PE23021
+  investigation: PE23021
+  odate: '2023-11-22'
+  campno: 24V099
+  vehicles:
+  - FORD|EXPEDITION|2019
+  - LINCOLN|NAVIGATOR|2019
+  target_categories:
+  - seat_belt
+  note: Seat Belt Pretensioner Inadvertent Deployment
+  pre_volume: 975
+  split: dev
+- case_id: PE23023
+  investigation: PE23023
+  odate: '2023-12-13'
+  campno: 25V437
+  vehicles:
+  - INFINITI|QX50|2021
+  - INFINITI|QX50|2022
+  - INFINITI|QX50|2023
+  - INFINITI|QX50|2025
+  - INFINITI|QX55|2022
+  - INFINITI|QX55|2024
+  - NISSAN|ALTIMA|2019
+  - NISSAN|REDUNDANT ROGUE|2022
+  - NISSAN|ROGUE|2021
+  - NISSAN|ROGUE|2022
+  - NISSAN|ROGUE|2023
+  - NISSAN|ROGUE|2024
+  - INFINITI|QX50|2019
+  - INFINITI|QX50|2020
+  - INFINITI|QX50|2024
+  - INFINITI|QX55|2023
+  - INFINITI|QX55|2025
+  - NISSAN|ALTIMA|2020
+  - NISSAN|ALTIMA|2021
+  target_categories:
+  - loss_of_power
+  note: Complete loss of motive power due to engine failure
+  pre_volume: 3439
+  split: holdout
+- case_id: PE24002
+  investigation: PE24002
+  odate: '2024-01-31'
+  campno: 24V267
+  vehicles:
+  - FORD|BRONCO SPORT|2022
+  - FORD|BRONCO SPORT|2023
+  - FORD|BRONCO SPORT|2021
+  target_categories:
+  - loss_of_power
+  - electrical_failure
+  note: Loss of Motive Power
+  pre_volume: 345
+  split: holdout
+- case_id: PE24010
+  investigation: PE24010
+  odate: '2024-04-01'
+  campno: 24V466
+  vehicles:
+  - FISKER|OCEAN|2023
+  target_categories:
+  - structure_body
+  note: Failure to open door
+  pre_volume: 77
+  split: holdout
+controls:
+- group: JEEP|COMPASS
+  ref_date: '2014-06-16'
+  matched_to: PE14017
+  pre_volume: 146
+- group: DODGE|CALIBER
+  ref_date: '2014-07-22'
+  matched_to: PE14022
+  pre_volume: 420
+- group: FORD|FIVE HUNDRED
+  ref_date: '2014-09-11'
+  matched_to: PE14028
+  pre_volume: 333
+- group: LINCOLN|TOWN CAR
+  ref_date: '2014-10-02'
+  matched_to: PE14030
+  pre_volume: 208
+- group: JEEP|PATRIOT 4X4
+  ref_date: '2015-01-13'
+  matched_to: PE15003
+  pre_volume: 96
+- group: SUBARU|FORESTER
+  ref_date: '2015-04-10'
+  matched_to: PE15012
+  pre_volume: 466
+- group: FORD|FREESTYLE
+  ref_date: '2015-08-10'
+  matched_to: PE15028
+  pre_volume: 673
+- group: HONDA|FIT
+  ref_date: '2015-08-18'
+  matched_to: PE15029
+  pre_volume: 275
+- group: FORD|WINDSTAR
+  ref_date: '2016-02-29'
+  matched_to: PE16003
+  pre_volume: 1210
+- group: NISSAN|XTERRA
+  ref_date: '2016-09-28'
+  matched_to: PE16013
+  pre_volume: 731
+- group: SMART|FORTWO COUPE ELECTRIC
+  ref_date: '2016-12-16'
+  matched_to: PE16016
+  pre_volume: 1
+- group: HYUNDAI|ELANTRA
+  ref_date: '2016-12-27'
+  matched_to: PE16018
+  pre_volume: 1218
+- group: JEEP|COMPASS 4X4
+  ref_date: '2017-06-01'
+  matched_to: PE17003
+  pre_volume: 68
+- group: FORD|TAURUS
+  ref_date: '2017-10-23'
+  matched_to: PE17007
+  pre_volume: 856
+- group: HYUNDAI|TUCSON
+  ref_date: '2018-03-16'
+  matched_to: PE18003
+  pre_volume: 630
+- group: MAZDA|MAZDA3
+  ref_date: '2018-05-21'
+  matched_to: PE18006
+  pre_volume: 629
+- group: FORD|RANGER
+  ref_date: '2018-08-03'
+  matched_to: PE18008
+  pre_volume: 1580
+- group: FORD|MUSTANG GT
+  ref_date: '2018-08-21'
+  matched_to: PE18010
+  pre_volume: 121
+- group: FORD|FIESTA
+  ref_date: '2018-10-12'
+  matched_to: PE18011
+  pre_volume: 792
+- group: RAM|PROMASTER
+  ref_date: '2018-12-17'
+  matched_to: PE18016
+  pre_volume: 77
+- group: HYUNDAI|GENESIS
+  ref_date: '2019-03-29'
+  matched_to: PE19003
+  pre_volume: 360
+- group: KIA|RIO
+  ref_date: '2019-03-29'
+  matched_to: PE19004
+  pre_volume: 120
+- group: JEEP|CHEROKEE
+  ref_date: '2019-07-29'
+  matched_to: PE19008
+  pre_volume: 2369
+- group: SUBARU|OUTBACK
+  ref_date: '2019-08-06'
+  matched_to: PE19009
+  pre_volume: 1514
+- group: MERCEDES-BENZ|GLE350
+  ref_date: '2020-09-21'
+  matched_to: PE20014
+  pre_volume: 23
+- group: CHEVROLET|AVEO
+  ref_date: '2020-10-09'
+  matched_to: PE20016
+  pre_volume: 73
+- group: TOYOTA|CAMRY
+  ref_date: '2021-02-25'
+  matched_to: PE21005
+  pre_volume: 2052
+- group: AUDI|A4 ALLROAD
+  ref_date: '2021-03-29'
+  matched_to: PE21009
+  pre_volume: 118
+- group: NISSAN|MURANO
+  ref_date: '2021-12-09'
+  matched_to: PE21022
+  pre_volume: 810
+- group: CHRYSLER|SEBRING
+  ref_date: '2022-07-22'
+  matched_to: PE22008
+  pre_volume: 93
+- group: FORD|F-250
+  ref_date: '2023-01-27'
+  matched_to: PE23001
+  pre_volume: 375
+- group: KIA|SEDONA
+  ref_date: '2023-01-27'
+  matched_to: PE23002
+  pre_volume: 310
+- group: HYUNDAI|SANTA CRUZ
+  ref_date: '2023-06-08'
+  matched_to: PE23011
+  pre_volume: 125
+- group: FORD|F-150 HYBRID
+  ref_date: '2023-11-22'
+  matched_to: PE23021
+  pre_volume: 285
+- group: INFINITI|QX60
+  ref_date: '2023-12-13'
+  matched_to: PE23023
+  pre_volume: 182
+- group: FORD|F-350
+  ref_date: '2024-01-31'
+  matched_to: PE24002
+  pre_volume: 187
