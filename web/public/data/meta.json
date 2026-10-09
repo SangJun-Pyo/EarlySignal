@@ -1,6 +1,6 @@
 {
   "contract": "earlysignal-data-v1",
-  "generated_at": "2026-10-09T01:48:48.470110+00:00",
+  "generated_at": "2026-10-09T03:49:15.394453+00:00",
   "data_source": {
     "name": "NHTSA ODI complaints & investigations",
     "downloaded_at": null,
@@ -44,11 +44,11 @@
     "control_alerts_per_group_month": 0.09230769230769231
   },
   "labels": {
-    "llm_model": null,
-    "llm_labeled": 0,
+    "llm_model": "gpt-4.1-mini-2025-04-14",
+    "llm_labeled": 7502,
     "sample_agreement": {
-      "agree": 0,
-      "n": 0
+      "agree": 27,
+      "n": 60
     },
     "human_check": {
       "n": 0,
@@ -63,6 +63,6 @@
     "holdout 결과를 보고 탐지 임계값이나 키워드를 바꾸지 않았습니다.",
     "볼트 EV는 현재 키워드 기준 놓친 사례입니다. 사전 시제품의 late 결과와 다릅니다.",
     "검토 업무량은 등록 평가창의 그룹월을 합산한 관측치이며 현업 업무량은 미검증입니다.",
-    "LLM·사람 라벨 검수·라벨 비용은 이 키워드 화면에 미반영입니다."
+    "38사례·36대조 주 검증과 검토 업무량은 키워드 기준선입니다. 콘솔의 LLM은 전체 demo를 사용합니다. 독립 30건 사람 검수는 자료 준비 후 도메인 지식·공모전 시간 제약으로 완료하지 못했으며, 분류 정확도는 미측정입니다. 전문가 검수는 후속 과제입니다."
   ]
 }
