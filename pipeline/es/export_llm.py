@@ -126,7 +126,7 @@ def run(con,config,args=None):
         run_keyword(con,config,SimpleNamespace(method="kw",output=stage))
         meta=json.loads((stage/"meta.json").read_text())
         meta["labels"].update({"llm_model":provenance["model"],"llm_labeled":len(labels),"sample_agreement":comparison["sample_agreement"],"cost_per_1k_usd":estimated_cost_per_1k(config,labels)})
-        meta["validation_notes"][-1]="38사례·36대조 주 검증과 검토 업무량은 키워드 기준선입니다. 콘솔의 LLM은 전체 demo를 사용하며, 사람 정답 검수는 미완료입니다."
+        meta["validation_notes"][-1]="38사례·36대조 주 검증과 검토 업무량은 키워드 기준선입니다. 콘솔의 LLM은 전체 demo를 사용합니다. 독립 30건 사람 검수는 자료 준비 후 도메인 지식·공모전 시간 제약으로 완료하지 못했으며, 분류 정확도는 미측정입니다. 전문가 검수는 후속 과제입니다."
         cases=json.loads((stage/"cases.json").read_text())
         for item in cases["cases"]:
             item["has_llm"]=item["case_id"] in details

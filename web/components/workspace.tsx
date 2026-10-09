@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import { availableDate, evidenceKey, getAsOf } from "@/lib/asof";
-import { createRequest } from "@/lib/request";
+import { BRIEF_TITLE, BRIEF_REVIEW_NOTE, BRIEF_UNAVAILABLE, createRequest } from "@/lib/request";
 import {
   categories as categoryNames,
   flags as flagNames,
@@ -1010,16 +1010,16 @@ export default function Workspace() {
                           {data.briefs[key] ? (
                             <div className="brief-box">
                               <span className="eyebrow">
-                                AI 상황 요약 · 담당자 검토 필요
+                                {BRIEF_TITLE} ({BRIEF_REVIEW_NOTE})
                               </span>
-                              <p>{data.briefs[key]}</p>
+                              <p className="whitespace-pre-line">{data.briefs[key]}</p>
+                              <p>기존 신고별 AI 요약을 그대로 인용합니다. 원문과의 의미 일치는 담당자가 확인해야 합니다.</p>
                             </div>
                           ) : (
                             <div className="brief-empty">
                               <Icon name="pile" size={17} />
                               <span>
-                                AI 상황 요약은 아직 생성하지 않았습니다. 아래
-                                원문에서 근거를 직접 확인하세요.
+                                {BRIEF_UNAVAILABLE}
                               </span>
                             </div>
                           )}
@@ -1344,7 +1344,7 @@ export default function Workspace() {
               </div>
             ))}
           {view === "validation" && (
-            <Validation data={data} meta={meta} cases={cases} />
+            <Validation meta={meta} cases={cases} />
           )}
         </main>
         <footer className="footer">
@@ -1354,8 +1354,8 @@ export default function Workspace() {
             <span>수리 기록 · 생산 기록 · 부품 이력은 다음 도입 단계</span>
           </div>
           <p>
-            현재 공개 파일의 접수일로 과거 재현 · 경보는 조사 후보 · 분류 출처:{" "}
-            {data.labeler === "keyword" ? "키워드 규칙" : "사전 실행 LLM"}
+            현재 공개 파일의 접수일로 과거 재현 · 경보는 조사 후보 ·{" "}
+            <SourceAttribution view={view} labeler={data.labeler} />
             <br />
             {meta.data_source.downloaded_at
               ? `원본 다운로드일 ${meta.data_source.downloaded_at}`
@@ -1524,12 +1524,18 @@ function MarkdownDocument({ markdown }: { markdown: string }) {
     </>
   );
 }
-function Validation({
-  data,
+export function SourceAttribution({ view, labeler }: { view: View; labeler: ConsoleData["labeler"] }) {
+  return view === "validation" ? (
+    <>백테스트 출처: 키워드 기준선</>
+  ) : (
+    <>콘솔 분류 출처: {labeler === "keyword" ? "키워드 규칙" : "사전 실행 LLM"}</>
+  );
+}
+
+export function Validation({
   meta,
   cases,
 }: {
-  data: ConsoleData;
   meta: MetaData;
   cases: CasesData;
 }) {
@@ -1544,9 +1550,8 @@ function Validation({
           <p className="eyebrow">EVIDENCE, LIMITATIONS, NEXT STEPS</p>
           <h2>한 사례의 성공으로 끝내지 않았습니다.</h2>
           <p className="muted">
-            공식 조사 사례와 대조 차종을 나눠 확인했습니다. 아래 결과는{" "}
-            {data.labeler === "keyword" ? "키워드 분류" : "LLM 분류"}{" "}
-            기준입니다.
+            공식 조사 사례와 대조 차종을 나눠 확인했습니다. 사례·대조의 백테스트와
+            아래 사례 표는 키워드 기준선 결과입니다. 콘솔의 LLM 분류와 구분합니다.
           </p>
         </div>
         <span className="verification-tag">사후 검증 화면</span>
@@ -1592,7 +1597,7 @@ function Validation({
         ))}
         <section className="panel validation-card model-status">
           <p className="eyebrow">MODEL VALIDATION</p>
-          <h3>LLM 검증 현황</h3>
+          <h3>LLM 분류 및 사람 검수</h3>
           <b className="model-number">
             {formatNumber(meta.labels.llm_labeled)}
             <small>건 라벨링</small>
@@ -1601,6 +1606,11 @@ function Validation({
             모델: {meta.labels.llm_model || "미실행"}
             <br />
             사람 정답 검수: {meta.labels.human_check.n}건<br />
+            사람 정답 기준 분류 정확도:{" "}
+            {meta.labels.human_check.n > 0 && meta.labels.human_check.llm_correct != null
+              ? `${meta.labels.human_check.llm_correct} / ${meta.labels.human_check.n}건 일치`
+              : "미측정"}
+            <br />
             1,000건 라벨 비용:{" "}
             {meta.labels.cost_per_1k_usd == null
               ? "미측정"

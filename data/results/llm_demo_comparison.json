@@ -1,0 +1,132 @@
+{
+  "scope": "same demo complaints; not the registered 38-case backtest",
+  "population": 7502,
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt_hash": "ce6c823c8460219b5326acba2fa4d42483b387e13d512855522f8ae3eb186816",
+  "primary_agreement": {
+    "agree": 3793,
+    "n": 7502
+  },
+  "sample_agreement": {
+    "agree": 27,
+    "n": 60
+  },
+  "detector_cells": {
+    "keyword": 4464,
+    "llm": 4464
+  },
+  "alert_cells": {
+    "keyword": 34,
+    "llm": 39
+  },
+  "cases": [
+    {
+      "case_id": "PE19003",
+      "coverage": {
+        "source": "demo",
+        "start": "2017-03-01",
+        "end_exclusive": "2019-07-01",
+        "registered_window_complete": false
+      },
+      "keyword": {
+        "result": "early",
+        "lead_days": 209,
+        "first_alert": {
+          "grp": "HYUNDAI|SONATA",
+          "category": "fire_thermal",
+          "month": "2018-08-01",
+          "available": "2018-09-01",
+          "n": 17,
+          "baseline": 6.833333333333333,
+          "p_value": 0.0007412096015825125
+        },
+        "primary_hit": true
+      },
+      "llm": {
+        "result": "early",
+        "lead_days": 209,
+        "first_alert": {
+          "grp": "HYUNDAI|SONATA",
+          "category": "fire_thermal",
+          "month": "2018-08-01",
+          "available": "2018-09-01",
+          "n": 17,
+          "baseline": 4.916666666666667,
+          "p_value": 1.6130219673942316e-05
+        },
+        "primary_hit": true
+      }
+    },
+    {
+      "case_id": "PE19004",
+      "coverage": {
+        "source": "demo",
+        "start": "2017-03-01",
+        "end_exclusive": "2019-07-01",
+        "registered_window_complete": false
+      },
+      "keyword": {
+        "result": "early",
+        "lead_days": 240,
+        "first_alert": {
+          "grp": "KIA|SORENTO",
+          "category": "fire_thermal",
+          "month": "2018-07-01",
+          "available": "2018-08-01",
+          "n": 14,
+          "baseline": 4.416666666666667,
+          "p_value": 0.00020893629500573624
+        },
+        "primary_hit": true
+      },
+      "llm": {
+        "result": "early",
+        "lead_days": 240,
+        "first_alert": {
+          "grp": "KIA|SORENTO",
+          "category": "fire_thermal",
+          "month": "2018-07-01",
+          "available": "2018-08-01",
+          "n": 14,
+          "baseline": 3.25,
+          "p_value": 8.29124516274929e-06
+        },
+        "primary_hit": true
+      }
+    },
+    {
+      "case_id": "PE20016",
+      "coverage": {
+        "source": "demo",
+        "start": "2018-10-01",
+        "end_exclusive": "2021-02-01",
+        "registered_window_complete": false
+      },
+      "keyword": {
+        "result": "missed",
+        "lead_days": null,
+        "first_alert": null,
+        "primary_hit": false
+      },
+      "llm": {
+        "result": "late",
+        "lead_days": -23,
+        "first_alert": {
+          "grp": "CHEVROLET|BOLT EV",
+          "category": "electrical_failure",
+          "month": "2020-10-01",
+          "available": "2020-11-01",
+          "n": 5,
+          "baseline": 0.5833333333333334,
+          "p_value": 0.00034737768911190226
+        },
+        "primary_hit": false
+      }
+    }
+  ],
+  "human_check": {
+    "n": 0,
+    "kw_correct": null,
+    "llm_correct": null
+  }
+}
