@@ -24,12 +24,12 @@
 
 ## 발표 산출물
 
-- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min-3d-v2.pdf): 본문9+부록11=20페이지,240초 배분·데모60초·통계본문2장.
-- [결선 최종 PDF](../presentation/output/pdf/EarlySignal-finals-8min-qa2min-3d-v2.pdf): 본문9+부록14=23페이지,480초 발표·데모+질의응답120초.
-- [전체 발표 대본](../presentation/speaker-script.md)·[인쇄용 대본PDF](../presentation/output/pdf/EarlySignal-presentation-script.pdf): 읽을 문장·조작·예상질문 포함. S39에서 이슈#35 연식 분석 후속 부록을 각2쪽 추가했다. 기존39쪽과 검수 스냅샷은 보존한다.
+- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min-final.pdf): 본문9+부록11=20페이지,240초 배분·데모60초·통계본문2장.
+- [결선 최종 PDF](../presentation/output/pdf/EarlySignal-finals-8min-qa2min-final.pdf): 본문9+부록14=23페이지,480초 발표·데모+질의응답120초.
+- [전체 발표 대본](../presentation/speaker-script-final.md)·[인쇄용 대본PDF](../presentation/output/pdf/EarlySignal-presentation-script-final.pdf): 읽을 문장·조작·예상질문 포함. S39에서 이슈#35 연식 분석 후속 부록을 각2쪽 추가했다. 기존39쪽과 검수 스냅샷은 보존한다.
 - [노트](../presentation/speaker-notes.md)·[근거표](../presentation/evidence-manifest.md)·[R09](../Reviews/R09-final-presentation.md). 총39페이지 독립 렌더·글리프·수치·출처·외관 검수 완료.
 
-기본 근거판·DRAFT 호환본과 `qa.json`은 과거 검수 스냅샷으로 보존한다. 현재 3D v2와 대본은 [R12](../Reviews/R12-year-appendix-script.md)·`qa-v2.json`에서 별도로 검수했다. R09의39쪽은 기본판, R11은3D장식판, R12는연식부록·대본의 검수다.
+기본 근거판·DRAFT 호환본과 `qa.json`은 과거 검수 스냅샷으로 보존한다. 이전 3D v2와 대본은 [R12](../Reviews/R12-year-appendix-script.md)·`qa-v2.json`에서 별도로 검수했다. R09의39쪽은 기본판, R11은3D장식판, R12는연식부록·대본의 검수다. 현재 발표자 표기 최종본은 S41·R13·qa-final.json에서 검수했다.
 
 ## 남은 검증과 범위
 

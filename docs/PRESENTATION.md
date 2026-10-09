@@ -1,6 +1,6 @@
 # 발표 구성 · 고객의 목소리를, 조사의 근거로.
 
-2026-10-09 사용자 확정 구성이다. 예선은 **9장·4분(실제 데모60초 포함)**, 결선은 같은 서사를 **8분 발표·데모+2분 질의응답**으로 확장한다. 통계는 본문 두 장으로 유지한다. 실제 읽을 문장과 조작은 [전체 발표 대본](presentation/speaker-script.md), 기술 설명은 [발표자 노트](presentation/speaker-notes.md), 주장별 원본은 [근거표](presentation/evidence-manifest.md)를 따른다. 시간은 배분안이며 실제 타이머 리허설 완료 기록이 아니다.
+2026-10-09 사용자 확정 구성이다. 예선은 **9장·4분(실제 데모60초 포함)**, 결선은 같은 서사를 **8분 발표·데모+2분 질의응답**으로 확장한다. 통계는 본문 두 장으로 유지한다. 실제 읽을 문장과 조작은 [전체 발표 대본](presentation/speaker-script-final.md), 기술 설명은 [발표자 노트](presentation/speaker-notes.md), 주장별 원본은 [근거표](presentation/evidence-manifest.md)를 따른다. 시간은 배분안이며 실제 타이머 리허설 완료 기록이 아니다.
 
 중심 문장: **고객의 목소리를, 조사의 근거로.** 소비자 신고에서 조사할 후보를 찾고, 담당자가 원문을 검토해 조사 요청서를 완성하도록 돕는다. 더 이른 조사 착수를 지원할 가능성은 있지만 현업 검토 시간·예방 효과는 아직 검증하지 않았다.
 
@@ -34,9 +34,9 @@
 
 ## 산출물과 시연
 
-- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min-3d-v2.pdf): 본문9장+부록11장, 총20장.
-- [결선 PDF](presentation/output/pdf/EarlySignal-finals-8min-qa2min-3d-v2.pdf): 본문9장+부록14장, 총23장.
-- [발표 대본 PDF](presentation/output/pdf/EarlySignal-presentation-script.pdf): 예선·결선 전체 발화와 데모 조작, 연식 질문30/60초 답변, 예상 질문.
+- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min-final.pdf): 본문9장+부록11장, 총20장.
+- [결선 PDF](presentation/output/pdf/EarlySignal-finals-8min-qa2min-final.pdf): 본문9장+부록14장, 총23장.
+- [발표 대본 PDF](presentation/output/pdf/EarlySignal-presentation-script-final.pdf): 예선·결선 전체 발화와 데모 조작, 연식 질문30/60초 답변, 예상 질문.
 - 이슈#35의 모델연도 분포·후속 검증 부록은 예선19·20쪽, 결선22·23쪽이다. 기존39쪽과 본문 시간은 보존하고 제품의 연식별 경보·필터는 구현하지 않았다.
 - [공개 제품](https://earlysignal.pages.dev/): main8b50a75 배포 확인. 검수 시 요청서 저장2026-10-09 13:17:28 KST, Markdown과 판단JSON 다운로드 확인.
 - [캡처 출처](presentation/assets/screenshots/request-public.json): 원본 두 장·공개console의 해시를 연결한다. 촬영 시각과 요청서 저장 시각은 구분한다.
