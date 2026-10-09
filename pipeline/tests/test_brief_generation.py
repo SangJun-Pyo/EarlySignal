@@ -3,7 +3,6 @@ import asyncio
 import copy
 import hashlib
 import json
-import re
 from pathlib import Path
 from types import SimpleNamespace
 try:
@@ -51,11 +50,8 @@ def console(n=12, extra_cell=True):
         "series": {}, "reveal": {"cases": [], "series_after": {}}, "pile": {}, "briefs": {}, "sources": [], "assumptions": []}
 
 
-def output(narrative):
-    """Build one model sentence from existing synthetic safety test cases."""
-    ids = re.findall(r"#(\d+)", narrative)
-    text = re.sub(r"\(#[^)]*\)", "", narrative)
-    return {"sentences": [{"text": text, "citation_ids": ids}]}
+def output(*ids):
+    return {"selected_ids": list(ids)}
 
 
 class Client:
@@ -81,7 +77,7 @@ def invoke(c, root, client, **kwargs):
 def test_payload_is_whitelisted_ten_same_cell_reports_and_cache_is_fixed_cohort(root, monkeypatch):
     monkeypatch.setattr("es.brief.os.getenv", lambda *args: (_ for _ in ()).throw(AssertionError("No env read with injected client")))
     c = console()
-    client = Client([output("연기가 발생했다는 신고가 있습니다(#1000).")])
+    client = Client([output("1000")])
     result = invoke(c, root, client, limit=1)
     payload = json.loads(client.calls[0]["messages"][1]["content"])
     assert set(payload) == {"statistics", "evidence"}
@@ -115,20 +111,23 @@ def test_invalid_input_refuses_before_any_api_or_output(root, mutation, error):
     assert client.calls == [] and not (root / "data").exists()
 
 
-@pytest.mark.parametrize("bad", ["연기가 발생했습니다(#9999).", "연기가 발생했습니다(#1010).", "부상 2명(#1000).",
-    "연기가 발생했습니다(#1000). 화재가 반복됐습니다.", "결함이 확정됐습니다(#1000).",
-    "연기가 발생했습니다(#1000). Contact a@example.com(#1000)."])
-def test_invalid_narrative_regenerates_twice_then_leaves_no_public_brief(root, monkeypatch, bad):
+@pytest.mark.parametrize("selected,summary", [
+    ("9999", "연기가 발생했습니다."), ("1010", "연기가 발생했습니다."),
+    ("1000", "부상 2명."), ("1000", "연기가 발생했습니다. 화재가 반복됐습니다."),
+    ("1000", "결함이 확정됐습니다."),
+])
+def test_invalid_source_selection_regenerates_twice_then_leaves_no_public_brief(root, monkeypatch, selected, summary):
     monkeypatch.setattr("es.brief.asyncio.sleep", lambda _: async_noop())
-    c = console()
-    client = Client([output(bad)] * 3)
+    c = console(); c["complaints"]["1000"]["summary_ko"] = summary
+    client = Client([output(selected)] * 3)
     result = invoke(c, root, client)
     assert len(client.calls) == 3 and result["failed"] == 1 and result["completed"] == 0
     assert load_validated_briefs(c, root=root) == {}
     assert result["api_responses"] == 3 and result["prompt_tokens"] == 300
     assert result["estimated_population_usd"] is None and result["cohort_complete"] is False
-    failure = json.loads((root / "data/labels/brief_failures.jsonl").read_text())
-    assert failure["attempts"] == 3 and bad not in (root / "data/labels/brief_failures.jsonl").read_text()
+    log = (root / "data/labels/brief_failures.jsonl").read_text()
+    failure = json.loads(log)
+    assert failure["attempts"] == 3 and summary not in log
 
 
 async def async_noop(): pass
@@ -136,7 +135,7 @@ async def async_noop(): pass
 
 def test_invalid_then_valid_success_keeps_usage_of_failed_attempt(root, monkeypatch):
     monkeypatch.setattr("es.brief.asyncio.sleep", lambda _: async_noop())
-    client = Client([output("연기가 발생했습니다(#9999)."), output("연기가 발생했습니다(#1000).")])
+    client = Client([output("9999"), output("1000")])
     c = console(); result = invoke(c, root, client)
     assert result["completed"] == 1 and result["api_responses"] == 2
     assert len(load_validated_briefs(c, root=root)) == 1
@@ -175,24 +174,27 @@ def test_short_server_wait_is_honored(root, monkeypatch):
     waits = []
     async def sleep(seconds): waits.append(seconds)
     monkeypatch.setattr("es.brief.asyncio.sleep", sleep)
-    client = Client([rate_error(retry_after="2"), output("연기가 발생했습니다(#1000).")])
+    client = Client([rate_error(retry_after="2"), output("1000")])
     assert invoke(console(), root, client)["completed"] == 1
     assert waits == [2.0] and len(client.calls) == 2
 
 
-def test_known_private_values_are_checked_in_input_output_and_cache(root, monkeypatch):
-    c = console(); denied = {"1000": ["Exampleville"]}
-    client = Client([output("Exampleville에서 연기가 발생했습니다(#1000).")])
-    result = invoke(c, root, client, denied_by_id=denied, max_retries=0)
-    assert result["failed"] == 1
-    assert "Exampleville" not in (root / "data/labels/brief_failures.jsonl").read_text()
-    c["complaints"]["1000"]["summary_ko"] = "Exampleville에서 연기 발생"
+@pytest.mark.parametrize("private", ["Exampleville", "a@example.com"])
+def test_private_source_summaries_refuse_before_api_or_cache(root, private):
+    c = console(); c["complaints"]["1000"]["summary_ko"] = f"연기 발생 {private}"
+    client = Client([])
     with pytest.raises(ValueError, match="sensitive_brief_input"):
-        invoke(c, root, Client([]), denied_by_id=denied)
+        invoke(c, root, client, denied_by_id={"1000": ["Exampleville"]})
+    assert client.calls == [] and load_cache_if_any(root) == {}
+
+
+def load_cache_if_any(root):
+    path = root / "data/labels/briefs.json"
+    return json.loads(path.read_text()) if path.exists() else {}
 
 
 def test_cache_model_prompt_statistics_and_tampering_invalidate(root):
-    c = console(); invoke(c, root, Client([output("연기가 발생했습니다(#1000).")]))
+    c = console(); invoke(c, root, Client([output("1000")]))
     assert len(load_validated_briefs(c, root=root)) == 1
     assert load_validated_briefs(c, root=root, model="different-model") == {}
     changed = copy.deepcopy(c); changed["snapshots"]["2018-08-01"]["alerts"][0]["streak"] = 2
@@ -247,7 +249,7 @@ def test_exhausted_retry_still_waits_before_next_cell(root, monkeypatch):
     waits=[]
     async def sleep(seconds): waits.append(seconds)
     monkeypatch.setattr("es.brief.asyncio.sleep",sleep)
-    client=Client([rate_error(retry_after="2"),output("연기가 발생했습니다(#2000).")])
+    client=Client([rate_error(retry_after="2"),output("2000")])
     result=invoke(console(),root,client,limit=2,max_retries=0)
     assert len(client.calls)==2 and waits==[2.0]
     assert result["failed"]==1 and result["completed"]==1 and result["defer_reason"] is None
@@ -261,7 +263,7 @@ def test_manifest_cannot_omit_existing_result_file(root):
 
 
 def test_cache_prompt_changes_invalidate(root):
-    c=console();invoke(c,root,Client([output("연기가 발생했습니다(#1000).")]))
+    c=console();invoke(c,root,Client([output("1000")]))
     (root/"docs/LLM_PROMPTS.md").write_text("## 2. 경보\n### system\n```\nChanged prompt.\n```\n## 3. 요청서\n")
     assert load_validated_briefs(c,root=root)=={}
 
@@ -280,7 +282,8 @@ def test_every_unspaced_sentence_requires_its_own_citation(root,stop):
     bad=f"연기가 발생했습니다(#1000){stop}주차 중 화재가 발생했습니다."
     with pytest.raises(ValueError,match="uncited_narrative"):
         compose_brief(bad,cell["evidence"],c["complaints"],grp=cell["grp"],category=cell["category"],month=cell["month"],expected_counts=cell["counts"])
-    client=Client([output(bad)])
+    c["complaints"]["1000"]["summary_ko"]=f"연기가 발생했습니다{stop}주차 중 화재가 발생했습니다."
+    client=Client([output("1000")])
     assert invoke(c,root,client,max_retries=0)["failed"]==1
     assert load_validated_briefs(c,root=root)=={}
 
@@ -304,7 +307,8 @@ def test_korean_compound_and_sino_quantities_are_never_prose_metrics(root,quanti
     bad=f"부상 {quantity}(#1000)."
     with pytest.raises(ValueError,match="unsupported_narrative_number"):
         compose_brief(bad,cell["evidence"],c["complaints"],grp=cell["grp"],category=cell["category"],month=cell["month"],expected_counts=cell["counts"])
-    assert invoke(c,root,Client([output(bad)]),max_retries=0)["failed"]==1
+    c["complaints"]["1000"]["summary_ko"]=f"부상 {quantity}."
+    assert invoke(c,root,Client([output("1000")]),max_retries=0)["failed"]==1
 
 
 def test_severity_one_and_two_rank_by_value_after_fire_injury_crash(root):
@@ -320,7 +324,7 @@ def test_severity_one_and_two_rank_by_value_after_fire_injury_crash(root):
 
 
 def test_invalid_unspaced_or_quantity_cache_is_omitted_by_export_loader(root):
-    c=console();invoke(c,root,Client([output("연기가 발생했습니다(#1000).")]))
+    c=console();invoke(c,root,Client([output("1000")]))
     path=root/"data/labels/briefs.json";base=json.loads(path.read_text())
     for append in ["주차 중 화재가 발생했습니다.","부상 열한 명(#1000)."]:
         modified=copy.deepcopy(base)
@@ -329,44 +333,50 @@ def test_invalid_unspaced_or_quantity_cache_is_omitted_by_export_loader(root):
         assert load_validated_briefs(c,root=root)=={}
 
 
-def test_repository_prompt_has_one_current_generation_rule():
+def test_repository_prompt_only_selects_existing_source_ids():
     prompt = brief_prompt(Path(__file__).resolve().parents[2])
-    assert "sentences" in prompt and "citation_ids" in prompt
-    assert "각 항목의 text는 정확히 한 문장" in prompt
+    assert "selected_ids" in prompt and "새 문장이나 상황 요약을 쓰지 않습니다" in prompt
+    assert "sentences" not in prompt and "citation_ids" not in prompt
     assert "2~3문장" not in prompt and "둘째 문장" not in prompt
-    assert "현재 구현 규칙이 우선" not in prompt
 
 
-def test_each_structured_sentence_gets_its_own_supplied_citations(root):
+def test_selected_source_summaries_remain_separate_and_verbatim(root):
     c = console()
-    client = Client([{"sentences": [
-        {"text": "연기가 발생했다는 신고가 있습니다.", "citation_ids": ["1000", "1001"]},
-        {"text": "화재가 발생했다는 신고가 있습니다", "citation_ids": ["1011"]},
-    ]}])
+    c["complaints"]["1000"]["summary_ko"] = "주행 중 엔진에서 연기가 발생했습니다."
+    c["complaints"]["1001"]["summary_ko"] = "차량 화재가 발생했다고 신고"
+    c["complaints"]["1011"]["summary_ko"] = "연기가 발생했다고 신고！"
+    client = Client([output("1000", "1001", "1011")])
     result = invoke(c, root, client)
     assert result["completed"] == 1 and result["api_responses"] == 1
     brief = next(iter(load_validated_briefs(c, root=root).values()))
-    assert brief.endswith("연기가 발생했다는 신고가 있습니다(#1000, #1001). 화재가 발생했다는 신고가 있습니다(#1011).")
+    expected = [f"(#{odino}) {c['complaints'][odino]['summary_ko']}" for odino in ("1000", "1001", "1011")]
+    assert brief.splitlines()[1:] == expected
+    assert "엔진에서 연기와 화재" not in brief
     schema = client.calls[0]["response_format"]["json_schema"]["schema"]
-    ids = schema["properties"]["sentences"]["items"]["properties"]["citation_ids"]["items"]["enum"]
+    assert set(schema["properties"]) == {"selected_ids"}
+    ids = schema["properties"]["selected_ids"]["items"]["enum"]
     supplied = json.loads(client.calls[0]["messages"][1]["content"])["evidence"]
     assert ids == [row["odino"] for row in supplied]
     assert "1010" not in ids and "2000" not in ids
+    cache = load_cache_if_any(root)
+    record = next(iter(cache["records"].values()))
+    assert record["selected_ids"] == ["1000", "1001", "1011"]
+    assert record["mode"] == "source-summary-selection-v1"
 
 
 @pytest.mark.parametrize("response,error", [
-    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": []}]}, "schema_or_json_invalid"),
-    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": []},
-        {"text": "화재가 언급됐습니다.", "citation_ids": ["1000", "1001", "1011"]}]}, "schema_or_json_invalid"),
-    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": ["9999"]}]}, "schema_or_json_invalid"),
-    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": ["1010"]}]}, "schema_or_json_invalid"),
-    ({"sentences": [{"text": "연기가 발생했습니다. 화재가 발생했습니다.", "citation_ids": ["1000"]}]}, "invalid_narrative_sentence"),
-    ({"sentences": [{"text": "연기가 발생했습니다(#1000).", "citation_ids": ["1001"]}]}, "invalid_narrative_sentence"),
-    ({"sentences": [{"text": "", "citation_ids": ["1000"]}]}, "invalid_narrative_sentence"),
-    ({"sentences": []}, "schema_or_json_invalid"),
-    ({"narrative": "연기가 발생했습니다. 화재가 발생했습니다(#1000)."}, "schema_or_json_invalid"),
+    (output(), "schema_or_json_invalid"),
+    (output("1000", "1001", "1002", "1003"), "schema_or_json_invalid"),
+    (output("9999"), "schema_or_json_invalid"),
+    (output("1010"), "schema_or_json_invalid"),
+    (output("2000"), "schema_or_json_invalid"),
+    (output("1000", "1000"), "invalid_source_selection"),
+    ({"selected_ids": [1000]}, "schema_or_json_invalid"),
+    ({"selected_ids": ["1000"], "text": "새 종합 서술"}, "schema_or_json_invalid"),
+    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": ["1000"]}]}, "schema_or_json_invalid"),
+    ({"narrative": "연기가 발생했습니다(#1000)."}, "schema_or_json_invalid"),
 ])
-def test_structured_response_does_not_repair_missing_or_invalid_citations(root, response, error):
+def test_invalid_selection_or_free_narrative_response_is_not_published(root, response, error):
     c = console()
     result = invoke(c, root, Client([response]), max_retries=0)
     assert result["completed"] == 0 and result["failed"] == 1
@@ -374,7 +384,7 @@ def test_structured_response_does_not_repair_missing_or_invalid_citations(root, 
     assert load_validated_briefs(c, root=root) == {}
     failure = json.loads((root / "data/labels/brief_failures.jsonl").read_text())
     assert failure["errors"] == [error]
-    assert "text" not in failure and "sentences" not in failure
+    assert "summary_ko" not in failure and "text" not in failure
 
 
 def test_uncited_first_sentence_is_still_rejected_before_cited_second_sentence(root):
@@ -383,3 +393,75 @@ def test_uncited_first_sentence_is_still_rejected_before_cited_second_sentence(r
         compose_brief("연기가 발생했습니다. 화재가 언급됐습니다(#1000, #1001, #1011).",
                       cell["evidence"], c["complaints"], grp=cell["grp"], category=cell["category"],
                       month=cell["month"], expected_counts=cell["counts"])
+
+
+@pytest.mark.parametrize("summary,error", [
+    ("부상 2명 발생.", "unsupported_narrative_number"),
+    ("열한 명이 다쳤습니다.", "unsupported_narrative_number"),
+    ("결함이 확정됐습니다.", "unsupported_conclusion"),
+    ("연기 발생. 화재 발생.", "invalid_source_summary"),
+    ("연기 발생(#1001).", "invalid_source_summary"),
+    ("연기 발생\n화재 언급", "invalid_source_summary"),
+    (" 연기 발생", "invalid_source_summary"),
+    ("연기 발생 ", "invalid_source_summary"),
+    ("...", "invalid_source_summary"),
+])
+def test_unrenderable_source_summary_is_failed_without_editing(root, summary, error):
+    c = console(); c["complaints"]["1000"]["summary_ko"] = summary
+    result = invoke(c, root, Client([output("1000")]), max_retries=0)
+    assert result["failed"] == 1 and result["completed"] == 0
+    assert c["complaints"]["1000"]["summary_ko"] == summary
+    assert load_validated_briefs(c, root=root) == {}
+    failure = json.loads((root / "data/labels/brief_failures.jsonl").read_text())
+    assert failure["errors"] == [error]
+    assert summary not in (root / "data/labels/brief_failures.jsonl").read_text()
+
+
+@pytest.mark.parametrize("summary", [
+    "연기가 발생했습니다", "연기가 발생했습니다.", "연기가 발생했습니다！",
+    "연기가 발생했습니다。", "연기가 발생했습니다?", "연기가 발생했습니다｡",
+    '“연기가 발생했습니다.”', "U.S. 신고에 연기 언급",
+])
+def test_source_summary_punctuation_is_not_rewritten(root, summary):
+    c = console(); c["complaints"]["1000"]["summary_ko"] = summary
+    assert invoke(c, root, Client([output("1000")]))["completed"] == 1
+    brief = next(iter(load_validated_briefs(c, root=root).values()))
+    assert brief.splitlines()[1:] == [f"(#1000) {summary}"]
+
+
+def test_cache_requires_exact_source_text_and_valid_stored_selection(root):
+    c = console(); invoke(c, root, Client([output("1000", "1011")]))
+    path = root / "data/labels/briefs.json"; base = json.loads(path.read_text())
+    cell = alert_cells(c)[0]
+    # This invented combination passes the old provenance/numeric validator,
+    # but it cannot be accepted as an exact copy of the selected source summaries.
+    invented = compose_brief("(#1000) 주행 중 엔진에서 연기와 화재 발생\n(#1011) 차량 화재 신고",
+        cell["evidence"], c["complaints"], grp=cell["grp"], category=cell["category"],
+        month=cell["month"], expected_counts=cell["counts"])
+    mutations = [
+        {"brief": invented}, {"selected_ids": ["1000"]}, {"selected_ids": ["1000", "1010"]},
+        {"selected_ids": ["1000", "1000"]}, {"mode": "free-narrative"}, {"selected_ids": None},
+    ]
+    for mutation in mutations:
+        altered = copy.deepcopy(base)
+        next(iter(altered["records"].values())).update(mutation)
+        path.write_text(json.dumps(altered))
+        assert load_validated_briefs(c, root=root) == {}
+    path.write_text(json.dumps(base))
+    assert len(load_validated_briefs(c, root=root)) == 1
+
+
+def test_legacy_free_narrative_cache_is_not_reused(root):
+    from es.brief import _digest, _json, _key
+    c = console(); invoke(c, root, Client([output("1000")]))
+    path = root / "data/labels/briefs.json"; cache = json.loads(path.read_text())
+    record = next(iter(cache["records"].values()))
+    old_schema = {"type": "object", "additionalProperties": False,
+        "properties": {"narrative": {"type": "string"}}, "required": ["narrative"]}
+    record["prompt_hash"] = _digest(brief_prompt(root) + _json(old_schema))
+    record.pop("selected_ids"); record.pop("mode")
+    old_key = _key(alert_cells(c)[0], record["input_hash"], record["model"], record["prompt_hash"])
+    cache["records"] = {old_key: record}; path.write_text(json.dumps(cache))
+    assert load_validated_briefs(c, root=root) == {}
+    client = Client([output("1000")]); result = invoke(c, root, client)
+    assert result["cache_reused"] == 0 and result["completed"] == 1 and len(client.calls) == 1
