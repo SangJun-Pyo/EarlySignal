@@ -36,6 +36,7 @@
 - `web/`과 `export.py`는 `docs/Contracts/data-contract-v1.md`를 기준으로 한다. 형식을 바꾸면 계약 문서 → 스키마 → 타입 → 테스트를 함께 바꾼다.
 - 다음에도 쓸 교훈은 `docs/Knowledge/LessonsLearned.md`에 L-11부터 한 줄씩.
 - 커밋은 Step 단위로 작게: `stepN: <무엇을>` (예: `step5: poisson detector + lookahead test`). 세션 로그를 같은 커밋에 포함. 이력을 rebase/squash로 지우지 않는다.
+- 사용자 선택(2026-10-09, ADR-022)에 따라 발견한 문제는 GitHub 이슈로 추적한다. 구현은 `codex/` 기능 브랜치, 병렬 수정은 별도 worktree, 통합은 PR과 구현자 외 독립 검수를 거친다. 기존 이력을 보존하는 merge commit을 사용한다.
 - `docs/CODEX_LOG.md`(세션 색인)에 한 줄 추가: 세션 번호, Step, 핵심 결과, 사람이 고친 것.
 - 확신이 없는 데이터 사실은 추측하지 말고 실제 데이터로 확인하는 짧은 쿼리를 먼저 실행한다.
 - 시간이 부족하면 SPEC의 우선순위(P0 → P1 → P2) 순서를 지킨다. P0이 끝나기 전에 화면을 꾸미지 않는다.
