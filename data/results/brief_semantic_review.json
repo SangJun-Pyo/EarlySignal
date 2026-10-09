@@ -1,0 +1,15 @@
+{
+  "review_type": "Codex comparison with supplied summaries and source excerpts; not human label accuracy",
+  "run_id": "2026-10-09T03:28:18.670855+00:00",
+  "cell": "HYUNDAI|SONATA:fire_thermal:2018-08-01",
+  "structural_validation_passed": true,
+  "publication_approved": false,
+  "status": "rejected_pending_revision",
+  "findings": [
+    "An engine location was generalized across citations whose supplied summaries only named the vehicle.",
+    "Smoke-only summaries were combined with smoke-and-fire statements in one shared description."
+  ],
+  "action": "Do not publish this candidate. Hold the remaining 17 cells until the representation is revised and independently checked.",
+  "human_label_accuracy_measured": false,
+  "estimated_usd": 0.0004956
+}
