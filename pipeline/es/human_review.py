@@ -65,7 +65,12 @@ def _read_csv(path, fields):
         reader = csv.DictReader(handle)
         if reader.fieldnames != fields:
             raise ValueError("Existing review columns changed; original answers are unchanged")
-        return list(reader)
+        rows = list(reader)
+        expected_fields = set(fields)
+        for row in rows:
+            if set(row) != expected_fields or any(not isinstance(cell, str) for cell in row.values()):
+                raise ValueError("Existing review row has missing or extra cells; no file was overwritten")
+        return rows
 
 
 def _validate_existing(output, manifest, mapping, blank_rows):

@@ -61,6 +61,44 @@ def test_resuming_preserves_gold_notes_and_all_files_byte_for_byte(root):
     assert before=={p.name:p.read_bytes() for p in out.iterdir()}
 
 
+def test_resuming_accepts_blank_answer_cells_without_changing_files(root):
+    values = rows()
+    out = Path(prepare_review(values, root=root)["output"])
+    before = {p.name: p.read_bytes() for p in out.iterdir()}
+    result = prepare_review(values, root=root)
+    assert result["created"] is False and result["filled_gold_rows"] == 0
+    assert all(row[field] == "" for row in csv_rows(out / "blind.csv") for field in BLIND_FIELDS[2:])
+    assert before == {p.name: p.read_bytes() for p in out.iterdir()}
+
+
+@pytest.mark.parametrize("filename", ["blind.csv", "mapping.csv"])
+@pytest.mark.parametrize("damage", ["missing_cell", "extra_cell", "extra_empty_cell"])
+def test_missing_or_extra_cells_refuse_without_changing_existing_answers(root, filename, damage):
+    values = rows()
+    out = Path(prepare_review(values, root=root)["output"])
+    reviewed = csv_rows(out / "blind.csv")
+    reviewed[0].update(gold_primary="fire_thermal", review_status="clear",
+                       gold_evidence="Smoke while driving.", human_notes="Keep this actual annotation, including comma.")
+    with (out / "blind.csv").open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=BLIND_FIELDS)
+        writer.writeheader()
+        writer.writerows(reviewed)
+    damaged = out / filename
+    with damaged.open(encoding="utf-8", newline="") as handle:
+        contents = list(csv.reader(handle))
+    # Corrupt another row so a completed human answer must still remain intact.
+    if damage == "missing_cell":
+        contents[2].pop()
+    else:
+        contents[2].append("unexpected" if damage == "extra_cell" else "")
+    with damaged.open("w", encoding="utf-8", newline="") as handle:
+        csv.writer(handle).writerows(contents)
+    before = {p.name: p.read_bytes() for p in out.iterdir()}
+    with pytest.raises(ValueError, match="missing or extra cells"):
+        prepare_review(values, root=root)
+    assert before == {p.name: p.read_bytes() for p in out.iterdir()}
+
+
 @pytest.mark.parametrize("change",["source","model","prompt","policy","rubric","population","mapping","deleted_row","gold_enum"])
 def test_changed_locked_inputs_or_damaged_review_refuses_without_overwriting(root,change):
     values=rows();out=Path(prepare_review(values,root=root)["output"]);kwargs={}
