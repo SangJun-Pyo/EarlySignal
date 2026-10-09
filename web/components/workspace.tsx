@@ -1012,7 +1012,7 @@ export default function Workspace() {
                               <span className="eyebrow">
                                 {BRIEF_TITLE} ({BRIEF_REVIEW_NOTE})
                               </span>
-                              <p>{data.briefs[key]}</p>
+                              <p className="whitespace-pre-line">{data.briefs[key]}</p>
                               <p>기존 신고별 AI 요약을 그대로 인용합니다. 원문과의 의미 일치는 담당자가 확인해야 합니다.</p>
                             </div>
                           ) : (
