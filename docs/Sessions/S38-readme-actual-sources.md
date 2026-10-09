@@ -12,7 +12,8 @@ README 외부 자산에 실제 사용한 데이터·공식 사건 설명 자료�
 - [x] 구현의 import·의존성·폰트 사용 대조, 미사용 RAG 자산 제외
 - [x] 과거 기획 차이 기록과 개인정보 검사 한계 보존
 - [x] diff 검사·로컬 링크 대조
-- [ ] 커밋·PR 연결, 구현자 외 독립 검수·병합
+- [x] 커밋·[Draft PR #32](https://github.com/SangJun-Pyo/EarlySignal/pull/32) 연결
+- [ ] 구현자 외 독립 검수·병합
 
 ## Codex에 맡긴 일
 README, 이 세션, CODEX_LOG만 변경한다. API 호출·원본 다운로드·PDF 재생성·제품 코드·DB·키·비공개 자료 접근은 하지 않는다. 총괄이 확인한 공식 링크 결과를 받아 검증 기록에 연결한다.
@@ -24,7 +25,7 @@ ADR-025·발표 근거표·발표자 노트에 이미 사용된 PE19-003·004, D
 
 파이프라인 import·`pyproject.toml`, 웹 `package.json`·`layout.tsx`·CSS, 발표 빌더와 그림 빌더의 import·폰트 등록을 읽었다. NumPy·PyYAML·python-dotenv·jsonschema, ReportLab·Matplotlib, 웹의 IBM Plex Sans KR와 Mono 사용을 추가했다. PDF·그림은 Sans KR 사용으로 구분했다. RAG/pgvector는 외부 사용 자산에 넣지 않았으며 기존 ADR-017 문단 전체를 검증·남은 가정 절로 이동해 보존했다. 원본 미커밋·정규식 개인정보 검사 한계도 유지했다.
 
-합성 검사 스크립트로 manifest/ingest 파일4개와 README 직접 URL4개 일치, 변경 대상 문서의 로컬 Markdown 링크40개 존재, ADR-017 문단1회·개인정보 한계 보존·외부 자산의 RAG 미포함을 확인했다. `git diff --check` 통과. API 호출·환경변수/키 열람·원본 다운로드·DB 접근·PDF 재생성·제품 코드 변경은0회다. 문서 변경이므로 제품 테스트를 새로 실행하지 않았다.
+문서 대조 스크립트로 manifest/ingest 파일4개와 README 직접 URL4개 일치, 변경 대상 문서의 로컬 Markdown 링크40개 존재, ADR-017 문단1회·개인정보 한계 보존·외부 자산의 RAG 미포함을 확인했다. 실제 GitHub의 기준 커밋135ff9e SPEC HTML에서 `step-2-범위` 앵커를 확인했다. 먼저 GitHub Markdown API의 단독 제목 렌더는 앵커를 포함하지 않아 그 응답만으로 검증하지 않았다. `git diff --check` 통과. 유료 LLM API 호출·환경변수/키 열람·원본 다운로드·DB 접근·PDF 재생성·제품 코드 변경은0회다. 문서 변경이므로 제품 테스트를 새로 실행하지 않았다.
 
 ## 문제와 해결
 | 문제 | 원인 | 해결 | 누가 |
@@ -35,6 +36,7 @@ ADR-025·발표 근거표·발표자 노트에 이미 사용된 PE19-003·004, D
 ## 사람이 검토하며 고친 것
 - 사용자가 실제 사용한 외부 자산만 기록하고 데이터 출처에 직접 링크를 붙이라고 요청했다.
 - 총괄이 최초 Step11 표기를 정정했다. 존재하는 SPEC Step1·9의 출처·공개 안내 보완으로 기록하며 새 Step을 만들지 않았다.
+- 총괄의 문구 검토에 따라 새 README 문장의 숫자 앞뒤 띄어쓰기를 다듬었다.
 
 ## 다음 세션으로 넘길 것
 - 구현자 외 독립 검수·병합은 총괄이 담당한다.

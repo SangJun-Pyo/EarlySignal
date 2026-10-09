@@ -150,7 +150,7 @@ python -m es.cli export --method llm --output build/llm-export
 | [COMPLAINTS_RECEIVED_2020-2024.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip) | 2020~2024년 접수 신고 적재, 사례 평가와 볼트 EV 데모 범위 추출 |
 | [FLAT_INV.zip](https://static.nhtsa.gov/odi/ffdd/inv/FLAT_INV.zip) | 조사 기록 적재·확인, 조사 개시일 등 사후 비교 자료 |
 
-ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. LLM 분류는 [SPEC Step2](docs/SPEC.md#step-2-범위)의 현대·기아와 볼트 EV 고정 데모 범위7,502건이며, 공개 콘솔은 현대·기아9개 차종의2018-03~10 접수월을 제공합니다. 조사 파일의 사후 정보는 탐지 입력으로 쓰지 않습니다.
+ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. LLM 분류는 [SPEC Step 2](docs/SPEC.md#step-2-범위)의 현대·기아와 볼트 EV 고정 데모 범위 7,502건이며, 공개 콘솔은 현대·기아 9개 차종의 2018-03~10 접수월을 제공합니다. 조사 파일의 사후 정보는 탐지 입력으로 쓰지 않습니다.
 
 원본은 저장소에 포함하지 않습니다. 구조화 식별정보를 제외하고 자유서술의 알려진 식별값·이메일·전화·VIN·주소 등을 검사합니다. 정규식 검사가 완전한 익명화를 보장하지는 않습니다.
 
@@ -158,7 +158,7 @@ ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. L
 
 | 공식 사건 설명 자료 | 사용 용도 |
 |---|---|
-| [현대 PE19-003 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19003-2613.PDF) · [기아 PE19-004 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19004-4727.PDF) | 비충돌 화재 조사와 지정 예비조사 개시일2019-03-29 확인 |
+| [현대 PE19-003 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19003-2613.PDF) · [기아 PE19-004 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19004-4727.PDF) | 비충돌 화재 조사와 지정 예비조사 개시일 2019-03-29 확인 |
 | [DP18-003 종료 문서](https://static.nhtsa.gov/odi/inv/2018/INCLA-DP18003-5116.PDF) | 앞선 청원·검토·기존 리콜 조사 이력 확인, 기관 최초 발견과의 비교가 아님을 설명 |
 | [기아18V907 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V907-3425.PDF) · [현대18V934 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V934-2602.PDF) · [18V934 공식 안내문](https://static.nhtsa.gov/odi/rcl/2018/RCONL-18V934-4890.pdf) | 이전 리콜로 엔진을 교체한 일부 차량의 연료관 문제를 별도 실제 사건 예시로 설명 |
 
@@ -169,4 +169,4 @@ ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. L
 | ReportLab, Matplotlib | [PDF 구성](docs/presentation/build_decks.py)과 [통계 그림 생성](docs/presentation/figures/build_stat_figures.py) |
 | IBM Plex Sans KR, IBM Plex Mono | 웹 한글 본문과 숫자·코드 표시, PDF·그림에는 Sans KR 사용. [웹 폰트 적용](web/app/layout.tsx) · [OFL](docs/presentation/assets/OFL.txt) |
 
-분류·대표 신고 선택 모델은 `gpt-4.1-mini-2025-04-14`입니다. 전체7,502건 출력 검사를 완료했으며 사람 정답 정확도는 미측정입니다.
+분류·대표 신고 선택 모델은 `gpt-4.1-mini-2025-04-14`입니다. 전체 7,502건 출력 검사를 완료했으며 사람 정답 정확도는 미측정입니다.
