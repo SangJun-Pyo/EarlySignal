@@ -13,9 +13,11 @@ test("draft has seven sections, traceable selected-month facts and no future ser
   assert.doesNotMatch(result.markdown, /999건/);
   assert.match(result.markdown, /키워드 분류/);
   assert.doesNotMatch(result.markdown, /AI 라벨|AI 작성/);
-  assert.match(result.markdown, /## 3\. 대표 신고 요약\n대표 신고 요약이 아직 준비되지 않았습니다/);
+  assert.match(result.markdown, /## 3\. 대표 신고 요약\n이 경보의 대표 신고 요약은 없습니다/);
+  assert.match(result.markdown, /알려진 식별정보를 가린 발췌/);
   assert.doesNotMatch(result.markdown, /AI 요약 인용·담당자 검토/);
   assert.equal(result.record, null);
+  assert.match(result.markdown, /\(초안\)/);
   assert.deepEqual(data, original);
 });
 
@@ -113,6 +115,7 @@ test("saving keeps actual timestamp separate from historical availability and re
   assert.equal(result.record?.analysis_available, "2018-09-01");
   assert.deepEqual(result.record?.actions, ["다음 달 재검토"]);
   assert.match(result.markdown, /실제 저장 시각: 2026-10-09T04:30:00.000Z/);
+  assert.match(result.markdown, /\(확정\)/);
   assert.throws(() => createRequest(input(undefined, { savedAt })));
   assert.throws(() => createRequest(input(undefined, { savedAt: "invalid", decision: "보류" })));
 });

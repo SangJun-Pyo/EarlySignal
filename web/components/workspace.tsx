@@ -363,7 +363,7 @@ export default function Workspace() {
     return (
       <main className="loading">
         <Icon name="validation" size={36} />
-        <h1>자료 연결을 확인해주세요</h1>
+        <h1>공개 자료를 불러오지 못했습니다</h1>
         <p>{loadError}</p>
         <button className="primary" onClick={() => location.reload()}>
           다시 불러오기
@@ -374,8 +374,8 @@ export default function Workspace() {
     return (
       <main className="loading">
         <span className="loading-mark">ES</span>
-        <h1>안전 신호 작업 공간을 준비합니다</h1>
-        <p>NHTSA 신고와 검증 자료를 불러오는 중입니다.</p>
+        <h1>공개 신고 자료를 불러옵니다</h1>
+        <p>NHTSA 공개 파일의 신고와 검증 결과를 불러오는 중입니다.</p>
       </main>
     );
   const currentComplaints = asof.complaints.map((c) => ({ ...c, id: c.odino }));
@@ -461,8 +461,8 @@ export default function Workspace() {
             <span className="team">고객 안전팀 작업 공간</span>
           </div>
           <div className="top-badges">
-            <span className="live-dot" /> 공개 데이터 연결{" "}
-            <span className="historical-badge">과거 데이터 재연</span>
+            <span className="live-dot" aria-hidden="true" /> NHTSA 공개 파일 기반{" "}
+            <span className="historical-badge">접수일 기준 과거 재현</span>
           </div>
         </header>
         <div className="page-heading">
@@ -471,7 +471,7 @@ export default function Workspace() {
             <h1>
               {view === "validation"
                 ? "검증 결과와 남은 질문"
-                : "반복되는 신고를, 조사할 근거로."}
+                : "고객의 목소리를, 조사의 근거로."}
             </h1>
             <p className="page-intro">
               {view === "validation"
@@ -554,8 +554,8 @@ export default function Workspace() {
                   </span>
                 </div>
                 <p className="small muted">
-                  감시 대상 {data.groups.length}개 차종 · 접수일 기준 · 식별
-                  정보를 제거한 원문 발췌
+                  감시 대상 {data.groups.length}개 차종 · 접수일 기준 · 알려진
+                  식별정보를 가린 원문 발췌
                 </p>
                 <div className="pile-list">
                   {currentComplaints.slice(0, 40).map((c) => (
@@ -610,8 +610,8 @@ export default function Workspace() {
                   className="primary full"
                   onClick={() => setView("signals")}
                 >
-                  {data.labeler === "llm" ? "AI가 정리한" : "키워드로 정리한"}{" "}
-                  신호 보기 <Icon name="arrow" />
+                  {data.labeler === "llm" ? "AI 분류" : "키워드 분류"}{" "}
+                  · 통계 경보 보기 <Icon name="arrow" />
                 </button>
               </aside>
             </div>
@@ -743,7 +743,7 @@ export default function Workspace() {
                     <p>
                       왼쪽의 경보 또는 차종·증상 칸을 선택하면
                       <br />
-                      통계가 묶은 신고 원문을 확인할 수 있습니다.
+                      증상별로 분류된 신고 원문과 통계 경보를 확인할 수 있습니다.
                     </p>
                     <div className="empty-steps">
                       <span>경보 선택</span>
@@ -1125,7 +1125,7 @@ export default function Workspace() {
                   )}
                   {renderedRequest.briefSuppressed && (
                     <p className="paper-note">
-                      제외한 신고를 인용하는 AI 요약은 요청서에서 제외했습니다.
+                      제외한 신고나 확인되지 않은 인용이 있어 대표 신고 요약을 요청서에 넣지 않았습니다.
                     </p>
                   )}
                     </>
@@ -1316,9 +1316,9 @@ export default function Workspace() {
         </main>
         <footer className="footer">
           <div>
-            <span className="live-dot" />
-            <b>NHTSA 신고 연결됨</b>
-            <span>수리 기록 · 생산 기록 · 부품 이력은 다음 도입 단계</span>
+            <span className="live-dot" aria-hidden="true" />
+            <b>NHTSA 공개 파일 기반</b>
+            <span>수리 기록 · 생산 기록 · 부품 이력은 미연동</span>
           </div>
           <p>
             현재 공개 파일의 접수일로 과거 재현 · 경보는 조사 후보 ·{" "}
@@ -1546,7 +1546,7 @@ export function SourceAttribution({ view, labeler }: { view: View; labeler: Cons
   return view === "validation" ? (
     <>백테스트 출처: 키워드 기준선</>
   ) : (
-    <>콘솔 분류 출처: {labeler === "keyword" ? "키워드 규칙" : "사전 실행 LLM"}</>
+    <>콘솔 분류 출처: {labeler === "keyword" ? "키워드 규칙" : "완료된 LLM 분류"}</>
   );
 }
 
@@ -1618,7 +1618,7 @@ export function Validation({
           <h3>LLM 분류 및 사람 검수</h3>
           <b className="model-number">
             {formatNumber(meta.labels.llm_labeled)}
-            <small>건 라벨링</small>
+            <small>건 분류·출력 검사</small>
           </b>
           <p className="muted small">
             모델: {meta.labels.llm_model || "미실행"}
