@@ -8,6 +8,7 @@ from pathlib import Path
 from html import escape
 import argparse
 import json
+import hashlib
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -19,6 +20,9 @@ REPO = ROOT.parents[1]
 META_PATH = REPO / 'web/public/data/meta.json'
 CASE_PATH = REPO / 'web/public/data/cases.json'
 MEASURED = json.loads(META_PATH.read_text()) if META_PATH.exists() else None
+CONSOLE = json.loads((REPO/'web/public/data/console.json').read_text())
+LABELER = CONSOLE['labeler']
+LABELER_NAME = {'keyword':'키워드 기준선','llm':'LLM 분류'}[LABELER]
 CASE_RESULTS = json.loads(CASE_PATH.read_text()) if CASE_PATH.exists() else None
 PILOT_PATH = REPO / 'data/results/llm_pilot.json'
 PILOT = json.loads(PILOT_PATH.read_text()) if PILOT_PATH.exists() else None
@@ -536,8 +540,10 @@ def technical_stats(c, s):
 def comparison_stats(c,s):
     source=json.loads((FIGURES/'source.json').read_text())
     alt=source['example']['comparison_binomial']
+    comparison_p=f"{alt['p_value']:.4g}" if alt['p_value'] is not None else '계산 불가'
+    observed=source['example']['observed']
     cards(c,s | dict(cards=[
-        ('이항 비교 계산',f"전체 신고 중 증상 비율 비교\n과거 {alt['historical_category_sum']}/{alt['historical_total_sum']} → 이번 달 17/108\n\np = {alt['p_value']:.4f}\n코드에서 비교용으로 계산\n주 경보·평가에는 미사용",'',CYAN),
+        ('이항 비교 계산',f"전체 신고 중 증상 비율 비교\n과거 {alt['historical_category_sum']}/{alt['historical_total_sum']} → 이번 달 {observed}/{alt['current_total']}\n\np = {comparison_p}\n코드에서 비교용으로 계산\n주 경보·평가에는 미사용",'',CYAN),
         ('검토 업무량 관측',f"차종·월당 경보 수\n사례 {MEASURED['burden']['case_alerts_per_group_month']:.3f} · 대조 {MEASURED['burden']['control_alerts_per_group_month']:.3f}\n\n등록 평가창의 관측치\n증상별 경보를 합산한 값\n현업 검토 시간은 미측정",'',AMBER),
         ('단일 차종 보조 분석','같은 단위로 좁혀 비교\n사례 8/20 · 대조 1/19\n\n기존 주 분석 결과는 보존\n결과를 보고 규칙 미조정\n차종 중복 등 한계는 유지','',GREEN),
     ]))
@@ -608,31 +614,37 @@ def llm_detail(c,s):
 
 def revise_stat_story(prelim, finals):
     source = json.loads((FIGURES / 'source.json').read_text())
+    if source['labeler'] != LABELER or source.get('validation_labeler') != 'keyword':
+        raise ValueError('Rebuild figures: console and figure label sources disagree')
+    hashes = {entry['path']: entry['sha256'] for entry in source['sources']}
+    for rel in ('web/public/data/console.json', 'web/public/data/meta.json'):
+        if hashes.get(rel) != hashlib.sha256((REPO/rel).read_bytes()).hexdigest():
+            raise ValueError(f'Rebuild figures: stale source {rel}')
     # Figure source is produced independently from current public JSON and detector math.
     demo = source['example']
     demo['ratio'] = demo['observed'] / demo['baseline']
     monthly = slide('이번 달 신고를, 지난 12개월과 비교합니다.',
-        '실제 키워드 집계 | HYUNDAI SONATA · 화재·과열 · 2018년 8월', 'figure',
+        f"실제 {LABELER_NAME} 집계 | {demo['display_name']} · {demo['target_month'][:7]} 접수분", 'figure',
         figure='sonata-monthly-baseline.png',
         metrics=[('이번 달', f"{demo['observed']}건", '고유 신고 번호로 집계'),
-                 ('직전 12개월 평균', f"{demo['baseline']:.2f}건", '이번 달은 평균에서 제외'),
-                 ('평소 대비', f"{demo['ratio']:.2f}배", '2018-09-01부터 확인 가능')],
-        status='실제 신고 건수 · 키워드 기준선',
+                 (f"직전 {demo['baseline_months']}개월 기준선", f"{demo['baseline']:.2f}건", '이번 달은 평균에서 제외'),
+                 ('평소 대비', f"{demo['ratio']:.2f}배", f"{demo['available']}부터 확인 가능")],
+        status=f'실제 신고 건수 · {LABELER_NAME}',
         takeaway='접수일로 월을 나눕니다. 0건인 달도 포함하고, 선택한 기준일 뒤의 신고는 보지 않습니다.',
         refs='E04 · E07 · E19',time=25)
     poisson=slide('평소에도 이만큼 나올 수 있는지 묻습니다.',
         '포아송 모형: 평소 평균이 같은 상태에서 이번 달 건수 이상이 나올 확률을 계산합니다.', 'figure',
         figure='poisson-right-tail.png',
-        metrics=[('관측 건수 이상 확률', f"p = {demo['p_value']:.6f}", '포아송 모형 아래의 확률'),
-                 ('경보 조건', 'p < 0.001', '그리고 월 3건 이상'),
-                 ('이번 사례', '두 조건 충족', '원문을 검토할 후보로 표시')],
+        metrics=[('관측 건수 이상 확률', f"p = {demo['p_value']:.3g}", '포아송 모형 아래의 확률'),
+                 ('경보 조건', f"p < {source['rule']['alpha']:g}", f"그리고 월 {source['rule']['min_count']}건 이상"),
+                 ('이번 사례', '두 조건 충족' if demo['alert'] else '경보 조건 미충족', '원문을 검토할 후보로 표시' if demo['alert'] else '이달 경보로 표시하지 않음')],
         status='통계의 역할 · 경보 후보 판단',
         takeaway='p값은 결함일 확률이 아닙니다. 배수가 커도 확률과 최소 건수 조건을 함께 통과해야 합니다.',
         refs='E04 · E19',time=25)
     llm=slide('LLM은 문장을 정해진 항목으로 바꿉니다.',
         '직접 분류 → 출력 검사 → 캐시 → 월별 집계. 현재 제품의 통계는 키워드 기준선입니다.', 'llm_flow',
         status='고정 50건 API 출력 검사 완료 · 분류 정확도 미측정',time=25,refs='E02 · E10 · E11 · E21',
-        takeaway='같은 신고의 키워드·LLM 분류를 비교하고, 사람이 확인한 정답으로 정확도를 따로 검증합니다.')
+        takeaway='사람 정답 검수는 전문성·시간 제약으로 당일 미완료입니다. 방법 간 일치율을 정확도로 해석하지 않습니다.')
     val=slide('경보 규칙과, 그 규칙의 검증을 나눕니다.',
         '규칙 선택에 쓴 개발용(dev)과 고정 규칙으로 평가한 검증용(holdout)을 분리했습니다.', 'validation_graph',
         status='등록 사례·대조군 · 키워드 백테스트',time=25,refs='E08 · E09 · E20',
