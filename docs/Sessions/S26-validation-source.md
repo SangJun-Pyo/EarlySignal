@@ -9,7 +9,7 @@
 ## 완료 기준
 - [x] 검증 화면과 관련 출처 표시가 console.labeler를 백테스트 출처로 사용하지 않음
 - [x] LLM 분류 건수와 미측정 사람 정확도 구분, 렌더 회귀 검사
-- [ ] 웹 테스트·타입 검사·정적 빌드 및 최신 draft PR CI 성공
+- [x] 웹 테스트·타입 검사·정적 빌드 및 draft PR CI 성공
 
 ## Codex에 맡긴 일
 별도 `codex/validation-source` worktree에서 검증 화면의 표시만 작게 수정한다. 데이터 계약·탐지 규칙·공개 데이터·파이프라인은 변경하지 않는다. API·DB·사람 정답 파일을 사용하지 않는다.
@@ -20,7 +20,7 @@
 - 다른 `data.labeler` 표시를 확인했다. 신고 더미·근거 검토·요청서는 console 모집단을 사용하므로 해당 출처를 유지한다. 데이터·메타 수치·cases 표·계약·탐지 규칙은 변경하지 않았다.
 - 실제 컴포넌트 SSR 회귀 4건을 추가했다: keyword/llm 콘솔 모두 주 백테스트는 keyword, 라벨 건수와 미측정 정확도 분리, 0건 정답을 0% 성적으로 계산하지 않음, 요청서 footer의 실제 콘솔 출처 유지. 합성 모델 메타와 커밋된 공개 cases/meta를 사용했다.
 - Node 26.3.0에서 `npm ci` 성공, `npm test` **23 passed**, `npm run typecheck` 및 `npm run build` 성공(정적 3/3 페이지 생성). `git diff --check` 통과. API·DB·사람 정답 CSV·비밀값을 사용하지 않았다.
-- Draft PR의 최신 head CI 결과는 제출 후 확인한다.
+- [Draft PR #14](https://github.com/SangJun-Pyo/EarlySignal/pull/14)를 부모 `codex/llm-evidence-validation` 대상으로 제출하고 작업에 연결했다. commit `3735f80`의 [실제 Actions run 37878692430](https://github.com/SangJun-Pyo/EarlySignal/actions/runs/37878692430)에서 Python 3.10·3.13 전체 테스트 및 웹 23개/타입/빌드의 **3/3 jobs가 성공**했다. 이 결과 기록 후 최신 head의 CI도 확인해 총괄에 전달하며, 동일 성공을 다시 기록하는 문서 커밋을 반복하지 않는다.
 
 ## 문제와 해결
 | 문제 | 원인 | 해결 | 누가 |
