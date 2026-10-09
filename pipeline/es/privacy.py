@@ -3,7 +3,8 @@ import re
 from collections.abc import Iterable
 
 PATTERNS = (
-    ("email", re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)),
+    # ASCII email boundaries must also work beside Korean words and particles.
+    ("email", re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I | re.ASCII)),
     ("phone", re.compile(r"(?<!\d)(?:\+?1[ .-]?)?(?:\(\d{3}\)|\d{3})[ .-]?\d{3}[ .-]?\d{4}(?!\d)")),
     ("vin", re.compile(r"\b(?=[A-HJ-NPR-Z0-9*]{17}\b)(?=[A-HJ-NPR-Z0-9*]*\d)[A-HJ-NPR-Z0-9*]{17}\b", re.I)),
     ("vin", re.compile(r"\b(?:VIN|VEHICLE IDENTIFICATION NUMBER)\s*(?:IS|WAS|NUMBER|NO\.?|#|:)?\s*[A-Z0-9*_-]{6,17}\b", re.I)),
