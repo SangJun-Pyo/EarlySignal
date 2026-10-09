@@ -35,6 +35,9 @@ def main(argv=None):
     label = sub.add_parser("label-llm")
     label.add_argument("--limit", type=int, default=50)
     label.add_argument("--concurrency", type=int, default=12)
+    label.add_argument("--max-attempts", type=int, default=3)
+    label.add_argument("--max-new-rows", type=int)
+    label.add_argument("--quote-selection-fallback", action="store_true")
     brief = sub.add_parser("briefs")
     brief.add_argument("--console", type=Path)
     brief.add_argument("--limit", type=int, default=1)
@@ -45,7 +48,9 @@ def main(argv=None):
     config.database.parent.mkdir(parents=True, exist_ok=True)
     if args.command == "label-llm":
         from .label_llm import run_label_llm
-        result = run_label_llm(config,args.limit,args.concurrency)
+        result = run_label_llm(config,args.limit,args.concurrency,
+            max_attempts=args.max_attempts, max_new_rows=args.max_new_rows,
+            quote_selection_fallback=args.quote_selection_fallback)
         print(json.dumps(result,ensure_ascii=False,default=str,indent=2))
         return
     if args.command == "briefs":
