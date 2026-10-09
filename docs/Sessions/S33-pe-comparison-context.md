@@ -10,7 +10,7 @@
 - [x] 비교 기준과 PE19003·PE19004의 앞선 청원·리콜 조사 한계를 표시한다.
 - [x] 선행 값·기간·파이프라인·공개 JSON과 요청서 판단 흐름을 바꾸지 않는다.
 - [x] 최소 SSR 회귀, 웹 검사·타입·빌드가 통과한다.
-- [ ] main 대상 Draft PR을 연결하고 최신 CI 결과를 확인한다.
+- [x] main 대상 Draft PR을 연결하고 최신 CI 결과를 확인한다.
 
 ## Codex에 맡긴 일
 이슈 #22의 작은 표현 보완. origin/main 89228ef에서 codex/pe-comparison-context 브랜치를 만들고 ADR-025를 코드보다 먼저 작성했다. 소유 범위는 웹 비교 표시·필요 검사와 ADR-025·본 세션이다. README·STATUS·CODEX_LOG와 공개 데이터는 총괄 소유다. 실제 API·DB·키·private 자료는 열지 않는다.
@@ -22,6 +22,7 @@
 - `npm run typecheck` 통과. `npm run build` 통과(정적 `/`, `/_not-found` 생성, prebuild 26검사 통과). `git diff --check` 통과.
 - 변경 범위는 workspace 표시·validation SSR 검사·ADR-025·본 세션 4파일. 파이프라인·공개 JSON·계약·README·STATUS·CODEX_LOG는 변경하지 않았다. 실제 API·DB·키·private 자료 접근 없음.
 - Draft PR과 최신 CI의 실제 결과는 총괄에게 핸드오프 메시지로 전달한다. CI 성공 기록만을 위한 추가 커밋 반복은 하지 않는다.
+- 총괄 통합: PR #23의 head `d8be05b`에서 Python3.10·3.13·웹 CI와 Cloudflare 모두 성공했다. 구현자 외 검수자가 웹26검사·타입 검사·공식 DP18-003 자료를 독립 확인해 차단 사항 없이 승인했다. main `8b50a75`로 merge commit 통합하고 공개 배포의 지정PE 표시·이전 청원 설명과 실제 저장 흐름을 확인했다. 상세 배포 검증은 S32와 `data/results/deployment_llm_verification.json`에 기록한다.
 
 ## 문제와 해결
 | 문제 | 원인 | 해결 | 누가 |
