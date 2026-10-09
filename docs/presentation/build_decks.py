@@ -8,6 +8,7 @@ from pathlib import Path
 from html import escape
 import argparse
 import json
+import hashlib
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -19,12 +20,26 @@ REPO = ROOT.parents[1]
 META_PATH = REPO / 'web/public/data/meta.json'
 CASE_PATH = REPO / 'web/public/data/cases.json'
 MEASURED = json.loads(META_PATH.read_text()) if META_PATH.exists() else None
+CONSOLE = json.loads((REPO/'web/public/data/console.json').read_text())
+LABELER = CONSOLE['labeler']
+LABELER_NAME = {'keyword':'키워드 기준선','llm':'LLM 분류'}[LABELER]
+COMPARISON_PATH = REPO/'data/results/llm_demo_comparison.json'
+COMPARISON = json.loads(COMPARISON_PATH.read_text()) if COMPARISON_PATH.exists() else None
+BRIEF_COUNT = len(CONSOLE.get('briefs', {}))
+BRIEF_RUNS_PATH = REPO / 'data/results/brief_runs.jsonl'
+BRIEF_RUNS = [json.loads(line) for line in BRIEF_RUNS_PATH.read_text().splitlines() if line.strip()] if BRIEF_RUNS_PATH.exists() else []
+BRIEF_FIRST_RUN = BRIEF_RUNS[0] if BRIEF_RUNS else None
+BRIEF_AUDIT_PATH = REPO / 'data/results/brief_completed.json'
+BRIEF_AUDIT = json.loads(BRIEF_AUDIT_PATH.read_text()) if BRIEF_AUDIT_PATH.exists() else None
 CASE_RESULTS = json.loads(CASE_PATH.read_text()) if CASE_PATH.exists() else None
 PILOT_PATH = REPO / 'data/results/llm_pilot.json'
 PILOT = json.loads(PILOT_PATH.read_text()) if PILOT_PATH.exists() else None
 PILOT_TOTAL = PILOT.get('cohort_size', PILOT.get('requested_limit', 50)) if PILOT else 50
 PILOT_DONE = PILOT.get('cohort_completed', PILOT.get('completed', 0)) if PILOT else 0
-SCREENSHOT = ROOT / 'assets/screenshots/request-public.jpg'
+CAPTURE_META_PATH = ROOT / 'assets/screenshots/request-public.json'
+CAPTURE_META = json.loads(CAPTURE_META_PATH.read_text()) if CAPTURE_META_PATH.exists() else None
+SCREENSHOT = ROOT / (CAPTURE_META['image'] if CAPTURE_META else 'assets/screenshots/request-public.jpg')
+DETAIL_SCREENSHOT = ROOT / CAPTURE_META['detail_image'] if CAPTURE_META else SCREENSHOT
 FIGURES = ROOT / 'figures'
 W, H = 1280, 720
 BG = '#0B1626'
@@ -43,14 +58,14 @@ def slide(title, subtitle, kind='cards', **kw):
 
 
 ROLES = [
-    ('LLM', '측정', '신고 원문을 증상 라벨과\n상황 요약으로 정리합니다.', '원문 · 라벨 · 인용 연결', CYAN),
+    ('LLM', '측정', '신고 원문을 증상 라벨과\n신고별 요약으로 정리합니다.', '원문 · 라벨 · 인용 연결', CYAN),
     ('STATISTICS', '판단', '차종별 증상 건수를\n자신의 과거 수준과 비교합니다.', '경보 규칙 · 기준선 공개', AMBER),
     ('HUMAN', '결정', '원문을 인용하거나 제외하고\n조사 착수·보류·기각을 정합니다.', '조사 요청서 · 결정 기록', GREEN),
 ]
 
 PRELIM = [
     slide('신고를\n조사 요청서로.', '소비자 신고에서 조사해야 할 안전 신호를 더 일찍 찾는 도구', 'hero',
-          kicker='EARLYSIGNAL  /  FINVIBE', tag='4분 예선 · 검토용 초안', time=15,
+          kicker='EARLYSIGNAL  /  FINVIBE', tag='4분 예선 · 발표자료', time=15,
           bottom='LLM은 측정하고, 통계는 판단하고, 담당자는 결정합니다.', refs='E01 · E02'),
     slide('운전자의 신고를, 담당자의 다음 조치로.', '설명 상황 예: “주행 중 타는 냄새가 났어요.” → 자동차 회사에서 고객 안전을 살피는 담당자',
           cards=[('운전자의 신고', '타는 냄새, 연기, 과열처럼\n같은 현상도 서로 다르게\n표현됩니다.\n\n설명용 표현 예', '데이터 형식에서 출발', CYAN),
@@ -75,7 +90,7 @@ PRELIM = [
 
 FINALS = [
     slide('신고를\n조사 요청서로.', '조사 후보를 발견하고, 원문을 검토하고, 다음 조치를 문서로 남깁니다.', 'hero',
-          kicker='EARLYSIGNAL  /  FINVIBE', tag='10분 결선 · 검토용 초안', time=20,
+          kicker='EARLYSIGNAL  /  FINVIBE', tag='10분 결선 · 발표자료', time=20,
           bottom='제품의 끝은 근거가 연결된 조사 요청서입니다.', refs='E01 · E02'),
     PRELIM[1] | dict(time=35),
     slide('공개 신고를 읽을 때 지켜야 할 기준.', '데이터 정의가 바뀌면 경보의 의미도 달라집니다.',
@@ -111,7 +126,7 @@ FINALS = [
           cards=[('문서로 확인', '역할 분담 · 시간 기준\n요청서 구조 · 데이터 계약\n\n설계가 문서에 명시되어\n있는 것은 확인했습니다.', '구현 성능과 별개', CYAN),
                  ('당일 확인 대기', '파이프라인 재현 결과\n미래 정보 차단 테스트\n요청서 저장과 인용 검사\n모델 비용과 검수 정확도', '실행 근거로 교체', AMBER),
                  ('현장 검증 다음', '품질팀 검토 업무 적합성\n요청서 검토 시간과 활용\n보증·생산 이력 연동\n지속 사용 · 구매 의사', '파일럿에서 확인', GREEN)],
-          takeaway='EarlySignal의 첫 목표: 담당자가 조사할 이유를 근거와 함께 남길 수 있도록 돕는 것.', time=10, refs='E01 · E12 · E13', status='검토용 초안'),
+          takeaway='EarlySignal의 첫 목표: 담당자가 조사할 이유를 근거와 함께 남길 수 있도록 돕는 것.', time=10, refs='E01 · E12 · E13', status='발표자료'),
 ]
 
 
@@ -185,19 +200,19 @@ def pill(c, s, x, y, fill=AMBER, size=14):
     return w
 
 
-def frame(c, s, index, total, deck):
+def frame(c, s, index, total, deck, main_pages):
     c.setFillColor(color(BG))
     c.rect(0, 0, W, H, fill=1, stroke=0)
     text(c, 'EARLYSIGNAL', 52, 28, 18, CYAN, True)
-    text(c, f'{deck}  |  검토본 · 2026.10.09', 730, 31, 15, MUTED)
-    if s['kind'] != 'hero':
+    text(c, f'{deck}  |  발표자료 · 2026.10.09', 730, 31, 15, MUTED)
+    if s['kind'] not in {'hero','case_opening'}:
         block(c, s['title'], 52, 85, 1180, 40, bold=True, leading=49, max_height=98)
         block(c, s['subtitle'], 54, 156, 1140, 21, MUTED, leading=29, max_height=60)
-        pill(c, s.get('status', '검토용 초안'), 54, 224)
+        pill(c, s.get('status', '발표자료'), 54, 224)
     line(c, 52, 661, 1228, 661)
-    text(c, 'DRAFT · 키워드 제품 실측 · AI 검증 진행 중' if MEASURED else 'DRAFT · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
+    text(c, f'발표자료 · {LABELER_NAME} 제품 · 38사례는 키워드 검증' if MEASURED else '발표자료 · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
     text(c, f'근거 {s["refs"]}', 640, 681, 14, MUTED)
-    text(c, f'부록 {index-12}' if s.get('appendix') else f'{index:02d} / 12', 1140, 678, 17, TEXT, True)
+    text(c, f'부록 {index-main_pages}' if s.get('appendix') else f'{index:02d} / {main_pages}', 1140, 678, 17, TEXT, True)
 
 
 def takeaway(c, s):
@@ -265,7 +280,7 @@ def boundary(c, s):
     text(c, '탐지에 사용', 80, 309, 21, CYAN, True)
     block(c, '기준일까지 접수된 신고\n원문 · 증상 라벨 · 과거 건수', 80, 355, 670, 28, leading=41)
     text(c, '평가에서만 확인', 830, 309, 21, AMBER, True)
-    block(c, '이후 실제 신고\n공식 조사 개시와 결과', 830, 355, 370, 26, leading=41)
+    block(c, '이후 실제 신고\n등록 조사 기록의 개시·결과', 830, 355, 370, 26, leading=41)
     line(c, 80, 505, 1197, 505, MUTED, 3)
     for x in [120,280,440,600]:
         line(c,x,498,x,512,CYAN,3)
@@ -291,7 +306,7 @@ def results(c, s):
         cases={case['case_id']:case for case in CASE_RESULTS['cases']}
         text(c,f"현대 {cases['PE19003']['lead_days']}일 · 기아 {cases['PE19004']['lead_days']}일",330,486,25,TEXT,True)
         text(c,'볼트 EV 놓침',860,486,25,AMBER,True)
-        text(c,'키워드 기준선 · 일수는 공식 조사 개시보다 선행 · 현재 파일의 접수일 기준 재현',56,555,20,MUTED)
+        text(c,'키워드 기준선 · 일수는 지정 예비조사(PE) 개시일 대비 · 현재 파일의 접수일 기준 재현',56,555,20,MUTED)
         takeaway(c,'선정된 사례의 경보 발생 비율입니다. 일반 정확도·오탐률이나 실제 사고 예방 효과가 아닙니다.')
         return
     rows = [('개발용', '조사 사례 / 비교 차종', '규칙 선택에 사용'),
@@ -324,14 +339,14 @@ def compare(c,s):
 def adoption(c,s):
     cols=[('누가 쓰나','자동차 회사의 고객 안전 담당자\n원문 검토와 조사 요청서 작성\n\n구매 의사 · 가격은 미확인',CYAN),
           ('어떤 가치가 있나','검토 전후에 걸린 시간 비교\n월 경보 수와 제외 이유 기록\n\n감당할 수 있는 업무량 확인',AMBER),
-          ('어떻게 운영하나','새 신고만 AI가 읽고 결과 저장\n처리 비용과 재시도 비용 기록\n\n수리 기록 · 생산 기록은 다음',GREEN)]
+          ('어떻게 운영하나',f"새 신고만 AI가 읽고 결과 저장\n누적 실험 약 ${float(BRIEF_AUDIT['costs']['combined_label_and_brief_experiments_estimated_usd']):.2f}\n\n반환 사용량 추정 · 실패 포함\n실제 청구액·건당 단가와 구분" if BRIEF_AUDIT else '새 신고만 AI가 읽고 결과 저장\n처리 비용과 재시도 비용 기록\n\n수리 기록 · 생산 기록은 다음',GREEN)]
     s=s|dict(cards=[(title,body,'',accent) for title,body,accent in cols])
     cards(c,s)
 
 
 def workflow(c,s):
-    labels=[('총괄 계획','Step · 완료 기준\nADR · 데이터 계약'),
-            ('구현 배정','난이도와 범위에\n맞는 에이전트'),
+    labels=[('이슈 · 계획','Step · 완료 기준\nADR · 데이터 계약'),
+            ('분리된 구현','작업트리 · 기능 브랜치\nPR로 변경 제시'),
             ('독립 검수','근거 · 테스트\n실패 · 주장 검토'),
             ('수정 · 통합','검수 지적 반영\n세션 · 커밋 연결')]
     for i,(title,body) in enumerate(labels):
@@ -361,7 +376,7 @@ def architecture(c,s):
 def requestdoc(c,s):
     box(c,52,278,725,280)
     text(c,'조사 요청서 · 문서 구조',80,300,22,CYAN,True)
-    rows=['대상 · 기준일','증가와 경보 근거','상황 요약 · 인용 신고','미확인 사항 · 내부 확인 항목','담당자 판단 · 다음 조치']
+    rows=['대상 · 기준일','증가와 경보 근거','대표 신고 요약 · 인용 신고','미확인 사항 · 내부 확인 항목','담당자 판단 · 다음 조치']
     for i,label in enumerate(rows):
         y=347+i*39
         line(c,80,y-5,750,y-5)
@@ -376,7 +391,7 @@ def validation(c,s):
     cards(c,s|dict(cards=[
         ('선정 · 분할','선정 기준에 맞는 사례\n사전 목록을 사용합니다.\n\n개발용 dev\n규칙 고정 후 holdout','',CYAN),
         ('동일 규칙 비교','같은 제조사의 대조군과\n동일한 경보 규칙을 적용.\n\n사례 수 · 차종 수 · 관측월\n분모를 함께 공개합니다.','',AMBER),
-        ('선행 정의','공식 조사 전후 정해진\n기간 안 첫 경보를 평가.\n\n확인 가능일은\n경보 월 다음 달 첫날.','',GREEN),
+        ('선행 정의','등록 조사일 전후 정해진\n기간 안 첫 경보를 평가.\n\n확인 가능일은\n경보 월 다음 달 첫날.','',GREEN),
     ]))
 
 
@@ -388,11 +403,11 @@ RENDERERS={'hero':hero,'cards':cards,'roles':roles,'requestflow':requestflow,
 
 def build(deck, slides, output):
     c=canvas.Canvas(str(output),pagesize=(W,H),pageCompression=1)
-    c.setTitle(f'EarlySignal | {deck} | 검토용 초안')
+    c.setTitle(f'EarlySignal | {deck} | 발표자료')
     c.setAuthor('FinVibe · Codex 협업')
-    c.setSubject('키워드 기준선 실측과 실제 요청서 저장 화면. AI 검증은 진행 중.')
+    c.setSubject(f'{LABELER_NAME} 제품과 키워드 통계 백테스트. 사람 정답 기반 분류 정확도는 미측정.')
     for i,s in enumerate(slides,1):
-        frame(c,s,i,len(slides),deck)
+        frame(c,s,i,len(slides),deck,sum(not item.get('appendix') for item in slides))
         RENDERERS[s['kind']](c,s)
         c.showPage()
     c.save()
@@ -416,11 +431,11 @@ def screenshot_region(c, path, source_box, target_box):
 
 def product(c, s):
     box(c, 52, 278, 810, 280)
-    screenshot_region(c, SCREENSHOT, (110, 390, 1120, 470), (60, 286, 794, 264))
+    screenshot_region(c, SCREENSHOT, (109, 386, 1267, 535), (60, 286, 794, 264))
     box(c, 886, 278, 342, 280)
     text(c, '실제 저장된 요청서', 909, 300, 24, CYAN, True)
-    block(c, '원문 인용·제외 → 판단 입력\n요청서와 결정 기록 저장', 909, 346, 296, 21, leading=31)
-    screenshot_region(c, SCREENSHOT, (800, 1080, 430, 207), (902, 414, 310, 125))
+    block(c, 'AI 요약 인용·담당자 검토\n판단 입력 → 확정·저장', 909, 346, 296, 21, leading=31)
+    screenshot_region(c, DETAIL_SCREENSHOT, (889, 106, 488, 197), (902, 414, 310, 125))
     takeaway(c, s['takeaway'])
 
 
@@ -432,21 +447,21 @@ def prepare_slides():
             if s['kind']=='results':
                 s.update(subtitle='실행한 키워드 기준선의 결과입니다. 실패와 비교 집단의 한계를 함께 봅니다.', status='실데이터 · 독립 검수 완료',takeaway='선정된 사례의 경보 발생 비율입니다. 일반 정확도·오탐률이나 실제 사고 예방 효과가 아닙니다.')
             elif s['kind']=='boundary':
-                s.update(status='미래 접수 차단 확인',takeaway=f"{lookahead['complete_month_cutoffs']}개 조사 사례의 기준일에서 잘라 재계산한 완료월 경보가 전체 계산과 일치했습니다.")
+                s.update(status='미래 접수 차단 확인',takeaway=f"{lookahead['complete_month_cutoffs']}개 조사 사례의 기준일에서 키워드 경보를 잘라 재계산해 완료월 결과가 일치했습니다.")
             elif s['kind']=='validation':
                 s.update(status='등록된 평가 완료',takeaway='사례·대조군의 규모 차이와 분할 간 차종 중복이 있습니다. 일반화 성능은 추가 검증이 필요합니다.')
             elif s['kind']=='compare':
                 completed = PILOT_DONE
                 selected = PILOT_TOTAL
-                s.update(status='AI 시험 일부 완료 · 사람 검수 대기',takeaway=f'고정 시험 {selected}건 중 {completed}건 성공. 요청 한도로 시험 미완료이며, 사람 정답 기반 정확도는 미측정입니다.')
+                s.update(status='API 출력 검사 · 정확도와 구분',takeaway=f'고정 시험 {selected}건 중 {completed}건 출력 검사 통과. 사람 정답 기반 정확도는 미측정입니다.')
             elif s['kind']=='workflow':
-                s.update(status='독립 검수·수정 기록 확인',takeaway='검수 지적 → 수정: 요청서 문서번호 충돌 · 잘못된 인용 · 제외한 신고의 AI 재인용 차단.')
+                s.update(status='이슈·작업트리·PR·독립 검수',takeaway='검수 후 수정: 종합 요약의 의미 과장 → 기존 신고별 AI 요약을 그대로 인용. 검사 실패도 보존합니다.')
             elif s['kind']=='roles':
-                s.update(status='역할 분리 설계 · 현재 화면은 키워드 기준선')
+                s.update(status=f'역할 분리 설계 · 현재 화면은 {LABELER_NAME}')
             elif s['kind']=='requestflow' and SCREENSHOT.exists():
-                s.update(kind='product', subtitle='공개 배포에서 직접 저장·다운로드한 실제 화면입니다. earlysignal.pages.dev · 키워드 기준선', status='실제 브라우저 저장 확인', takeaway='경보 선택 → 원문 인용·제외 → 담당자 판단 → 요청서 저장. 내려받은 문서까지 확인합니다.')
+                s.update(kind='product', subtitle=f'공개 배포에서 직접 저장·다운로드한 실제 화면입니다. earlysignal.pages.dev · {LABELER_NAME}', status='실제 브라우저 저장 확인', takeaway='경보 선택 → 원문 인용·제외 → 담당자 판단 → 요청서 저장. 내려받은 문서까지 확인합니다.')
             elif s['kind']=='requestdoc':
-                s.update(subtitle='실제 저장 문서는 수치·원문 인용·미확인 사항·담당자 판단을 함께 남깁니다.', status='실제 요청서 저장 확인', takeaway='현재 상황 요약은 비워 둡니다. 검증된 AI 요약이 없을 때 문장을 만들어 채우지 않습니다.')
+                s.update(subtitle='실제 저장 문서는 수치·원문 인용·미확인 사항·담당자 판단을 함께 남깁니다.', status='실제 요청서 저장 확인', takeaway='대표 신고의 기존 AI 요약을 그대로 연결합니다. 출력 검사를 통과해도 담당자가 원문 의미를 대조해야 합니다.')
         FINALS[2].update(status='실데이터 적재 검산 완료',takeaway='원본 1,301,663행 → 소비자 고유 신고 932,821건. 원본 스트리밍 집계와 DB 결과를 독립 대조했습니다.')
         FINALS[2]['cards'][0]=('소비자 신고','차량에 대한 소비자 신고만\n포함하는 규칙을 적용합니다.\n\n차량 제품으로 한정\n허용 신고 유형을 고정','필터 결과 검산 완료',CYAN)
         FINALS[2]['cards'][1]=('고유 신고','부품별 중복 행을\n신고 건수로 세지 않습니다.\n\n고유 신고 번호로 집계\n브랜드 + 모델, 연식 통합','적재 출력 검산 완료',AMBER)
@@ -496,12 +511,75 @@ def llm_flow(c, s):
         if i < 3: arrow(c, x+280, 354, x+296)
     box(c, 52, 459, 1176, 100)
     text(c, 'API 출력 검사', 73, 480, 21, AMBER, True)
-    completed = PILOT_DONE
-    selected = PILOT_TOTAL
-    text(c, f'고정 {selected}건 중 {completed}건 통과', 260, 479, 27, TEXT, True)
+    completed = MEASURED['labels']['llm_labeled'] if LABELER == 'llm' else PILOT_DONE
+    selected = COMPARISON['population'] if LABELER == 'llm' else PILOT_TOTAL
+    text(c, f'{selected:,}건 중 {completed:,}건 통과', 260, 479, 27, TEXT, True)
     text(c, '분류 정확도를 뜻하지 않음', 803, 483, 21, AMBER)
     text(c, '38개 조사 사례의 통계 백테스트와 별개입니다. 사람 정답 기반 분류 정확도는 미측정입니다.', 74, 522, 20, MUTED)
     takeaway(c, s['takeaway'])
+
+
+def llm_comparison(c,s):
+    if not COMPARISON:
+        raise ValueError('LLM comparison result is required for this page')
+    agreement=COMPARISON['primary_agreement'];alerts=COMPARISON['alert_cells']
+    cases={v['case_id']:v for v in COMPARISON['cases']}
+    lead_h=cases['PE19003']['llm']['lead_days'];lead_k=cases['PE19004']['llm']['lead_days']
+    bolt=cases['PE20016']['llm']['lead_days']
+    entries=[
+        ('대표 증상 라벨 일치',f"{agreement['agree']:,}/{agreement['n']:,}",
+         f"{100*agreement['agree']/agreement['n']:.2f}% · 방법 간 일치율",'정답을 맞힌 비율은 아닙니다.',CYAN),
+        ('월별 경보 칸',f"{alerts['keyword']} → {alerts['llm']}",
+         f"키워드 → LLM · 같은 {COMPARISON['detector_cells']['llm']:,}칸",'경보 증가만으로 우위를 말하지 않습니다.',AMBER),
+        ('지정 예비조사(PE) 대비',f"{lead_h}일 · {lead_k}일",'2019.03.29 개시 · 두 방식 동일',
+         f"볼트: 키워드 놓침 · LLM {abs(bolt)}일 늦음",GREEN),
+    ]
+    for i,(title,value,label,note,accent) in enumerate(entries):
+        x=52+i*400
+        box(c,x,278,376,280)
+        text(c,title,x+22,307,24,accent,True)
+        text(c,value,x+22,364,40,TEXT,True)
+        block(c,label,x+22,431,332,21,leading=29)
+        block(c,note,x+22,498,332,19,MUTED,leading=27)
+    takeaway(c,s['takeaway'])
+
+
+def case_opening(c,s):
+    pill(c,s['tag'],54,93,CYAN,15)
+    text(c,'EARLYSIGNAL  /  FINVIBE',56,152,21,MUTED,True)
+    block(c,'고객의 목소리를,\n조사의 근거로.',52,207,770,57,TEXT,True,leading=72)
+    text(c,'2018년 미국, 현대·기아 차량의 비충돌 화재.',57,390,27,CYAN,True)
+    block(c,'신고가 쌓이며 조사 청원과 검토가 이어졌습니다.\n이 과거 사건으로, 조사 근거를 정리하는 도구를 만들었습니다.',57,442,745,24,leading=36)
+    box(c,849,145,379,401)
+    text(c,'공식 기록의 흐름',875,171,25,TEXT,True)
+    for y,date,label in [(225,'2018.06.11','CAS 조사 청원'),(320,'2018.08.21','DP18-003 청원 검토'),(415,'2019.03.29','지정 예비조사(PE) 개시')]:
+        text(c,date,876,y,26,CYAN,True)
+        text(c,label,877,y+39,21,TEXT)
+    takeaway(c,'앞선 조사 이력을 함께 봅니다. 지정 PE보다 이른 날짜가 기관의 최초 인지·조사보다 앞섰다는 뜻은 아닙니다.')
+
+
+def llm_changes(c,s):
+    agree=COMPARISON['primary_agreement']; alerts=COMPARISON['alert_cells']
+    entries=[('증상 분류의 차이',f"{100*agree['agree']/agree['n']:.2f}%",f"같은 {agree['n']:,}건 중 {agree['agree']:,}건 일치",'두 방법의 일치율 · 정확도 아님',CYAN),
+             ('같은 범위의 경보',f"{alerts['keyword']} → {alerts['llm']}",f"키워드 → LLM · 같은 {COMPARISON['detector_cells']['llm']:,}칸",'경보가 많아졌다는 사실만 확인',AMBER),
+             ('대표 신고 요약',f"{BRIEF_COUNT}/{BRIEF_AUDIT['briefs']['alert_cells']}개",'기존 AI 요약 인용 · 2개 검사 실패','사람 정답 0건 · 정확도 미측정',GREEN)]
+    for i,(title,value,label,note,accent) in enumerate(entries):
+        x=52+i*400
+        box(c,x,278,376,280)
+        text(c,title,x+22,307,25,accent,True)
+        text(c,value,x+22,364,42,TEXT,True)
+        block(c,label,x+22,431,332,21,leading=29)
+        block(c,note,x+22,498,332,19,MUTED,leading=27)
+    takeaway(c,s['takeaway'])
+
+
+def adoption_codex(c,s):
+    amount=float(BRIEF_AUDIT['costs']['combined_label_and_brief_experiments_estimated_usd'])
+    cards(c,s | dict(cards=[
+        ('고객 안전 담당자','원문 검토와 조사 요청서 준비\n\n도입 가설을 현장에서 확인\n검토 시간·요청서 활용 측정\n구매 의사·예방 효과는 미확인','',CYAN),
+        ('실제 실행과 비용',f"LLM {MEASURED['labels']['llm_labeled']:,}건 출력 검사\n누적 실험 약 ${amount:.2f}\n\n실패·진단 포함 사용량 추정\n청구액·검증된 단가와 구분",'',AMBER),
+        ('Codex와 개선','이슈 → 작업트리 → PR\n구현과 독립 검수를 분리\n\n요약 과장 발견 → 공개 거부\n기존 AI 요약 인용으로 변경','',GREEN),
+    ]))
 
 
 def validation_graph(c, s):
@@ -518,10 +596,30 @@ def validation_graph(c, s):
         if value['hits']:
             box(c,x0,y,value['hits']*scale,35,fill=accent,stroke=accent,radius=4)
         text(c,f"{value['hits']} / {value['n']}",x0+19*scale+15,y+6,24,accent,True)
-    text(c,'정해진 조사 전 기간에 표적 증상 경보가 있었던 사례 수',60,563,18,MUTED)
+    text(c,'등록 기간의 표적 경보 발생 비율 · 일반 정확도나 포아송 적합성 검사는 아님',60,563,18,MUTED)
     box(c,997,279,231,278)
-    text(c,'검증의 순서',1016,301,22,CYAN,True)
-    block(c,'개발 사례로\n규칙 선택\n↓\n규칙 고정\n↓\n검증·대조 평가',1016,350,190,20,leading=30)
+    text(c,'지정 PE 대비',1016,301,22,CYAN,True)
+    cases={item['case_id']:item for item in COMPARISON['cases']}
+    h=cases['PE19003']['llm']['lead_days']; k=cases['PE19004']['llm']['lead_days']; b=abs(cases['PE20016']['llm']['lead_days'])
+    block(c,f'현대 {h}일\n기아 {k}일\n두 방식 시점 동일\n\n볼트: 키워드 놓침\nLLM {b}일 늦음',1016,350,190,20,leading=28)
+    takeaway(c,s['takeaway'])
+
+
+def investigation_context(c,s):
+    text(c,'더 앞선 2017년에도 현대 RQ17-004 · 기아 RQ17-003 리콜 검토가 있었습니다.',57,273,20,MUTED)
+    events=[('2018.06.11','CAS 청원','현대·기아 비충돌 화재에\n안전성 조사 요청',CYAN),
+            ('2018.08.21','DP18-003 검토','청원을 받아들일지\n기관이 검토 시작',AMBER),
+            ('2019.03.29','PE19-003 · PE19-004','예비조사 개시\n209일·240일의 비교 지점',GREEN)]
+    for i,(date,title,body,accent) in enumerate(events):
+        x=52+i*400
+        box(c,x,313,376,177)
+        text(c,date,x+23,334,27,accent,True)
+        text(c,title,x+23,380,24,TEXT,True)
+        block(c,body,x+23,426,330,20,leading=27)
+        if i<2:arrow(c,x+380,399,x+396,AMBER)
+    text(c,'별도 실제 문제',57,514,20,CYAN,True)
+    text(c,'2018년 12월 연료관 리콜: 엔진 교체 차량 일부의 연료관 문제로 누유·화재 위험.',221,514,18,TEXT)
+    text(c,'출처: NHTSA PE19-003·004 개시서, 18V907·934 보고서 · 사후 맥락이며 탐지 입력에는 미사용',57,550,18,MUTED)
     takeaway(c,s['takeaway'])
 
 
@@ -536,10 +634,12 @@ def technical_stats(c, s):
 def comparison_stats(c,s):
     source=json.loads((FIGURES/'source.json').read_text())
     alt=source['example']['comparison_binomial']
+    comparison_p=f"{alt['p_value']:.4g}" if alt['p_value'] is not None else '계산 불가'
+    observed=source['example']['observed']
     cards(c,s | dict(cards=[
-        ('이항 비교 계산',f"전체 신고 중 증상 비율 비교\n과거 {alt['historical_category_sum']}/{alt['historical_total_sum']} → 이번 달 17/108\n\np = {alt['p_value']:.4f}\n코드에서 비교용으로 계산\n주 경보·평가에는 미사용",'',CYAN),
-        ('검토 업무량 관측',f"차종·월당 경보 수\n사례 {MEASURED['burden']['case_alerts_per_group_month']:.3f} · 대조 {MEASURED['burden']['control_alerts_per_group_month']:.3f}\n\n등록 평가창의 관측치\n증상별 경보를 합산한 값\n현업 검토 시간은 미측정",'',AMBER),
-        ('단일 차종 보조 분석','같은 단위로 좁혀 비교\n사례 8/20 · 대조 1/19\n\n기존 주 분석 결과는 보존\n결과를 보고 규칙 미조정\n차종 중복 등 한계는 유지','',GREEN),
+        ('이항 비교 계산',f"전체 신고 중 증상 비율 비교\n과거 {alt['historical_category_sum']}/{alt['historical_total_sum']} → 이번 달 {observed}/{alt['current_total']}\n\np = {comparison_p}\n코드에서 비교용으로 계산\n주 경보·평가에는 미사용",'',CYAN),
+        ('키워드 경보 업무량',f"차종·월당 경보 수\n사례 {MEASURED['burden']['case_alerts_per_group_month']:.3f} · 대조 {MEASURED['burden']['control_alerts_per_group_month']:.3f}\n\n등록 평가창의 관측치\n증상별 경보를 합산한 값\n현업 검토 시간은 미측정",'',AMBER),
+        ('키워드 보조 분석','단일 차종으로 좁혀 비교\n사례 8/20 · 대조 1/19\n\n기존 주 분석 결과는 보존\n결과를 보고 규칙 미조정\n차종 중복 등 한계는 유지','',GREEN),
     ]))
 
 
@@ -568,9 +668,9 @@ def proposal_scope(c,s):
         text(c,title,x+13,292,22,CYAN,True)
     rows=[
         ('신호 추출','고정 16개 증상 코드로 분류\n위험 요소·인용 출력 검사','별도 부품 추출 미구현\n자유 군집화·벡터 검색 없음','같은 표본의 사람 정답 대조\n검수 예시는 평가와 분리'),
-        ('변화 탐지','월별 집계·포아송 경보\n현재 제품은 키워드 기준선','LLM 50건 출력 검사 완료\nAI 연결 전 임시 기준선','전체 라벨·요약 실행 후\n출력·근거·사람 정답 검증'),
-        ('신호 브리프','원문·추세·인용·제외 제공\n담당자 판단을 요청서로 저장','AI 상황 요약 실사용 전\n유사 과거 사례 검색 미구현','원래 기획의 검색 기능 보완\n근거·인용·시점 검증'),
-        ('과거 재현','접수일 기준으로 잘라 계산\n공식 조사 대비 선행일 측정','당시 공개 파일 수정 이력은\n복원하지 못한 한계','공개 가능 시점·자료 변경\n민감도 분석 필요'),
+        ('변화 탐지',f'월별 집계·포아송 경보\n현재 제품은 {LABELER_NAME}','주 38사례 검증은 키워드\n방법 간 일치율 ≠ 정확도','전문가의 원문·정답 검수\n현업 검토 시간·효용 측정'),
+        ('신호 브리프','대표 신고의 AI 요약 인용\n담당자 판단을 요청서로 저장','새 종합 문장 대신 기존 요약\n유사 과거 사례 검색 미구현','원래 기획의 검색 기능 보완\n근거·인용·시점 검증'),
+        ('과거 재현','접수일 기준으로 잘라 계산\n지정 조사일 대비 일수 측정','당시 공개 파일 수정 이력은\n복원하지 못한 한계','공개 가능 시점·자료 변경\n민감도 분석 필요'),
     ]
     for r,values in enumerate(rows):
         y=333+r*57
@@ -601,38 +701,60 @@ def rag_scope(c, s):
 def llm_detail(c,s):
     cards(c,s | dict(cards=[
         ('신고 분류 출력','주 증상 1개·보조 최대 2개\n위험 요소 6개·심각도 1~3\n\n원문에 있는 인용 200자 이내\n한국어 요약 40자 이내\n모델·프롬프트·원문 해시 저장','',CYAN),
-        ('상황 요약 경로','완성된 LLM 근거만 입력\n해당 칸 최대 10건 고정 선택\n\n수치 문장은 코드가 작성\nLLM 상황 문장마다 #신고번호\n다른 칸 인용은 폐기','',AMBER),
-        ('현재 확인한 범위',f"API 출력 검사: {PILOT_DONE}/{PILOT_TOTAL}건 통과\n초기 인용 실패 14건은 수정\n\n제품은 키워드 기준선\n사람 정답 정확도는 미측정\n전체 7,502건 결과 대기",'',GREEN),
+        ('대표 신고 요약 선택','같은 경보 근거 최대 10건\nAI는 번호 1~3개만 선택\n\n기존 AI 요약을 그대로 복사\n신고 번호로 원문 연결\n수량·시점·인용 검사는 유지','',AMBER),
+        ('사람 정답 검수','독립 30건 검수 자료 준비\n사용자가 직접 검수 시도\n\n전문성·시간 제약으로 미완료\n사람 정답 정확도는 미측정\n전문가 검수는 후속 계획','',GREEN),
+    ]))
+
+
+def brief_revision(c,s):
+    if BRIEF_FIRST_RUN is None:
+        raise ValueError('Brief revision requires the preserved initial run result')
+    population=BRIEF_FIRST_RUN['population']
+    latest=BRIEF_RUNS[-1]
+    if latest['completed'] + latest['cache_reused'] != BRIEF_COUNT or latest['cohort_size'] != population:
+        raise ValueError('Public representative summaries and final cohort result disagree')
+    if BRIEF_AUDIT is None or BRIEF_AUDIT['briefs']['accepted_current_mode'] != BRIEF_COUNT:
+        raise ValueError('Public representative summaries require matching final audit')
+    cards(c,s | dict(cards=[
+        ('1. 자유 종합',f"{BRIEF_FIRST_RUN['api_responses']}회 응답 · {BRIEF_FIRST_RUN['completed']}/{population}개 통과\n\n인용 검사 실패를 보존\n실패 문장은 공개하지 않음\n재시도 비용도 기록",'실제 실행 · 공개 불가',RED),
+        ('2. 문장별 구조화','첫 1개는 형식 검사 통과\n\n연기·화재·위치를 묶으며\n일부 인용보다 의미가 넓어짐\n제공 요약 대조 후 공개 거부','형식 통과 ≠ 의미 정확성',AMBER),
+        ('3. 기존 요약 인용',f"{BRIEF_COUNT}/{population}개 공개 출력\n\nAI가 신고 번호만 선택\n기존 신고별 요약 그대로 연결\n{latest['failed']}개는 수량 검사에서 거부",'실패를 통과시키려 수정하지 않음',GREEN),
     ]))
 
 
 def revise_stat_story(prelim, finals):
     source = json.loads((FIGURES / 'source.json').read_text())
+    if source['labeler'] != LABELER or source.get('validation_labeler') != 'keyword':
+        raise ValueError('Rebuild figures: console and figure label sources disagree')
+    hashes = {entry['path']: entry['sha256'] for entry in source['sources']}
+    for rel in ('web/public/data/console.json', 'web/public/data/meta.json'):
+        if hashes.get(rel) != hashlib.sha256((REPO/rel).read_bytes()).hexdigest():
+            raise ValueError(f'Rebuild figures: stale source {rel}')
     # Figure source is produced independently from current public JSON and detector math.
     demo = source['example']
     demo['ratio'] = demo['observed'] / demo['baseline']
     monthly = slide('이번 달 신고를, 지난 12개월과 비교합니다.',
-        '실제 키워드 집계 | HYUNDAI SONATA · 화재·과열 · 2018년 8월', 'figure',
+        f"실제 {LABELER_NAME} 집계 | {demo['display_name']} · {demo['target_month'][:7]} 접수분", 'figure',
         figure='sonata-monthly-baseline.png',
         metrics=[('이번 달', f"{demo['observed']}건", '고유 신고 번호로 집계'),
-                 ('직전 12개월 평균', f"{demo['baseline']:.2f}건", '이번 달은 평균에서 제외'),
-                 ('평소 대비', f"{demo['ratio']:.2f}배", '2018-09-01부터 확인 가능')],
-        status='실제 신고 건수 · 키워드 기준선',
+                 (f"직전 {demo['baseline_months']}개월 기준선", f"{demo['baseline']:.2f}건", '이번 달은 평균에서 제외'),
+                 ('평소 대비', f"{demo['ratio']:.2f}배", f"{demo['available']}부터 확인 가능")],
+        status=f'실제 신고 건수 · {LABELER_NAME}',
         takeaway='접수일로 월을 나눕니다. 0건인 달도 포함하고, 선택한 기준일 뒤의 신고는 보지 않습니다.',
         refs='E04 · E07 · E19',time=25)
     poisson=slide('평소에도 이만큼 나올 수 있는지 묻습니다.',
         '포아송 모형: 평소 평균이 같은 상태에서 이번 달 건수 이상이 나올 확률을 계산합니다.', 'figure',
         figure='poisson-right-tail.png',
-        metrics=[('관측 건수 이상 확률', f"p = {demo['p_value']:.6f}", '포아송 모형 아래의 확률'),
-                 ('경보 조건', 'p < 0.001', '그리고 월 3건 이상'),
-                 ('이번 사례', '두 조건 충족', '원문을 검토할 후보로 표시')],
+        metrics=[('관측 건수 이상 확률', f"{demo['p_value']*100:.3g}%", f"p = {demo['p_value']:.3g}"),
+                 ('경보 조건', f"p < {source['rule']['alpha']:g}", f"그리고 월 {source['rule']['min_count']}건 이상"),
+                 ('이번 사례', '두 조건 충족' if demo['alert'] else '경보 조건 미충족', '평소보다 이례적인 증가' if demo['alert'] else '이달 경보로 표시하지 않음')],
         status='통계의 역할 · 경보 후보 판단',
         takeaway='p값은 결함일 확률이 아닙니다. 배수가 커도 확률과 최소 건수 조건을 함께 통과해야 합니다.',
         refs='E04 · E19',time=25)
     llm=slide('LLM은 문장을 정해진 항목으로 바꿉니다.',
-        '직접 분류 → 출력 검사 → 캐시 → 월별 집계. 현재 제품의 통계는 키워드 기준선입니다.', 'llm_flow',
-        status='고정 50건 API 출력 검사 완료 · 분류 정확도 미측정',time=25,refs='E02 · E10 · E11 · E21',
-        takeaway='같은 신고의 키워드·LLM 분류를 비교하고, 사람이 확인한 정답으로 정확도를 따로 검증합니다.')
+        f'직접 분류 → 출력 검사 → 캐시 → 월별 집계. 현재 제품은 {LABELER_NAME}입니다.', 'llm_flow',
+        status=f"{MEASURED['labels']['llm_labeled']:,}건 LLM 출력 검사 완료 · 분류 정확도 미측정" if LABELER == 'llm' else '고정 50건 API 출력 검사 완료 · 분류 정확도 미측정',time=25,refs='E02 · E10 · E11 · E21',
+        takeaway='사람 정답 검수는 전문성·시간 제약으로 당일 미완료입니다. 방법 간 일치율을 정확도로 해석하지 않습니다.')
     val=slide('경보 규칙과, 그 규칙의 검증을 나눕니다.',
         '규칙 선택에 쓴 개발용(dev)과 고정 규칙으로 평가한 검증용(holdout)을 분리했습니다.', 'validation_graph',
         status='등록 사례·대조군 · 키워드 백테스트',time=25,refs='E08 · E09 · E20',
@@ -645,23 +767,35 @@ def revise_stat_story(prelim, finals):
         '원래 기획의 ‘유사 과거 사례’는 아직 미구현입니다. pgvector/RAG는 이를 보완하기 위한 설계입니다.', 'rag_scope',
         status='사용자 승인 확장 설계 · 현재 미구현',time=0,appendix=True,refs='E02 · E21 · E22',
         takeaway='분류 검증을 먼저 완료합니다. RAG는 근거 검색 확장으로 설계하며, 효과 지표는 아직 측정하지 않았습니다.')
-    detail=slide('부록. 분류와 상황 요약은 서로 다른 호출입니다.',
-        '라벨 분류는 개별 신고를, 상황 요약은 같은 경보 칸의 선택된 근거만 다룹니다.', 'llm_detail',
+    detail=slide('부록. 분류와 대표 신고 선택을 구분합니다.',
+        '분류는 개별 신고를 읽습니다. 대표 요약 선택은 같은 경보 칸의 기존 요약만 다룹니다.', 'llm_detail',
         status='현재 코드·캐시의 실제 범위',time=0,appendix=True,refs='E02 · E06 · E10 · E21',
-        takeaway='인용 실패 14건은 원문 후보 번호를 재선택해 통과했습니다. 전체 7,502건과 데모 요약의 추가 실행은 승인됐으며 결과를 기다립니다.')
-    # Compact core story preserves the two statistical chart pages in the timed body.
-    main=[prelim[0]|dict(time=15),prelim[1]|dict(time=15),prelim[2]|dict(time=10),llm,
-          monthly,poisson,val,prelim[4]|dict(time=15,subtitle='38회 과거 경보 재계산 · 독립 계산 64칸 대조. 당시 파일의 공개·수정 이력은 복원하지 못했습니다.'),prelim[5]|dict(time=15),
-          prelim[3]|dict(time=50),prelim[7]|dict(time=10),prelim[8]|dict(time=10)]
-    appendix_eval=finals[14] | dict(title='부록. 등록 평가와 선행 일수의 정의.',appendix=True,time=0)
-    extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. AI·유사 사례 검색의 미완료를 완료로 표시하지 않습니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
-    fm=[s | dict(time=t) for s,t in zip(main,[15,25,25,40,45,45,50,35,40,100,35,25])]
+        takeaway=f'분류 시험의 인용 실패 14건은 원문 후보 선택으로 개선했습니다. 대표 신고 요약 {BRIEF_COUNT}개는 별도 출력입니다.')
+    brief=slide('부록. 형식 통과 뒤에도 의미를 검수했습니다.',
+        '신고별 기존 AI 요약을 그대로 인용하도록 사용자가 선택했습니다. 새 종합 문장을 만들지 않습니다.', 'brief_revision',
+        status='실패·의미 과장·사용자 선택·수정 기록',time=0,appendix=True,refs='E06 · E27',
+        takeaway='기존 AI 요약 자체의 의미 정확도는 미측정입니다. 대표 인용을 전체 신고의 공통 상황이나 원인으로 확대하지 않습니다.')
+    # The user-approved nine-page narrative preserves a 60-second demo and two statistics pages.
+    opening=slide('고객의 목소리를, 조사의 근거로.', '현대·기아의 실제 과거 사건에서 출발합니다.', 'case_opening',tag='4분 예선 · 발표자료',time=25,refs='E01 · E28 · E29')
+    roles_slide=prelim[2]|dict(time=20,takeaway=f"LLM {MEASURED['labels']['llm_labeled']:,}건 출력 검사 완료. 의미상 분류 정확도는 미측정이며 조사 착수는 담당자가 결정합니다.")
+    demo_slide=prelim[3]|dict(title='원문을 읽고, 조사 요청서를 완성합니다.',time=60,status='60초 실제 제품 시연 · 저장·다운로드 확인')
+    poisson.update(time=35,refs='E04 · E07 · E19 · E20',takeaway='p값은 결함 확률이 아닙니다. 미래 접수 차단·키워드 38회 재계산 일치를 확인했고, 분포 적합성은 미검증입니다.')
+    val.update(title='결과와 놓친 사례를 함께 공개합니다.',status='38사례 키워드 검증 · 오른쪽은 동일 데모 비교',refs='E08 · E09 · E20 · E26 · E28',takeaway='209·240일은 지정 2019년 PE 개시일 대비입니다. 앞선 청원·검토가 있어 기관의 최초 인지·조사보다 이르다는 뜻은 아닙니다.')
+    changes=slide('LLM이 바꾼 점과, 아직 모르는 점.', '같은 신고의 분류와 경보가 달라졌습니다. 사람 정답 없이 더 정확해졌다고 말하지 않습니다.', 'llm_changes',time=15,status='7,502건 분류 비교 · 별도 요약 출력 검사',refs='E10 · E11 · E26 · E27',takeaway='독립 30건 검수를 시도했지만 전문성·시간 제약으로 미완료입니다. 일치율·검사 통과를 정확도로 부르지 않습니다.')
+    closing=slide('더 이른 조사 착수를 돕는 도구로.', '도입 가능성은 현장에서 검증합니다. 구현·검수·수정 과정은 근거와 함께 남겼습니다.', 'adoption_codex',time=20,status='도입 가설 · 실제 실험 · Codex 협업 기록',refs='E12 · E13 · E14 · E15 · E27',takeaway='고객의 목소리를, 조사의 근거로. 현업 검토 시간과 예방 효과는 아직 검증하지 않았습니다.')
+    main=[opening,prelim[1]|dict(time=15,title='흩어진 고객의 목소리에서, 조사할 이유를 찾습니다.'),roles_slide,demo_slide,monthly,poisson,val,changes,closing]
+    appendix_eval=slide('부록. 지정 예비조사 이전에도 검토가 있었습니다.', '209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.', 'investigation_context',appendix=True,time=0,status='공식 사건 이력 · 비교 시점의 한계',refs='E08 · E09 · E28 · E29',takeaway='리콜 원인을 데모의 모든 신고에 적용하지 않습니다. 날짜 비교는 실제 조사 착수·사고 예방을 앞당긴 효과가 아닙니다.')
+    extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. 사람 정답 검수·유사 사례 검색은 미완료로 남깁니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
+    extra.insert(4,brief)
+    extra.insert(0,llm | dict(title='부록. '+llm['title'],appendix=True,time=0))
+    fm=[s | dict(time=t) for s,t in zip(main,[40,25,45,100,50,65,60,40,55])]
     fm[0]['tag']='결선 · 8분 발표 + 2분 질의응답'
-    fm[-1]=fm[-1] | dict(takeaway='8분 발표·데모 종료 → 2분 질의응답. 근거 계산과 미사용 기술의 범위는 부록에서 확인합니다.')
+    fm[3]=fm[3] | dict(status='100초 실제 시연·설명 · 마지막 10초는 후속 설계')
+    fm[-1]=fm[-1] | dict(takeaway='고객의 목소리를, 조사의 근거로. 8분 발표를 마치고 2분 질의응답에서 검증 근거와 한계를 설명합니다.')
     prelim_result=main+[dict(s) for s in extra]
     finals_result=fm+[dict(s) for s in extra]+[s | dict(appendix=True,time=0) for s in [finals[12],finals[13],finals[15]]]
     for deck in (prelim_result,finals_result):
-        for i,item in enumerate(deck[12:],1):
+        for i,item in enumerate(deck[9:],1):
             item['title']=item['title'].replace('부록. ', '').replace('부록 1. ', '').replace('부록 2. ', '').replace('부록 4. ', '')
             item['title']=f'부록 {i}. '+item['title']
     return prelim_result,finals_result
@@ -672,20 +806,32 @@ def main():
     ap.add_argument('--output-dir',type=Path,default=ROOT/'output'/'pdf')
     ap.add_argument('--font-dir',type=Path,default=ROOT/'assets')
     args=ap.parse_args()
+    if LABELER == 'llm':
+        if not CAPTURE_META or CAPTURE_META.get('labeler') != LABELER:
+            raise ValueError('LLM presentation requires a verified LLM product capture')
+        if CAPTURE_META.get('console_sha256') != hashlib.sha256((REPO/'web/public/data/console.json').read_bytes()).hexdigest():
+            raise ValueError('Product capture and current console do not match')
+        if CAPTURE_META.get('image_sha256') != hashlib.sha256(SCREENSHOT.read_bytes()).hexdigest():
+            raise ValueError('Product capture image does not match its provenance')
+        if CAPTURE_META.get('detail_image_sha256') != hashlib.sha256(DETAIL_SCREENSHOT.read_bytes()).hexdigest():
+            raise ValueError('Saved request capture image does not match its provenance')
     pdfmetrics.registerFont(TTFont('KR',str(args.font_dir/'IBMPlexSansKR-Regular.ttf')))
     pdfmetrics.registerFont(TTFont('KR-Bold',str(args.font_dir/'IBMPlexSansKR-SemiBold.ttf')))
     args.output_dir.mkdir(parents=True,exist_ok=True)
     prelim,finals=prepare_slides()
     prelim,finals=revise_stat_story(prelim,finals)
-    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,technical_stats=technical_stats,rag_scope=rag_scope,llm_detail=llm_detail,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
+    RENDERERS.update(case_opening=case_opening,llm_changes=llm_changes,adoption_codex=adoption_codex,product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,investigation_context=investigation_context,rag_scope=rag_scope,llm_detail=llm_detail,brief_revision=brief_revision,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
     assert sum(s['time'] for s in prelim)==240
     assert sum(s['time'] for s in finals)==480
-    assert sum(not s.get('appendix', False) for s in finals)==12
+    assert sum(not s.get('appendix', False) for s in finals)==9
+    assert sum(not s.get('appendix', False) for s in prelim)==9
+    assert prelim[3]['time']==60
+    assert all(prelim[i]['kind']=='figure' for i in (4,5))
     build('4분 예선',prelim,args.output_dir/'EarlySignal-preliminary-4min-DRAFT.pdf')
     build('결선 8분 + Q&A 2분',finals,args.output_dir/'EarlySignal-finals-10min-DRAFT.pdf')
     source={'draft':True,'measured_product_results_included':bool(MEASURED),'product_capture':str(SCREENSHOT.relative_to(ROOT)) if SCREENSHOT.exists() else None,'finals_presentation_seconds':480,'finals_qa_seconds':120,'appendix_seconds':0,'preliminary':prelim,'finals':finals}
     (ROOT/'storyboard.json').write_text(json.dumps(source,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print('Built preliminary 12 + 7 appendix pages / 240 seconds; finals 12 + 10 appendix pages / 480 seconds + 120 seconds Q&A.')
+    print(f'Built preliminary 9 + {len(prelim)-9} appendix pages / 240 seconds; finals 9 + {len(finals)-9} appendix pages / 480 seconds + 120 seconds Q&A.')
 
 
 if __name__=='__main__':

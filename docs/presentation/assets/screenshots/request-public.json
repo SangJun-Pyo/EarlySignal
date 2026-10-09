@@ -1,0 +1,30 @@
+{
+  "image": "assets/screenshots/request-public-llm-top.jpg",
+  "image_sha256": "5afb10fc2fabd06d86cb6b92b02fc1428d43a8e5a9e1ad56193f3274537ef2f5",
+  "detail_image": "assets/screenshots/request-public-llm-detail.jpg",
+  "detail_image_sha256": "8a3319bc42628a42c1c33a2818178e4af0ff8672721989621a2f18025cc86651",
+  "labeler": "llm",
+  "console_sha256": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8",
+  "source_url": "https://earlysignal.pages.dev/",
+  "deployed_commit": "8b50a7575ba8cb3d0b46f9dd5192bc51e1391942",
+  "saved_request_at": "2026-10-09T04:17:28.455Z",
+  "saved_request_local": "2026-10-09 13:17:28 KST",
+  "captured_at": null,
+  "capture_note": "Captured by root after saving the request; exact screenshot timestamp was not separately recorded. Original images copied without editing.",
+  "browser_verification": {
+    "cited": "11115234",
+    "excluded": "11118964",
+    "decision": "조사 착수",
+    "next_actions": [
+      "원문 정밀 검토",
+      "수리·보증 기록 조회"
+    ],
+    "markdown_downloaded": true,
+    "decisions_json_downloaded": true,
+    "designated_pe_context_visible": true,
+    "markdown_sections": 7,
+    "source_summary_citations": 3,
+    "decision_records": 4
+  },
+  "provenance": "Root agent directly verified production and supplied both original screenshots and the saved timestamp."
+}
