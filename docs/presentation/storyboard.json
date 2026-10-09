@@ -1,5 +1,5 @@
 {
-  "draft": true,
+  "draft": false,
   "measured_product_results_included": true,
   "product_capture": "assets/screenshots/request-public-llm-top.jpg",
   "finals_presentation_seconds": 480,
@@ -530,5 +530,6 @@
       "status": "실패·민감도 분석 확인",
       "appendix": true
     }
-  ]
+  ],
+  "status": "presentation"
 }
