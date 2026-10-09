@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "earlysignal"
+version = "0.1.0"
+description = "Reproducible consumer complaint safety signal monitoring"
+requires-python = ">=3.10"
+dependencies = ["duckdb>=1.1", "pandas>=2.2", "numpy>=1.26", "scipy>=1.12", "pyyaml>=6", "python-dotenv>=1", "openai>=1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "jsonschema>=4"]
+
+[project.scripts]
+earlysignal = "es.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["pipeline/tests"]
