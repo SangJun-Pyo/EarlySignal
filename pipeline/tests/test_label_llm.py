@@ -24,6 +24,12 @@ def test_cache_invalidates_changed_source_prompt_or_model():
     original = cache_key("1", TEXT, MODEL, "a")
     assert all(original != key for key in (cache_key("1", TEXT+"new", MODEL, "a"), cache_key("1", TEXT, "other", "a"), cache_key("1", TEXT, MODEL, "b")))
 
+def test_known_identifier_with_korean_particle_is_rejected_before_cache():
+    result = label()
+    result["summary_ko"] = "Exampleville에서 주행 중 연기 발생"
+    with pytest.raises(ValueError, match="sensitive_output"):
+        validate_label(result, TEXT, denied=["Exampleville"])
+
 def test_interrupted_cache_tail_is_repaired(tmp_path):
     path = tmp_path / "cache.jsonl"
     path.write_text('{"status":"ok"}\n{"broken":', encoding="utf-8")
@@ -47,7 +53,15 @@ def test_pilot_bounds_calls_and_resume_without_network(tmp_path):
     first = asyncio.run(label_rows(rows, root=tmp_path, limit=2, client=client))
     assert first["completed"] == 2 and len(calls) == 2
     second = asyncio.run(label_rows(rows, root=tmp_path, limit=2, client=client))
-    assert second["completed"] == 1 and second["cache_reused"] == 2 and len(calls) == 3
+    assert second["completed"] == 0 and second["cache_reused"] == 2 and len(calls) == 2
+    assert second["cohort_complete"] and second["cohort_size"] == 2
+    assert second["cohort_pending"] == 0 and second["resume_odinos"] == []
+    assert second["selected"] == 0 and second["cache_scope"] == "within_fixed_cohort"
+    assert second["estimated_population_usd"] is None  # This run contains no new usage.
+    usage = read_cache(tmp_path / "data/labels/llm_usage.jsonl")
+    cached = read_cache(tmp_path / "data/labels/labels_llm.jsonl")
+    assert {entry["cache_key"] for entry in usage} == {entry["cache_key"] for entry in cached}
+    assert all(entry["input_hash"] and entry["prompt_hash"] for entry in usage)
     assert calls[0]["response_format"]["json_schema"]["strict"] is True
 
 def test_successful_retry_keeps_quote_failure_in_metrics(tmp_path, monkeypatch):

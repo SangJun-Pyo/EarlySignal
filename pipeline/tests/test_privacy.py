@@ -47,3 +47,13 @@ def test_sensitive_values_reads_all_component_rows_only_for_requested_ids():
     assert values["3"] == [] and values["missing"] == []
     assert sensitive_values(con, []) == {}
     assert sensitive_values(con, ["1' OR 1=1 --"]) == {"1' OR 1=1 --": []}
+
+def test_known_latin_identifiers_with_korean_particles_are_still_private():
+    denied = ["Exampleville", "Example Motors", "1HGCM82633A"]
+    for text in ("Exampleville에서 연기 발생", "차량을Example Motors에 맡겼다", "1HGCM82633A의 신고"):
+        assert privacy_matches(text, denied) == ["known_identifier"]
+        assert not privacy_matches(redact_text(text, denied=denied), denied)
+        assert public_text(text, denied=denied) == "[식별정보가 포함된 문장 생략]"
+    # A different longer Latin name is not the known identifying value.
+    assert not privacy_matches("Normalville에서 연기 발생", ["Normal"])
+    assert not privacy_matches("Caféville에서 연기 발생", ["Caf"])

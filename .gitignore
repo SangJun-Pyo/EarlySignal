@@ -16,3 +16,6 @@ web/out/
 data/private/
 docs/presentation/rendered/
 docs/presentation/tmp/
+build/
+*.tsbuildinfo
+data/labels/

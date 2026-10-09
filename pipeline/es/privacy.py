@@ -27,7 +27,12 @@ def _denied_pattern(denied: Iterable[str] | None):
     values = _normalized_values(denied)
     if not values:
         return None
-    parts = [r"(?<!\w)" + re.escape(value).replace(r"\ ", r"\s+") + r"(?!\w)" for value in values]
+    # Korean summaries attach particles directly to Latin names ("Exampleville에서").
+    # Hangul is a Unicode word character, so plain \w boundaries would miss them.
+    # Preserve word boundaries for other scripts to avoid matching Normal in Normalville.
+    left = r"(?:(?<!\w)|(?<=[가-힣]))"
+    right = r"(?:(?!\w)|(?=[가-힣]))"
+    parts = [left + re.escape(value).replace(r"\ ", r"\s+") + right for value in values]
     return re.compile("|".join(parts), re.I)
 
 def sensitive_values(con, odinos: Iterable[str]) -> dict[str, list[str]]:
