@@ -13,6 +13,8 @@ test("draft has seven sections, traceable selected-month facts and no future ser
   assert.doesNotMatch(result.markdown, /999건/);
   assert.match(result.markdown, /키워드 분류/);
   assert.doesNotMatch(result.markdown, /AI 라벨|AI 작성/);
+  assert.match(result.markdown, /## 3\. 대표 신고 요약\n대표 신고 요약이 아직 준비되지 않았습니다/);
+  assert.doesNotMatch(result.markdown, /AI 요약 인용·담당자 검토/);
   assert.equal(result.record, null);
   assert.deepEqual(data, original);
 });
@@ -45,11 +47,21 @@ test("invalid, contradictory and all-excluded selections cannot create a request
 
 test("valid brief references are retained once alongside human citations", () => {
   const data = fixture();
-  data.briefs[KEY] = `연기가 언급됐습니다(#${IDS[1]}, #${IDS[1]}).`;
+  data.labeler = "llm";
+  for (const row of Object.values(data.complaints)) {
+    row.label_source = "llm";
+    row.summary_ko = "연기가 발생했다는 신고";
+  }
+  data.briefs[KEY] = `(#${IDS[1]}, #${IDS[1]}) ${data.complaints[IDS[1]].summary_ko}`;
   const result = createRequest(input(data, { cited: [IDS[0]] }));
   assert.deepEqual(result.briefCited, [IDS[1]]);
   assert.equal(result.briefSuppressed, false);
-  assert.match(result.markdown, /AI 요약이 인용/);
+  assert.match(result.markdown, /## 3\. 대표 신고 요약 \(AI 요약 인용·담당자 검토\)/);
+  assert.ok(result.markdown.includes(data.briefs[KEY]));
+  assert.match(result.markdown, /기존 신고별 AI 요약을 그대로 인용합니다\. 원문과의 의미 일치는 담당자가 확인해야 합니다/);
+  assert.match(result.markdown, /대표 요약 인용/);
+  assert.match(result.markdown, /AI 라벨/);
+  assert.doesNotMatch(result.markdown, /AI 작성|종합/);
 });
 
 test("one excluded or unknown brief citation suppresses the entire brief", () => {
@@ -60,6 +72,8 @@ test("one excluded or unknown brief citation suppresses the entire brief", () =>
     assert.equal(result.briefSuppressed, true);
     assert.deepEqual(result.briefCited, []);
     assert.doesNotMatch(result.markdown, /AI 작성/);
+    assert.doesNotMatch(result.markdown, /AI 요약 인용·담당자 검토/);
+    assert.match(result.markdown, /대표 신고 요약을 사용하지 않았습니다/);
     assert.ok(!result.markdown.includes(text));
   }
 });
