@@ -13,6 +13,12 @@
 | [ADR-007](ADR-007-dashboard-encoding.md) | 대시보드 표현: 히트맵 색=평소 대비 배수, 기준일 이후는 두 개의 전망 띠, 데이터 연결 현황은 사실대로 |
 | [ADR-008](ADR-008-privacy-and-sources.md) | 개인정보 제외와 출처 명시 |
 | [ADR-009](ADR-009-demo-goal-investigation-request.md) | 데모 목표 = 조사 준비 끝내기, 주인공 = 조사 요청서 |
+| [ADR-010](ADR-010-parallel-work-and-evidence.md) | 병렬 개발·독립 검수·발표 근거 통합 |
+| [ADR-011](ADR-011-retrospective-time-boundaries.md) | 접수일 기준 회고 분석과 완성월 경계 |
+| [ADR-012](ADR-012-text-privacy-and-label-provenance.md) | 자유서술 식별정보 제거와 라벨 출처 |
+| [ADR-013](ADR-013-complete-llm-cache-and-scope.md) | 완전한 LLM 캐시만 연결하고 주 검증 기준선을 보존 |
+
+| [ADR-014](ADR-014-fixed-pilot-and-rate-deferral.md) | 승인 표본 고정과 서버 대기 시간 준수 |
 
 ## 새 ADR 양식
 ```

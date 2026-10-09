@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-09",
+  "checks": [
+    {
+      "pdf": "EarlySignal-preliminary-4min-DRAFT.pdf",
+      "sha256": "e3296971550a9b6f4ecb0d98ea14a22d1bf4ee073089a0b7fe63ac091c8f8ead",
+      "pages": 9,
+      "main_pages": 9,
+      "appendix_pages": 0,
+      "page_size_points": [
+        1280,
+        720
+      ],
+      "planned_presentation_seconds": 240,
+      "planned_qa_seconds": 0,
+      "draft_notice_on_each_page": true,
+      "forbidden_claims_found": false,
+      "rendered_pages": 9,
+      "visually_reviewed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "pdf": "EarlySignal-finals-10min-DRAFT.pdf",
+      "sha256": "35368ba6246c7036053a583d28c6874d2911de1ecd99f49b4eaa6824a931221e",
+      "pages": 16,
+      "main_pages": 12,
+      "appendix_pages": 4,
+      "page_size_points": [
+        1280,
+        720
+      ],
+      "planned_presentation_seconds": 480,
+      "planned_qa_seconds": 120,
+      "draft_notice_on_each_page": true,
+      "forbidden_claims_found": false,
+      "rendered_pages": 16,
+      "visually_reviewed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "font_glyph_missing": {
+    "regular": [],
+    "bold": []
+  },
+  "product_metrics_included": true,
+  "product_metric_basis": "keyword retrospective registered alert-month evaluation",
+  "actual_product_capture_included": true,
+  "ai_state": "fixed pilot 6/50 successful; full pilot and human accuracy incomplete",
+  "visual_review": "All 25 pages rendered at 1280px and visually reviewed. Five wording/source issues identified in independent review were corrected; affected pages re-rendered and reviewed.",
+  "independent_review": "Independent evidence/time audit matched source numbers and requested 38-case cutoff wording, before/after evaluation wording, lead-day anchor, human/Codex role clarity, and storyboard consistency.",
+  "source_files_sha256": {
+    "web/public/data/meta.json": "61c2c8c29e9400368c2ca6b02261639506883a7a7eff81f8c2ced5e610768d66",
+    "web/public/data/cases.json": "89c4f0f1e42a8b6f7876bfc93fdbab7c07e39a2b3b295338691e7e937f91005d",
+    "data/results/lookahead_kw.json": "8726559893c54d82b8e4c099890792d6d863150aeb2bed790d706b2fe9d6f927",
+    "data/results/llm_pilot.json": "dd0582f1249ed5cda743302a23a936aced0a57a444e312a759f550f40458ee5f",
+    "data/results/sensitivity_single_group_kw.json": "727a22dedf3ca50e1f5610ace7eacdbef6f73e8310155140296f07378869cfa9",
+    "docs/presentation/assets/screenshots/request-desktop.jpg": "3c4db1e0da76b3c6d8934caf498f879139438a9879dd844588184d9346b01325",
+    "docs/Reviews/R01-methodology.md": "da9a170b6c85c67c8116d4462faf694c4516b7da76c0a72581c676c96cabe3c7",
+    "docs/Reviews/R02-product.md": "a3f0d6674cbefba5d8c69a0ca834b232d08bb09b1064d910b247c857feaf7656",
+    "docs/Reviews/R03-integration.md": "df5afd87959bd9cfbb9b0463c5ab5f5ae2989e6855f05219df9143813570cf35"
+  },
+  "rehearsal_completed": false,
+  "deployment_capture": false,
+  "product_evidence_review_completed": true,
+  "human_label_review_completed": false,
+  "independent_review_followup": "Latest PDF text re-extracted by independent reviewer; all requested changes confirmed, no additional content blockers."
+}
