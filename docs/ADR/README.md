@@ -17,8 +17,15 @@
 | [ADR-011](ADR-011-retrospective-time-boundaries.md) | 접수일 기준 회고 분석과 완성월 경계 |
 | [ADR-012](ADR-012-text-privacy-and-label-provenance.md) | 자유서술 식별정보 제거와 라벨 출처 |
 | [ADR-013](ADR-013-complete-llm-cache-and-scope.md) | 완전한 LLM 캐시만 연결하고 주 검증 기준선을 보존 |
-
 | [ADR-014](ADR-014-fixed-pilot-and-rate-deferral.md) | 승인 표본 고정과 서버 대기 시간 준수 |
+| [ADR-015](ADR-015-bounded-evidence-brief-generation.md) | 근거 범위를 제한한 상황 요약과 캐시 재검증 |
+| [ADR-016](ADR-016-retrieval-for-evidence-review.md) | 분류 검증 후 유사 근거 검색 보완 설계 |
+| [ADR-017](ADR-017-submitted-proposal-and-delivery-scope.md) | 제출 기획과 실제 구현의 차이·판단 이유 |
+| [ADR-018](ADR-018-label-quote-diagnostics.md) | 인용 실패 진단과 실제 원문 후보 선택 |
+| [ADR-019](ADR-019-investigation-hypotheses-design-only.md) | 조사 가설과 확인 절차는 후속 설계로 구분 |
+| [ADR-020](ADR-020-independent-blind-human-review.md) | 개발 표본과 분리한 예측 비공개 사람 정답 검수 |
+| [ADR-021](ADR-021-approved-full-labeling.md) | 승인된 전체 분류와 고정 시험 결과 분리 |
+| [ADR-022](ADR-022-issue-branch-pr-review.md) | 이슈·브랜치·PR·독립 검수 연결 |
 
 ## 새 ADR 양식
 ```
