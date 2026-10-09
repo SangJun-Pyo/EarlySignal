@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "earlysignal-data-v1"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "labeler": {
+      "enum": [
+        "keyword",
+        "llm"
+      ]
+    },
+    "odate": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "target_categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "fire_thermal",
+          "electrical_failure",
+          "loss_of_power",
+          "engine_stall",
+          "engine_failure",
+          "airbag",
+          "brakes",
+          "steering",
+          "seat_belt",
+          "fuel_leak",
+          "transmission",
+          "lighting",
+          "suspension",
+          "structure_body",
+          "tires_wheels",
+          "other"
+        ]
+      }
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "months": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-01$"
+            }
+          },
+          "total": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "categories": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "enum": [
+                "fire_thermal",
+                "electrical_failure",
+                "loss_of_power",
+                "engine_stall",
+                "engine_failure",
+                "airbag",
+                "brakes",
+                "steering",
+                "seat_belt",
+                "fuel_leak",
+                "transmission",
+                "lighting",
+                "suspension",
+                "structure_body",
+                "tires_wheels",
+                "other"
+              ]
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "baseline": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "alert": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "required": [
+                "n",
+                "baseline",
+                "alert"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "months",
+          "total",
+          "categories"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "grp": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "fire_thermal",
+              "electrical_failure",
+              "loss_of_power",
+              "engine_stall",
+              "engine_failure",
+              "airbag",
+              "brakes",
+              "steering",
+              "seat_belt",
+              "fuel_leak",
+              "transmission",
+              "lighting",
+              "suspension",
+              "structure_body",
+              "tires_wheels",
+              "other"
+            ]
+          },
+          "month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$"
+          },
+          "observed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "baseline": {
+            "type": "number"
+          },
+          "p_value": {
+            "type": "number"
+          },
+          "is_target": {
+            "type": "boolean"
+          },
+          "available": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "brief": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "odino": {
+                  "type": "string"
+                },
+                "ldate": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                },
+                "fire": {
+                  "type": "boolean"
+                },
+                "crash": {
+                  "type": "boolean"
+                },
+                "injured": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "summary_ko": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "snippet": {
+                  "type": "string",
+                  "maxLength": 300
+                }
+              },
+              "required": [
+                "odino",
+                "ldate",
+                "fire",
+                "crash",
+                "injured",
+                "summary_ko",
+                "snippet"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "id",
+          "grp",
+          "category",
+          "month",
+          "observed",
+          "baseline",
+          "p_value",
+          "is_target",
+          "available",
+          "brief",
+          "evidence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "const": "demo"
+        },
+        "start": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "end_exclusive": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "registered_window_complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source",
+        "start",
+        "end_exclusive",
+        "registered_window_complete"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "contract",
+    "case_id",
+    "labeler",
+    "odate",
+    "target_categories",
+    "groups",
+    "alerts"
+  ],
+  "additionalProperties": false
+}

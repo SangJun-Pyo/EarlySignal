@@ -41,6 +41,9 @@ def detect_frame(counts, config=None):
 
 def run(con, config, args=None):
     method=getattr(args,"method","kw")
+    if method=="llm":
+        from .aggregate import run as aggregate_run
+        aggregate_run(con,config,args)
     frame=detect_frame(con.execute(f"SELECT * FROM aggregated_{method}").fetchdf(),config)
     con.register("detection_frame",frame)
     con.execute(f"CREATE OR REPLACE TABLE detections_{method} AS SELECT * FROM detection_frame")

@@ -8,7 +8,7 @@ from pathlib import Path
 import duckdb
 from .config import Config
 
-COMMANDS = {"ingest": "ingest", "scope": "scope", "label-kw": "label_kw", "aggregate": "aggregate", "detect": "detect", "backtest": "backtest"}
+COMMANDS = {"ingest": "ingest", "scope": "scope", "label-kw": "label_kw", "aggregate": "aggregate", "detect": "detect", "backtest": "backtest", "export": "export", "import-llm": "import_llm"}
 
 def main(argv=None):
     load_dotenv(Config().root / ".env")
@@ -20,8 +20,14 @@ def main(argv=None):
     sub = parser.add_subparsers(dest="command", required=True)
     for name in COMMANDS:
         command = sub.add_parser(name)
-        if name in {"aggregate", "detect", "backtest"}:
+        if name in {"aggregate", "detect", "backtest", "export"}:
             command.add_argument("--method", choices=["kw", "llm"], default="kw")
+        if name == "import-llm":
+            command.add_argument("--model")
+        if name == "export":
+            command.add_argument("--output", type=Path)
+        if name == "backtest":
+            command.add_argument("--verify-lookahead", action="store_true")
         if name == "aggregate":
             command.add_argument("--as-of")
         if name == "ingest":

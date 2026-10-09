@@ -75,6 +75,8 @@ def verify_lookahead(con,config,method="kw"):
 
 def run(con,config,args=None):
     method=getattr(args,"method","kw")
+    if method != "kw":
+        raise ValueError("LLM covers only demo; use export --method llm for a same-population comparison, not the 38-case main backtest")
     detections=con.execute(f"SELECT * FROM detections_{method}").fetchdf()
     pool=load_pool(config)
     result=evaluate(detections,pool)
@@ -93,5 +95,11 @@ def run(con,config,args=None):
     path=config.root/"data"/f"backtest_{method}.json"
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf-8")
+    flat=[]
+    for arm,items in (("case",result["cases"]),("control",result["controls"])):
+        for item in items:
+            first=item["first_alert"] or {}
+            flat.append({"arm":arm,"id":item.get("case_id",item.get("control_id")),"split":item["split"],"groups":";".join(item.get("groups",[item.get("group","")])),"target_categories":";".join(item["target_categories"]),"odate":item["odate"],"result":item["result"],"lead_days":item["lead_days"],"primary_hit":item["primary_hit"],"first_alert_month":first.get("month"),"available":first.get("available"),"alerts":item["workload"]["alerts"],"group_months":item["workload"]["group_months"],"evaluation_window_basis":result["evaluation_window_basis"]})
+    pd.DataFrame(flat).to_csv(config.root/"data/results"/"backtest.csv",index=False)
     verification=verify_lookahead(con,config,method) if getattr(args,"verify_lookahead",False) else None
     return {"lookahead":verification,"method":method,"summary":result["summary"],"representatives":[x for x in result["cases"] if x["case_id"] in ("PE19003","PE19004","PE20016")],"output":str(path.relative_to(config.root))}

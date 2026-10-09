@@ -1,0 +1,75 @@
+arm,id,split,groups,target_categories,odate,result,lead_days,primary_hit,first_alert_month,available,alerts,group_months,evaluation_window_basis
+case,PE14017,dev,JEEP|COMMANDER;JEEP|COMMANDER 4X2;JEEP|COMMANDER 4X4;JEEP|GRAND CHEROKEE,airbag;electrical_failure,2014-06-16,early,319.0,True,2013-07-01,2013-08-01,20,44,alert_month
+case,PE14022,dev,DODGE|CHARGER,electrical_failure,2014-07-22,late,-10.0,False,2014-07-01,2014-08-01,2,11,alert_month
+case,PE14028,dev,FORD|FIESTA,structure_body,2014-09-11,early,72.0,True,2014-06-01,2014-07-01,4,11,alert_month
+case,PE14030,dev,FORD|FUSION;FORD|FUSION HYBRID;LINCOLN|MKZ;LINCOLN|MKZ HYBRID;MERCURY|MILAN,steering,2014-10-02,early,93.0,True,2014-06-01,2014-07-01,8,55,alert_month
+case,PE15003,holdout,JEEP|CHEROKEE,fire_thermal,2015-01-13,late,-19.0,False,2015-01-01,2015-02-01,12,11,alert_month
+case,PE15012,holdout,SUBARU|IMPREZA,airbag,2015-04-10,missed,,False,,,0,11,alert_month
+case,PE15028,holdout,FORD|CROWN VICTORIA;MERCURY|GRAND MARQUIS,lighting,2015-08-10,missed,,False,,,0,22,alert_month
+case,PE15029,holdout,HONDA|ACCORD,airbag,2015-08-18,early,290.0,True,2014-10-01,2014-11-01,4,11,alert_month
+case,PE16003,dev,FORD|F-150,brakes,2016-02-29,early,243.0,True,2015-06-01,2015-07-01,3,11,alert_month
+case,PE16013,dev,NISSAN|VERSA,airbag,2016-09-28,early,58.0,True,2016-07-01,2016-08-01,2,11,alert_month
+case,PE16016,dev,SMART|FORTWO;SMART|FORTWO CABRIO;SMART|FORTWO COUPE,fire_thermal,2016-12-16,late,-47.0,False,2017-01-01,2017-02-01,0,33,alert_month
+case,PE16018,dev,HYUNDAI|SONATA,seat_belt,2016-12-27,missed,,False,,,6,11,alert_month
+case,PE17003,dev,JEEP|LIBERTY,airbag,2017-06-01,missed,,False,,,0,11,alert_month
+case,PE17007,dev,FORD|FUSION,steering,2017-10-23,missed,,False,,,11,11,alert_month
+case,PE18003,holdout,HYUNDAI|SONATA;HYUNDAI|SONATA HYBRID;KIA|FORTE;KIA|FORTE KOUP;KIA|SEDONA,airbag,2018-03-16,late,-16.0,False,2018-03-01,2018-04-01,3,55,alert_month
+case,PE18006,dev,MAZDA|MAZDA6,structure_body,2018-05-21,early,262.0,True,2017-08-01,2017-09-01,2,11,alert_month
+case,PE18008,dev,FORD|F-150,fire_thermal;seat_belt,2018-08-03,missed,,False,,,11,11,alert_month
+case,PE18010,holdout,FORD|E-350;FORD|E-450;FORD|ECONOLINE,transmission,2018-08-21,early,173.0,True,2018-02-01,2018-03-01,2,33,alert_month
+case,PE18011,holdout,FORD|F-250;FORD|F-250 SD;FORD|F-350;FORD|F-350 SD;FORD|F-450;FORD|F-450 SD,electrical_failure,2018-10-12,missed,,False,,,0,66,alert_month
+case,PE18016,holdout,RAM|2500;RAM|3500,steering,2018-12-17,late,-135.0,False,2019-04-01,2019-05-01,1,22,alert_month
+case,PE19003,dev,HYUNDAI|SANTA FE;HYUNDAI|SANTA FE SPORT;HYUNDAI|SONATA;HYUNDAI|SONATA HYBRID,fire_thermal;electrical_failure,2019-03-29,early,209.0,True,2018-08-01,2018-09-01,10,44,alert_month
+case,PE19004,dev,KIA|OPTIMA;KIA|OPTIMA HYBRID;KIA|SORENTO;KIA|SOUL;KIA|SOUL EV,fire_thermal;electrical_failure,2019-03-29,early,240.0,True,2018-07-01,2018-08-01,11,55,alert_month
+case,PE19008,holdout,JEEP|WRANGLER,seat_belt,2019-07-29,missed,,False,,,21,11,alert_month
+case,PE19009,holdout,SUBARU|FORESTER,airbag,2019-08-06,early,127.0,True,2019-03-01,2019-04-01,8,11,alert_month
+case,PE20014,holdout,MERCEDES-BENZ|SPRINTER 2500;MERCEDES-BENZ|SPRINTER 3500,brakes,2020-09-21,late,-41.0,False,2020-10-01,2020-11-01,1,22,alert_month
+case,PE20016,dev,CHEVROLET|BOLT EV,fire_thermal;loss_of_power;electrical_failure,2020-10-09,missed,,False,,,0,11,alert_month
+case,PE21005,holdout,TOYOTA|RAV4,fire_thermal;electrical_failure,2021-02-25,early,208.0,True,2020-07-01,2020-08-01,1,11,alert_month
+case,PE21009,dev,AUDI|A8;AUDI|RS7;AUDI|S6;AUDI|S7;AUDI|S8,engine_stall,2021-03-29,late,-33.0,False,2021-04-01,2021-05-01,0,44,alert_month
+case,PE21022,dev,NISSAN|PATHFINDER;NISSAN|PATHFINDER HYBRID,structure_body,2021-12-09,missed,,False,,,0,22,alert_month
+case,PE22008,holdout,CHRYSLER|PACIFICA;CHRYSLER|PACIFICA PLUG-IN HYBRID,loss_of_power;transmission,2022-07-22,late,-41.0,False,2022-08-01,2022-09-01,4,22,alert_month
+case,PE23001,holdout,FORD|EXPLORER;FORD|EXPLORER POLICE INTERCEPT;FORD|F-150,structure_body,2023-01-27,early,26.0,True,2022-12-01,2023-01-01,7,33,alert_month
+case,PE23002,dev,KIA|TELLURIDE,lighting,2023-01-27,late,-33.0,False,2023-02-01,2023-03-01,1,11,alert_month
+case,PE23006,holdout,TESLA|MODEL S;TESLA|MODEL X,seat_belt,2023-03-24,missed,,False,,,3,22,alert_month
+case,PE23011,holdout,HYUNDAI|IONIQ 5,loss_of_power;electrical_failure,2023-06-08,early,68.0,True,2023-03-01,2023-04-01,6,11,alert_month
+case,PE23021,dev,FORD|EXPEDITION;LINCOLN|NAVIGATOR,seat_belt,2023-11-22,early,82.0,True,2023-08-01,2023-09-01,4,22,alert_month
+case,PE23023,holdout,INFINITI|QX50;INFINITI|QX55;NISSAN|ALTIMA;NISSAN|REDUNDANT ROGUE;NISSAN|ROGUE,loss_of_power,2023-12-13,early,256.0,True,2023-03-01,2023-04-01,5,53,alert_month
+case,PE24002,holdout,FORD|BRONCO SPORT,loss_of_power;electrical_failure,2024-01-31,late,-91.0,False,2024-04-01,2024-05-01,3,11,alert_month
+case,PE24010,holdout,FISKER|OCEAN,structure_body,2024-04-01,late,-30.0,False,2024-04-01,2024-05-01,0,5,alert_month
+control,control-01,dev,JEEP|COMPASS,airbag;electrical_failure,2014-06-16,missed,,False,,,0,11,alert_month
+control,control-02,dev,DODGE|CALIBER,electrical_failure,2014-07-22,missed,,False,,,1,11,alert_month
+control,control-03,dev,FORD|FIVE HUNDRED,structure_body,2014-09-11,missed,,False,,,0,11,alert_month
+control,control-04,dev,LINCOLN|TOWN CAR,steering,2014-10-02,missed,,False,,,0,11,alert_month
+control,control-05,holdout,JEEP|PATRIOT 4X4,fire_thermal,2015-01-13,missed,,False,,,0,11,alert_month
+control,control-06,holdout,SUBARU|FORESTER,airbag,2015-04-10,missed,,False,,,3,11,alert_month
+control,control-07,holdout,FORD|FREESTYLE,lighting,2015-08-10,missed,,False,,,0,11,alert_month
+control,control-08,holdout,HONDA|FIT,airbag,2015-08-18,missed,,False,,,0,11,alert_month
+control,control-09,dev,FORD|WINDSTAR,brakes,2016-02-29,missed,,False,,,0,11,alert_month
+control,control-10,dev,NISSAN|XTERRA,airbag,2016-09-28,missed,,False,,,0,11,alert_month
+control,control-11,dev,SMART|FORTWO COUPE ELECTRIC,fire_thermal,2016-12-16,missed,,False,,,0,5,alert_month
+control,control-12,dev,HYUNDAI|ELANTRA,seat_belt,2016-12-27,missed,,False,,,0,11,alert_month
+control,control-13,dev,JEEP|COMPASS 4X4,airbag,2017-06-01,missed,,False,,,0,11,alert_month
+control,control-14,dev,FORD|TAURUS,steering,2017-10-23,missed,,False,,,0,11,alert_month
+control,control-15,holdout,HYUNDAI|TUCSON,airbag,2018-03-16,missed,,False,,,0,11,alert_month
+control,control-16,dev,MAZDA|MAZDA3,structure_body,2018-05-21,missed,,False,,,3,11,alert_month
+control,control-17,dev,FORD|RANGER,fire_thermal;seat_belt,2018-08-03,missed,,False,,,8,11,alert_month
+control,control-18,holdout,FORD|MUSTANG GT,transmission,2018-08-21,missed,,False,,,2,11,alert_month
+control,control-19,holdout,FORD|FIESTA,electrical_failure,2018-10-12,missed,,False,,,0,11,alert_month
+control,control-20,holdout,RAM|PROMASTER,steering,2018-12-17,missed,,False,,,0,11,alert_month
+control,control-21,dev,HYUNDAI|GENESIS,fire_thermal;electrical_failure,2019-03-29,missed,,False,,,0,11,alert_month
+control,control-22,dev,KIA|RIO,fire_thermal;electrical_failure,2019-03-29,missed,,False,,,1,11,alert_month
+control,control-23,holdout,JEEP|CHEROKEE,seat_belt,2019-07-29,missed,,False,,,11,11,alert_month
+control,control-24,holdout,SUBARU|OUTBACK,airbag,2019-08-06,early,127.0,True,2019-03-01,2019-04-01,4,11,alert_month
+control,control-25,holdout,MERCEDES-BENZ|GLE350,brakes,2020-09-21,missed,,False,,,0,11,alert_month
+control,control-26,dev,CHEVROLET|AVEO,fire_thermal;loss_of_power;electrical_failure,2020-10-09,missed,,False,,,0,11,alert_month
+control,control-27,holdout,TOYOTA|CAMRY,fire_thermal;electrical_failure,2021-02-25,missed,,False,,,0,11,alert_month
+control,control-28,dev,AUDI|A4 ALLROAD,engine_stall,2021-03-29,missed,,False,,,0,11,alert_month
+control,control-29,dev,NISSAN|MURANO,structure_body,2021-12-09,missed,,False,,,2,11,alert_month
+control,control-30,holdout,CHRYSLER|SEBRING,loss_of_power;transmission,2022-07-22,missed,,False,,,0,11,alert_month
+control,control-31,holdout,FORD|F-250,structure_body,2023-01-27,missed,,False,,,0,11,alert_month
+control,control-32,dev,KIA|SEDONA,lighting,2023-01-27,missed,,False,,,0,11,alert_month
+control,control-33,holdout,HYUNDAI|SANTA CRUZ,loss_of_power;electrical_failure,2023-06-08,missed,,False,,,0,11,alert_month
+control,control-34,dev,FORD|F-150 HYBRID,seat_belt,2023-11-22,missed,,False,,,1,11,alert_month
+control,control-35,holdout,INFINITI|QX60,loss_of_power,2023-12-13,missed,,False,,,0,11,alert_month
+control,control-36,holdout,FORD|F-350,loss_of_power;electrical_failure,2024-01-31,missed,,False,,,0,11,alert_month

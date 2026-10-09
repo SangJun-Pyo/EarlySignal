@@ -1,0 +1,833 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "earlysignal-data-v1"
+    },
+    "labeler": {
+      "enum": [
+        "keyword",
+        "llm"
+      ]
+    },
+    "labeling_note": {
+      "type": "string"
+    },
+    "flag_sources": {
+      "type": "object",
+      "properties": {
+        "fire": {
+          "type": "string"
+        },
+        "smoke": {
+          "type": "string"
+        },
+        "driving": {
+          "type": "string"
+        },
+        "parked": {
+          "type": "string"
+        },
+        "crash": {
+          "type": "string"
+        },
+        "injury": {
+          "type": "string"
+        },
+        "severe": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fire",
+        "smoke",
+        "driving",
+        "parked",
+        "crash",
+        "injury",
+        "severe"
+      ],
+      "additionalProperties": false
+    },
+    "asof_months": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-01$"
+      },
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "default_asof": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-01$"
+    },
+    "demo_signal": {
+      "type": "object",
+      "properties": {
+        "grp": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "fire_thermal",
+            "electrical_failure",
+            "loss_of_power",
+            "engine_stall",
+            "engine_failure",
+            "airbag",
+            "brakes",
+            "steering",
+            "seat_belt",
+            "fuel_leak",
+            "transmission",
+            "lighting",
+            "suspension",
+            "structure_body",
+            "tires_wheels",
+            "other"
+          ]
+        },
+        "month": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-01$"
+        }
+      },
+      "required": [
+        "grp",
+        "category",
+        "month"
+      ],
+      "additionalProperties": false
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "fire_thermal",
+          "electrical_failure",
+          "loss_of_power",
+          "engine_stall",
+          "engine_failure",
+          "airbag",
+          "brakes",
+          "steering",
+          "seat_belt",
+          "fuel_leak",
+          "transmission",
+          "lighting",
+          "suspension",
+          "structure_body",
+          "tires_wheels",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "series": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "months": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-01$"
+            }
+          },
+          "total": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "categories": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "enum": [
+                "fire_thermal",
+                "electrical_failure",
+                "loss_of_power",
+                "engine_stall",
+                "engine_failure",
+                "airbag",
+                "brakes",
+                "steering",
+                "seat_belt",
+                "fuel_leak",
+                "transmission",
+                "lighting",
+                "suspension",
+                "structure_body",
+                "tires_wheels",
+                "other"
+              ]
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "baseline": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "alert": {
+                  "type": "array",
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "required": [
+                "n",
+                "baseline",
+                "alert"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "months",
+          "total",
+          "categories"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "snapshots": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "kpi": {
+            "type": "object",
+            "properties": {
+              "complaints": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "complaints_prev": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "alerts": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "alerts_prev": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "fire_alert_models": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "complaints",
+              "complaints_prev",
+              "alerts",
+              "alerts_prev",
+              "fire_alert_models"
+            ],
+            "additionalProperties": false
+          },
+          "alerts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "grp": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string",
+                  "enum": [
+                    "fire_thermal",
+                    "electrical_failure",
+                    "loss_of_power",
+                    "engine_stall",
+                    "engine_failure",
+                    "airbag",
+                    "brakes",
+                    "steering",
+                    "seat_belt",
+                    "fuel_leak",
+                    "transmission",
+                    "lighting",
+                    "suspension",
+                    "structure_body",
+                    "tires_wheels",
+                    "other"
+                  ]
+                },
+                "n": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "baseline": {
+                  "type": "number"
+                },
+                "ratio": {
+                  "type": "number"
+                },
+                "p_value": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "streak": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "is_new": {
+                  "type": "boolean"
+                },
+                "comove": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "grp",
+                "category",
+                "n",
+                "baseline",
+                "ratio",
+                "p_value",
+                "streak",
+                "is_new",
+                "comove"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "kpi",
+          "alerts"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "complaints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "grp": {
+            "type": "string"
+          },
+          "month": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-01$"
+          },
+          "ldate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "year": {
+            "type": "string"
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "fire",
+                "smoke",
+                "driving",
+                "parked",
+                "crash",
+                "injury",
+                "severe"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "fire_thermal",
+                "electrical_failure",
+                "loss_of_power",
+                "engine_stall",
+                "engine_failure",
+                "airbag",
+                "brakes",
+                "steering",
+                "seat_belt",
+                "fuel_leak",
+                "transmission",
+                "lighting",
+                "suspension",
+                "structure_body",
+                "tires_wheels",
+                "other"
+              ]
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "severity": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 3
+          },
+          "injured": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "summary_ko": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 520
+          },
+          "label_source": {
+            "enum": [
+              "keyword",
+              "llm"
+            ]
+          }
+        },
+        "required": [
+          "grp",
+          "month",
+          "ldate",
+          "year",
+          "flags",
+          "categories",
+          "severity",
+          "injured",
+          "summary_ko",
+          "text",
+          "label_source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "pile": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "n": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "agg": {
+            "type": "object",
+            "properties": {
+              "fire": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "smoke": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "driving": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "parked": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "crash": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "injury": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "severe": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "fire",
+              "smoke",
+              "driving",
+              "parked",
+              "crash",
+              "injury",
+              "severe"
+            ],
+            "additionalProperties": false
+          },
+          "co": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "fire_thermal",
+                    "electrical_failure",
+                    "loss_of_power",
+                    "engine_stall",
+                    "engine_failure",
+                    "airbag",
+                    "brakes",
+                    "steering",
+                    "seat_belt",
+                    "fuel_leak",
+                    "transmission",
+                    "lighting",
+                    "suspension",
+                    "structure_body",
+                    "tires_wheels",
+                    "other"
+                  ]
+                },
+                {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "maxItems": 3
+          },
+          "years": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true,
+            "minItems": 3
+          }
+        },
+        "required": [
+          "n",
+          "agg",
+          "co",
+          "years",
+          "ids"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "briefs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "reveal": {
+      "type": "object",
+      "properties": {
+        "cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "case_id": {
+                "type": "string"
+              },
+              "make": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "odate": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "first_alert_month": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "first_alert_grp": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "first_alert_category": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "fire_thermal",
+                      "electrical_failure",
+                      "loss_of_power",
+                      "engine_stall",
+                      "engine_failure",
+                      "airbag",
+                      "brakes",
+                      "steering",
+                      "seat_belt",
+                      "fuel_leak",
+                      "transmission",
+                      "lighting",
+                      "suspension",
+                      "structure_body",
+                      "tires_wheels",
+                      "other"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "available": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "lead_days": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "case_id",
+              "make",
+              "title",
+              "odate",
+              "first_alert_month",
+              "first_alert_grp",
+              "first_alert_category",
+              "available",
+              "lead_days",
+              "groups"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "series_after": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "months": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-01$"
+                }
+              },
+              "total": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "categories": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "enum": [
+                    "fire_thermal",
+                    "electrical_failure",
+                    "loss_of_power",
+                    "engine_stall",
+                    "engine_failure",
+                    "airbag",
+                    "brakes",
+                    "steering",
+                    "seat_belt",
+                    "fuel_leak",
+                    "transmission",
+                    "lighting",
+                    "suspension",
+                    "structure_body",
+                    "tires_wheels",
+                    "other"
+                  ]
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "n": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "baseline": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      }
+                    },
+                    "alert": {
+                      "type": "array",
+                      "items": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "required": [
+                    "n",
+                    "baseline",
+                    "alert"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "months",
+              "total",
+              "categories"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "cases",
+        "series_after"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "connected",
+              "not_connected"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "name",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "contract",
+    "labeler",
+    "labeling_note",
+    "flag_sources",
+    "asof_months",
+    "default_asof",
+    "demo_signal",
+    "groups",
+    "categories",
+    "series",
+    "snapshots",
+    "complaints",
+    "pile",
+    "evidence",
+    "briefs",
+    "reveal",
+    "sources",
+    "assumptions"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "earlysignal-data-v1"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string"
+          },
+          "split": {
+            "enum": [
+              "dev",
+              "holdout"
+            ]
+          },
+          "investigation": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "target_categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "fire_thermal",
+                "electrical_failure",
+                "loss_of_power",
+                "engine_stall",
+                "engine_failure",
+                "airbag",
+                "brakes",
+                "steering",
+                "seat_belt",
+                "fuel_leak",
+                "transmission",
+                "lighting",
+                "suspension",
+                "structure_body",
+                "tires_wheels",
+                "other"
+              ]
+            }
+          },
+          "odate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "result": {
+            "enum": [
+              "early",
+              "late",
+              "missed"
+            ]
+          },
+          "lead_days": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "first_alert_month": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "first_alert_group": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "first_alert_category": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "fire_thermal",
+                  "electrical_failure",
+                  "loss_of_power",
+                  "engine_stall",
+                  "engine_failure",
+                  "airbag",
+                  "brakes",
+                  "steering",
+                  "seat_belt",
+                  "fuel_leak",
+                  "transmission",
+                  "lighting",
+                  "suspension",
+                  "structure_body",
+                  "tires_wheels",
+                  "other"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "has_llm": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "case_id",
+          "split",
+          "investigation",
+          "note",
+          "groups",
+          "target_categories",
+          "odate",
+          "result",
+          "lead_days",
+          "first_alert_month",
+          "first_alert_group",
+          "first_alert_category",
+          "has_llm"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "group": {
+            "type": "string"
+          },
+          "ref_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "matched_to": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "group",
+          "ref_date",
+          "matched_to"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "contract",
+    "cases",
+    "controls"
+  ],
+  "additionalProperties": false
+}

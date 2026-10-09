@@ -11,6 +11,22 @@
 - **금지 필드(어떤 깊이에도)**: `vin`, `city`, `state`, `dealer_name`, `dealer_tel`, `dealer_city`, `dealer_state`, `dealer_zip`, `vehicle_operator`
 - 모든 파일 최상위에 `"contract": "earlysignal-data-v1"`
 
+## 당일 정확성 보완 (2026-10-09)
+- `data_source.downloaded_at`는 실제 다운로드일이 확인되지 않은 제공 ZIP이면 null, `observed_local_date`는 해당 파일을 로컬에서 확인한 날짜다. 관측일을 다운로드일로 바꾸어 말하지 않는다.
+- 키워드 신고의 `severity`는 null(미측정), `console.flag_sources`는 각 발생 상황 필드가 NHTSA·키워드·미측정 중 어디서 나온 것인지 명시한다.
+- 상황 요약 첫 문장은 실제 경보 수치로 만든 고정 통계문이다. 나머지 자유 서술에는 #신고번호 외의 숫자를 허용하지 않는다. 근거 문장의 의미는 담당자 검토가 필요하다.
+- 예시의 모든 숫자는 예시이며 실제 출력으로 대체한다. 현재 미측정인 모델·비용·정답 수는 `null`, 실제 검수/라벨 건수는 0으로 표현한다. 0% 정확도나 비용 0원으로 해석하지 않는다.
+- `console.labeler`: `keyword|llm`, `console.labeling_note`: 표시용 출처 설명. `complaints[id].label_source`: `keyword|llm`를 추가한다. 라벨 일부만 있는 상태에서 전체를 LLM 결과로 내보내지 않는다.
+- LLM 완성 캐시를 사용하는 경우에도 `meta.validation`·`cases.json`의 38사례 주 결과는 키워드 기준선이다. 세 대표 LLM 상세는 `cases_llm/`에 별도로 내보내며 `coverage`에 실제 demo 시작·종료일과 등록 전체 창 미충족을 표시한다. `console.reveal`은 해당 콘솔의 labeler 결과를 사용한다.
+- LLM fire/crash/injury 플래그는 NHTSA 기록 OR LLM hazard이며 `flag_sources`에 두 출처를 모두 명시한다.
+- `meta.validation_notes`: 검증 설계와 미검증 한계 문자열 배열. `meta.labels.llm_model`, `cost_per_1k_usd`, human_check의 정확한 판정 수는 미측정 시 null 허용.
+- 키워드 기반의 발생 상황 집계와 규칙 기반 문장은 AI 요약으로 표시하지 않는다. `briefs={}`는 정상적인 미생성 상태다.
+- `excluded`는 `cited`뿐 아니라 `brief_cited`와도 겹치지 않는다. 제외한 번호를 인용하는 AI 요약은 요청서에서 통째로 제외하고 그 상태를 표시한다. 통계 경보·집계는 원본 분류 모집단 기준으로 유지하며 제외가 재계산을 의미하지 않음을 표시한다.
+- `decision.made`는 **실제 저장 시각 ISO8601**, `analysis_available`는 접수월 다음달 1일이다. 과거에 실제 문서를 작성한 것처럼 표시하지 않는다.
+- 문서번호는 증상 코드 전체와 브랜드·모델을 사용한다: `ES-20180901-HYUNDAI-SONATA-FIRE_THERMAL`. 예전의 범주 첫 단어 규칙은 engine_stall/engine_failure가 충돌하므로 폐기한다.
+- 원문은 알려진 식별값과 표준 패턴 검사를 거친 발췌다. 알려진 VIN·도시·딜러·전화·운전자 값은 검사 함수에만 전달하고 JSON에는 넣지 않는다.
+- `meta.validation`의 주 지표는 접수월 기준, available_date 창은 별도 민감도 분석. 사후 결과와 운영 화면을 분리한다.
+
 ## `meta.json`
 ```json
 {
@@ -92,11 +108,11 @@
 
 ## 조사 요청서 (브라우저에서 생성 · 저장)
 - 화면과 `.md` 파일은 `web/lib/request.ts`의 같은 순수 함수로 만든다. 구조는 `docs/LLM_PROMPTS.md` §3.
-- 파일명 `{doc_no}.md`, `doc_no` = `ES-{작성가능일 YYYYMMDD}-{MODEL}-{CATEGORY 앞 단어}` (예: `ES-20180901-SONATA-FIRE`).
+- 파일명 `{doc_no}.md`, `doc_no` = `ES-{작성가능일 YYYYMMDD}-{MAKE}-{MODEL}-{CATEGORY 전체}` (예: `ES-20180901-HYUNDAI-SONATA-FIRE_THERMAL`).
 - 결정 기록(localStorage 키 `earlysignal.decisions.v1`, 읽기·쓰기 try/catch, JSON 다운로드 가능):
 ```json
 {"contract": "earlysignal-data-v1", "decisions": [
-  {"doc_no": "ES-20180901-SONATA-FIRE", "made": "2018-09-01", "grp": "HYUNDAI|SONATA", "category": "fire_thermal",
+  {"doc_no": "ES-20180901-HYUNDAI-SONATA-FIRE_THERMAL", "made": "2026-10-09T03:00:00Z", "analysis_available": "2018-09-01", "grp": "HYUNDAI|SONATA", "category": "fire_thermal",
    "decision": "조사 착수|보류|기각", "actions": ["원문 정밀 검토"], "memo": "string",
    "cited": ["11115234"], "excluded": ["11118964"], "brief_cited": ["11115600"]}
 ]}
@@ -123,3 +139,5 @@
              "p_value": 0.0, "is_target": true, "available": "YYYY-MM-01", "brief": "string|null",
              "evidence": [{"odino": "", "ldate": "", "fire": false, "crash": false, "injured": 0, "summary_ko": null, "snippet": ""}]}]}
 ```
+
+LLM 사례 상세의 `coverage`(선택 필드): `{ "source": "demo", "start": "2017-03-01", "end_exclusive": "2019-07-01", "registered_window_complete": false }`. 키워드와 기간이 다르므로 main 검증 비율과 직접 비교하지 않는다. 동일 모집단 비교는 `data/results/llm_demo_comparison.json`에 별도로 저장한다.

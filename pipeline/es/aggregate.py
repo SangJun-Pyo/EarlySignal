@@ -41,6 +41,10 @@ def aggregate_frame(complaints, labels, as_of=None):
 
 def run(con, config, args=None):
     method=getattr(args,"method","kw")
+    if method == "llm":
+        from .import_llm import load_complete, install
+        complete,_ = load_complete(con,config)
+        install(con,complete)
     source = "scoped" if method == "kw" else "demo"
     complaints=con.execute(f"SELECT odino,grp,ldate FROM {source}").fetchdf()
     labels=con.execute(f'SELECT odino,"primary",secondary FROM labels_{method}').fetchdf()
