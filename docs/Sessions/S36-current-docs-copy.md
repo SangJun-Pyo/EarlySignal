@@ -20,7 +20,7 @@ README·AGENTS·Development·SPEC·발표 안내 문서를 맡는다. 웹·파�
 ## 결과
 공개 console·meta·completion과 비용 감사 JSON, CLI·export 구현을 읽어 현재 상태와 재현 경로를 확인했다. 현재 SPEC을132줄의 구현·완료·후속 명세로 정리하고 이전 원본을 `docs/history/SPEC-v2-before-current-state-2026-10-09.md`에 그대로 보존했다. AGENTS의 제품 흐름과 테스트 경로, WORKFLOW의 초기 계획 표시, STATUS와 사람 검수 상태를 맞췄다.
 
-README는 API 없는 공개 제품 실행을 먼저 제공한다. KW 재현은 `build/keyword-export`, LLM 재출력은 `build/llm-export`로 분리해 공개본을 자동 덮어쓰지 않는다. 전체 캐시가 일반 clone에 없다는 점, 유료50건·전체7,502건·18경보 선택 실행과 기존 캐시 재출력의 차이를 설명했다. CLI parser16명령, export 내부 계산·캐시 완전성 검사·브리프 선택·재출력 순서를 코드로 대조했다. 실행은 하지 않았고 `.env`를 읽는 CLI help도 호출하지 않았다.
+README는 API 없는 공개 제품 실행을 먼저 제공한다. KW 재현은 `build/keyword-export`, LLM 재출력은 `build/llm-export`로 분리해 공개본을 자동 덮어쓰지 않는다. 전체 캐시가 일반 clone에 없다는 점, 유료50건·전체7,502건·18경보 선택 실행과 기존 캐시 재출력의 차이를 설명했다. CLI parser의11개 명령 종류와 README 실행 명령16회(반복 포함), export 내부 계산·캐시 완전성 검사·브리프 선택·재출력 순서를 코드로 대조했다. 실행은 하지 않았고 `.env`를 읽는 CLI help도 호출하지 않았다.
 
 PDF 스킬의 작업 시작 표식을 2개 출력 대상으로 한 번 실행하고, R09 검수본을 새 최종 이름으로 복사했다. 기존 DRAFT 호환본·PDF 내용·R09는 변경하지 않았다. 두 파일은 기존 최종 SHA256과 완전히 같다. 빌더는 앞으로 최종 이름을 먼저 생성하고 호환 이름으로 같은 바이트를 복사한다. 빌더의 문법 검사만 했으며 PDF 재생성·새 렌더 검수를 했다고 기록하지 않는다.
 
