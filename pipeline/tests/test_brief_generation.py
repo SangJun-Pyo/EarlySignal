@@ -3,6 +3,7 @@ import asyncio
 import copy
 import hashlib
 import json
+import re
 from pathlib import Path
 from types import SimpleNamespace
 try:
@@ -12,7 +13,7 @@ except ImportError:
 from openai import RateLimitError
 import pytest
 from es.brief import (alert_cells, generate_briefs, load_validated_briefs, load_public_console,
-                      compose_brief, prepare_cell, CACHE_VERSION)
+                      compose_brief, prepare_cell, brief_prompt, CACHE_VERSION)
 from es.config import DEMO_GROUPS, Config
 from es.export import MONTHS, FLAGS
 
@@ -50,6 +51,13 @@ def console(n=12, extra_cell=True):
         "series": {}, "reveal": {"cases": [], "series_after": {}}, "pile": {}, "briefs": {}, "sources": [], "assumptions": []}
 
 
+def output(narrative):
+    """Build one model sentence from existing synthetic safety test cases."""
+    ids = re.findall(r"#(\d+)", narrative)
+    text = re.sub(r"\(#[^)]*\)", "", narrative)
+    return {"sentences": [{"text": text, "citation_ids": ids}]}
+
+
 class Client:
     def __init__(self, outputs):
         self.outputs = iter(outputs)
@@ -73,7 +81,7 @@ def invoke(c, root, client, **kwargs):
 def test_payload_is_whitelisted_ten_same_cell_reports_and_cache_is_fixed_cohort(root, monkeypatch):
     monkeypatch.setattr("es.brief.os.getenv", lambda *args: (_ for _ in ()).throw(AssertionError("No env read with injected client")))
     c = console()
-    client = Client([{"narrative": "연기가 발생했다는 신고가 있습니다(#1000)."}])
+    client = Client([output("연기가 발생했다는 신고가 있습니다(#1000).")])
     result = invoke(c, root, client, limit=1)
     payload = json.loads(client.calls[0]["messages"][1]["content"])
     assert set(payload) == {"statistics", "evidence"}
@@ -113,7 +121,7 @@ def test_invalid_input_refuses_before_any_api_or_output(root, mutation, error):
 def test_invalid_narrative_regenerates_twice_then_leaves_no_public_brief(root, monkeypatch, bad):
     monkeypatch.setattr("es.brief.asyncio.sleep", lambda _: async_noop())
     c = console()
-    client = Client([{"narrative": bad}] * 3)
+    client = Client([output(bad)] * 3)
     result = invoke(c, root, client)
     assert len(client.calls) == 3 and result["failed"] == 1 and result["completed"] == 0
     assert load_validated_briefs(c, root=root) == {}
@@ -128,12 +136,12 @@ async def async_noop(): pass
 
 def test_invalid_then_valid_success_keeps_usage_of_failed_attempt(root, monkeypatch):
     monkeypatch.setattr("es.brief.asyncio.sleep", lambda _: async_noop())
-    client = Client([{"narrative": "연기가 발생했습니다(#9999)."}, {"narrative": "연기가 발생했습니다(#1000)."}])
+    client = Client([output("연기가 발생했습니다(#9999)."), output("연기가 발생했습니다(#1000).")])
     c = console(); result = invoke(c, root, client)
     assert result["completed"] == 1 and result["api_responses"] == 2
     assert len(load_validated_briefs(c, root=root)) == 1
     records = json.loads((root / "data/labels/briefs.json").read_text())["records"]
-    assert next(iter(records.values()))["prior_errors"] == ["outside_evidence_citation"]
+    assert next(iter(records.values()))["prior_errors"] == ["schema_or_json_invalid"]
     c["complaints"]["1000"]["summary_ko"] = "주차 중 연기 발생"
     assert load_validated_briefs(c, root=root) == {}
 
@@ -167,14 +175,14 @@ def test_short_server_wait_is_honored(root, monkeypatch):
     waits = []
     async def sleep(seconds): waits.append(seconds)
     monkeypatch.setattr("es.brief.asyncio.sleep", sleep)
-    client = Client([rate_error(retry_after="2"), {"narrative": "연기가 발생했습니다(#1000)."}])
+    client = Client([rate_error(retry_after="2"), output("연기가 발생했습니다(#1000).")])
     assert invoke(console(), root, client)["completed"] == 1
     assert waits == [2.0] and len(client.calls) == 2
 
 
 def test_known_private_values_are_checked_in_input_output_and_cache(root, monkeypatch):
     c = console(); denied = {"1000": ["Exampleville"]}
-    client = Client([{"narrative": "Exampleville에서 연기가 발생했습니다(#1000)."}])
+    client = Client([output("Exampleville에서 연기가 발생했습니다(#1000).")])
     result = invoke(c, root, client, denied_by_id=denied, max_retries=0)
     assert result["failed"] == 1
     assert "Exampleville" not in (root / "data/labels/brief_failures.jsonl").read_text()
@@ -184,7 +192,7 @@ def test_known_private_values_are_checked_in_input_output_and_cache(root, monkey
 
 
 def test_cache_model_prompt_statistics_and_tampering_invalidate(root):
-    c = console(); invoke(c, root, Client([{"narrative": "연기가 발생했습니다(#1000)."}]))
+    c = console(); invoke(c, root, Client([output("연기가 발생했습니다(#1000).")]))
     assert len(load_validated_briefs(c, root=root)) == 1
     assert load_validated_briefs(c, root=root, model="different-model") == {}
     changed = copy.deepcopy(c); changed["snapshots"]["2018-08-01"]["alerts"][0]["streak"] = 2
@@ -239,7 +247,7 @@ def test_exhausted_retry_still_waits_before_next_cell(root, monkeypatch):
     waits=[]
     async def sleep(seconds): waits.append(seconds)
     monkeypatch.setattr("es.brief.asyncio.sleep",sleep)
-    client=Client([rate_error(retry_after="2"),{"narrative":"연기가 발생했습니다(#2000)."}])
+    client=Client([rate_error(retry_after="2"),output("연기가 발생했습니다(#2000).")])
     result=invoke(console(),root,client,limit=2,max_retries=0)
     assert len(client.calls)==2 and waits==[2.0]
     assert result["failed"]==1 and result["completed"]==1 and result["defer_reason"] is None
@@ -253,7 +261,7 @@ def test_manifest_cannot_omit_existing_result_file(root):
 
 
 def test_cache_prompt_changes_invalidate(root):
-    c=console();invoke(c,root,Client([{"narrative":"연기가 발생했습니다(#1000)."}]))
+    c=console();invoke(c,root,Client([output("연기가 발생했습니다(#1000).")]))
     (root/"docs/LLM_PROMPTS.md").write_text("## 2. 경보\n### system\n```\nChanged prompt.\n```\n## 3. 요청서\n")
     assert load_validated_briefs(c,root=root)=={}
 
@@ -272,7 +280,7 @@ def test_every_unspaced_sentence_requires_its_own_citation(root,stop):
     bad=f"연기가 발생했습니다(#1000){stop}주차 중 화재가 발생했습니다."
     with pytest.raises(ValueError,match="uncited_narrative"):
         compose_brief(bad,cell["evidence"],c["complaints"],grp=cell["grp"],category=cell["category"],month=cell["month"],expected_counts=cell["counts"])
-    client=Client([{"narrative":bad}])
+    client=Client([output(bad)])
     assert invoke(c,root,client,max_retries=0)["failed"]==1
     assert load_validated_briefs(c,root=root)=={}
 
@@ -296,7 +304,7 @@ def test_korean_compound_and_sino_quantities_are_never_prose_metrics(root,quanti
     bad=f"부상 {quantity}(#1000)."
     with pytest.raises(ValueError,match="unsupported_narrative_number"):
         compose_brief(bad,cell["evidence"],c["complaints"],grp=cell["grp"],category=cell["category"],month=cell["month"],expected_counts=cell["counts"])
-    assert invoke(c,root,Client([{"narrative":bad}]),max_retries=0)["failed"]==1
+    assert invoke(c,root,Client([output(bad)]),max_retries=0)["failed"]==1
 
 
 def test_severity_one_and_two_rank_by_value_after_fire_injury_crash(root):
@@ -312,10 +320,66 @@ def test_severity_one_and_two_rank_by_value_after_fire_injury_crash(root):
 
 
 def test_invalid_unspaced_or_quantity_cache_is_omitted_by_export_loader(root):
-    c=console();invoke(c,root,Client([{"narrative":"연기가 발생했습니다(#1000)."}]))
+    c=console();invoke(c,root,Client([output("연기가 발생했습니다(#1000).")]))
     path=root/"data/labels/briefs.json";base=json.loads(path.read_text())
     for append in ["주차 중 화재가 발생했습니다.","부상 열한 명(#1000)."]:
         modified=copy.deepcopy(base)
         next(iter(modified["records"].values()))["brief"]+=append
         path.write_text(json.dumps(modified))
         assert load_validated_briefs(c,root=root)=={}
+
+
+def test_repository_prompt_has_one_current_generation_rule():
+    prompt = brief_prompt(Path(__file__).resolve().parents[2])
+    assert "sentences" in prompt and "citation_ids" in prompt
+    assert "각 항목의 text는 정확히 한 문장" in prompt
+    assert "2~3문장" not in prompt and "둘째 문장" not in prompt
+    assert "현재 구현 규칙이 우선" not in prompt
+
+
+def test_each_structured_sentence_gets_its_own_supplied_citations(root):
+    c = console()
+    client = Client([{"sentences": [
+        {"text": "연기가 발생했다는 신고가 있습니다.", "citation_ids": ["1000", "1001"]},
+        {"text": "화재가 발생했다는 신고가 있습니다", "citation_ids": ["1011"]},
+    ]}])
+    result = invoke(c, root, client)
+    assert result["completed"] == 1 and result["api_responses"] == 1
+    brief = next(iter(load_validated_briefs(c, root=root).values()))
+    assert brief.endswith("연기가 발생했다는 신고가 있습니다(#1000, #1001). 화재가 발생했다는 신고가 있습니다(#1011).")
+    schema = client.calls[0]["response_format"]["json_schema"]["schema"]
+    ids = schema["properties"]["sentences"]["items"]["properties"]["citation_ids"]["items"]["enum"]
+    supplied = json.loads(client.calls[0]["messages"][1]["content"])["evidence"]
+    assert ids == [row["odino"] for row in supplied]
+    assert "1010" not in ids and "2000" not in ids
+
+
+@pytest.mark.parametrize("response,error", [
+    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": []}]}, "schema_or_json_invalid"),
+    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": []},
+        {"text": "화재가 언급됐습니다.", "citation_ids": ["1000", "1001", "1011"]}]}, "schema_or_json_invalid"),
+    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": ["9999"]}]}, "schema_or_json_invalid"),
+    ({"sentences": [{"text": "연기가 발생했습니다.", "citation_ids": ["1010"]}]}, "schema_or_json_invalid"),
+    ({"sentences": [{"text": "연기가 발생했습니다. 화재가 발생했습니다.", "citation_ids": ["1000"]}]}, "invalid_narrative_sentence"),
+    ({"sentences": [{"text": "연기가 발생했습니다(#1000).", "citation_ids": ["1001"]}]}, "invalid_narrative_sentence"),
+    ({"sentences": [{"text": "", "citation_ids": ["1000"]}]}, "invalid_narrative_sentence"),
+    ({"sentences": []}, "schema_or_json_invalid"),
+    ({"narrative": "연기가 발생했습니다. 화재가 발생했습니다(#1000)."}, "schema_or_json_invalid"),
+])
+def test_structured_response_does_not_repair_missing_or_invalid_citations(root, response, error):
+    c = console()
+    result = invoke(c, root, Client([response]), max_retries=0)
+    assert result["completed"] == 0 and result["failed"] == 1
+    assert result["api_responses"] == 1 and result["prompt_tokens"] == 100
+    assert load_validated_briefs(c, root=root) == {}
+    failure = json.loads((root / "data/labels/brief_failures.jsonl").read_text())
+    assert failure["errors"] == [error]
+    assert "text" not in failure and "sentences" not in failure
+
+
+def test_uncited_first_sentence_is_still_rejected_before_cited_second_sentence(root):
+    c = console(); cell = alert_cells(c)[0]
+    with pytest.raises(ValueError, match="uncited_narrative"):
+        compose_brief("연기가 발생했습니다. 화재가 언급됐습니다(#1000, #1001, #1011).",
+                      cell["evidence"], c["complaints"], grp=cell["grp"], category=cell["category"],
+                      month=cell["month"], expected_counts=cell["counts"])
