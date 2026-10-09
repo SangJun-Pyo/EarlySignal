@@ -1,10 +1,8 @@
 {
   "contract": "earlysignal-data-v1",
-  "labeler": "keyword",
+  "labeler": "llm",
   "status": "complete",
   "files": [
-    "console.json",
-    "meta.json",
     "cases.json",
     "cases/PE14017.json",
     "cases/PE14022.json",
@@ -43,18 +41,21 @@
     "cases/PE23021.json",
     "cases/PE23023.json",
     "cases/PE24002.json",
-    "cases/PE24010.json"
+    "cases/PE24010.json",
+    "cases_llm/PE19003.json",
+    "cases_llm/PE19004.json",
+    "cases_llm/PE20016.json",
+    "console.json",
+    "meta.json"
   ],
   "console_months": 8,
   "console_groups": 9,
   "complaints": 2142,
-  "evidence_cells": 400,
-  "briefs": 0,
+  "evidence_cells": 421,
+  "briefs": 16,
   "cases": 38,
   "file_sha256": {
-    "console.json": "3e19042ff94dcc4188d1f976873c85f76cb89d2feaecf239ae1c137926473260",
-    "meta.json": "61c2c8c29e9400368c2ca6b02261639506883a7a7eff81f8c2ced5e610768d66",
-    "cases.json": "89c4f0f1e42a8b6f7876bfc93fdbab7c07e39a2b3b295338691e7e937f91005d",
+    "cases.json": "2fab5007d046c2714be7436b8e9d3401340c1963bf1fb050587589e057b8ea63",
     "cases/PE14017.json": "807bee2b9782699e6e9e754da6d48621934963cd2ce8c06f885dcbaf046d3e92",
     "cases/PE14022.json": "17b7eacb06d32c60218daf1a03c3ac4e134593cf7f4293c2bf61a8f0076a2a30",
     "cases/PE14028.json": "31b46a62d275c582d31cee1ea389ed3315838b0fb5ecd438bd77d3055cfb1992",
@@ -92,6 +93,11 @@
     "cases/PE23021.json": "ab1af73b7700c389a493ed1c7375165393206b4a4ebf0a347d98642ab5d69a0f",
     "cases/PE23023.json": "4f093566a165c1999323d135c4d276bca90e3f5b3208612fb8c9575ced6fe0d0",
     "cases/PE24002.json": "0a8ee530c5dcdad892af783a1d8a7d17e2e11306478da5795aaf2dcf1d2cf239",
-    "cases/PE24010.json": "e6bb187615f51a2b8da18ab7c28d86f3cf7fcdf9dd96b16c546146e59a2660f3"
+    "cases/PE24010.json": "e6bb187615f51a2b8da18ab7c28d86f3cf7fcdf9dd96b16c546146e59a2660f3",
+    "cases_llm/PE19003.json": "e82b73805cfac80a42145c53f6aa7c486fa7f56276fcbf2f346e22d7ec87a447",
+    "cases_llm/PE19004.json": "9a628b3e4ab8744cb3ec97468da7ff899100aeb8ce85ff2ed12a271cf901ebb0",
+    "cases_llm/PE20016.json": "0ba7020cf7e2b1e3f31f71c4e3c3d8aae5e12150a91f0fac202fb7c51e234b04",
+    "console.json": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8",
+    "meta.json": "4942b5993a4bab3120ee85755b8a8094dfb31fc120cb5b30de236317c9251286"
   }
 }

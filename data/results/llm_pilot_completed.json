@@ -1,0 +1,227 @@
+{
+  "contract": "earlysignal-pilot-cost-audit-v1",
+  "audited_at": "2026-10-09T02:39:15.187702+00:00",
+  "sources": [
+    {
+      "name": "usage",
+      "path": "data/labels/llm_usage.jsonl",
+      "sha256": "a5c90d6418285a44cfea853ed9395f5cb85da131dccf76256ac29418f8a1df27"
+    },
+    {
+      "name": "runs",
+      "path": "data/results/llm_runs.jsonl",
+      "sha256": "5f06d3434fce04d5ddcaac6a11444a54a48f4c2917cde785e803b7dee83b2828"
+    },
+    {
+      "name": "latest",
+      "path": "data/results/llm_pilot.json",
+      "sha256": "65f63d3a021cca722424007902a2aa5a3c5d5129920f035b871facca59e802ee"
+    },
+    {
+      "name": "cache",
+      "path": "data/labels/labels_llm.jsonl",
+      "sha256": "28c93edb5b4cd8789e46c75ece837aa6f271eaf1275520a2a0cc9b94b61ca397"
+    },
+    {
+      "name": "code",
+      "path": "pipeline/es/label_llm.py",
+      "sha256": "8545c7dd23e715ea8648e06710641d9557122b9deee4d8f31ea0b0073cee105d"
+    },
+    {
+      "name": "policy",
+      "path": "docs/ADR/ADR-018-label-quote-diagnostics.md",
+      "sha256": "8a62a08efe206589d70ab01f2378fb9e9ded1959f603afce60d3320d021f7f1b"
+    }
+  ],
+  "completion": {
+    "cohort_size": 50,
+    "completed": 50,
+    "pending": 0,
+    "same_fixed_seed42_cohort": true,
+    "success_cache_records": 50,
+    "main_model": "gpt-4.1-mini-2025-04-14",
+    "human_label_accuracy_measured": false
+  },
+  "pricing": {
+    "currency": "USD",
+    "unit": "per 1,000,000 tokens",
+    "uncached_input_usd": 0.4,
+    "cached_input_usd": 0.1,
+    "output_usd": 1.6,
+    "source": "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+    "price_checked": "2026-10-09",
+    "scope": "Recorded API token usage at the stored reference rates; not an account billing reconciliation."
+  },
+  "cumulative_50_experiment": {
+    "api_responses": 115,
+    "prompt_tokens": 96661,
+    "completion_tokens": 12959,
+    "cached_input_tokens": 0,
+    "estimated_usd": 0.0593988,
+    "estimated_usd_decimal": "0.0593988",
+    "returned_response_latency_sum_s": 179.4873,
+    "sample_n": 50,
+    "run_count": 6,
+    "stage_counts": {
+      "label": 101,
+      "quote_selection": 14
+    },
+    "scope": "All returned usage in the six recorded runs of the same requested seed42 50-complaint cohort, including invalid outputs, retries, bounded diagnoses, and quote-selection responses."
+  },
+  "legacy_unlinked_usage": {
+    "api_responses": 10,
+    "prompt_tokens": 8349,
+    "completion_tokens": 1230,
+    "cached_input_tokens": 0,
+    "estimated_usd": 0.0053076,
+    "estimated_usd_decimal": "0.0053076",
+    "returned_response_latency_sum_s": 24.4921,
+    "provenance_missing_fields": [
+      "cache_key",
+      "prompt_hash",
+      "input_hash"
+    ],
+    "inclusion_basis": "Legacy run requested 50 and has the same model and run-level label prompt hash; all ledger ODINOs are in the completed cohort; its response count and cost reconcile to its run report.",
+    "limitation": "These rows establish recorded experiment usage, but cannot establish exact current-input/current-cache per-label cost. Do not change the public cost_per_1k_usd=null solely from this audit."
+  },
+  "new_policy_14": {
+    "api_responses": 28,
+    "prompt_tokens": 21924,
+    "completion_tokens": 1925,
+    "cached_input_tokens": 0,
+    "estimated_usd": 0.0118496,
+    "estimated_usd_decimal": "0.0118496",
+    "returned_response_latency_sum_s": 35.2832,
+    "sample_n": 14,
+    "run_ids": [
+      "2026-10-09T02:32:20.867288+00:00",
+      "2026-10-09T02:32:55.884767+00:00"
+    ],
+    "run_elapsed_sum_s": 35.605,
+    "stage_counts": {
+      "label": 14,
+      "quote_selection": 14
+    },
+    "quote_selection_completed": 14,
+    "sample_selection": "Previously failed 14 of the fixed 50; selected because strict quotes remained invalid. This is a biased difficult subset, not a new random sample.",
+    "timing_scope": "Sum of two sequential run elapsed values; excludes time between runs, prior retries/diagnoses, long server cooldowns, and human review. Returned response latency is separately summed. No full-population throughput forecast."
+  },
+  "per_stage_usage": {
+    "label": {
+      "api_responses": 101,
+      "prompt_tokens": 87005,
+      "completion_tokens": 12875,
+      "cached_input_tokens": 0,
+      "estimated_usd": 0.055402,
+      "estimated_usd_decimal": "0.055402",
+      "returned_response_latency_sum_s": 170.278
+    },
+    "quote_selection": {
+      "api_responses": 14,
+      "prompt_tokens": 9656,
+      "completion_tokens": 84,
+      "cached_input_tokens": 0,
+      "estimated_usd": 0.0039968,
+      "estimated_usd_decimal": "0.0039968",
+      "returned_response_latency_sum_s": 9.2093
+    }
+  },
+  "run_reconciliation": [
+    {
+      "run_id": "2026-10-09T01:36:26.583490+00:00",
+      "completed_in_run": 6,
+      "failed_in_run": 44,
+      "reported_api_responses": 10,
+      "ledger_api_responses": 10,
+      "reported_estimated_usd": 0.005307600000000001,
+      "independently_estimated_usd": 0.0053076,
+      "reported_elapsed_s": 17.15
+    },
+    {
+      "run_id": "2026-10-09T02:11:30.382010+00:00",
+      "completed_in_run": 30,
+      "failed_in_run": 14,
+      "reported_api_responses": 75,
+      "ledger_api_responses": 75,
+      "reported_estimated_usd": 0.0411064,
+      "independently_estimated_usd": 0.0411064,
+      "reported_elapsed_s": 162.033
+    },
+    {
+      "run_id": "2026-10-09T02:20:33.391172+00:00",
+      "completed_in_run": 0,
+      "failed_in_run": 1,
+      "reported_api_responses": 1,
+      "ledger_api_responses": 1,
+      "reported_estimated_usd": 0.0005676,
+      "independently_estimated_usd": 0.0005676,
+      "reported_elapsed_s": 1.99
+    },
+    {
+      "run_id": "2026-10-09T02:22:45.609462+00:00",
+      "completed_in_run": 0,
+      "failed_in_run": 1,
+      "reported_api_responses": 1,
+      "ledger_api_responses": 1,
+      "reported_estimated_usd": 0.0005676,
+      "independently_estimated_usd": 0.0005676,
+      "reported_elapsed_s": 2.14
+    },
+    {
+      "run_id": "2026-10-09T02:32:20.867288+00:00",
+      "completed_in_run": 1,
+      "failed_in_run": 0,
+      "reported_api_responses": 2,
+      "ledger_api_responses": 2,
+      "reported_estimated_usd": 0.0008800000000000001,
+      "independently_estimated_usd": 0.00088,
+      "reported_elapsed_s": 5.743
+    },
+    {
+      "run_id": "2026-10-09T02:32:55.884767+00:00",
+      "completed_in_run": 13,
+      "failed_in_run": 0,
+      "reported_api_responses": 26,
+      "ledger_api_responses": 26,
+      "reported_estimated_usd": 0.010969600000000001,
+      "independently_estimated_usd": 0.0109696,
+      "reported_elapsed_s": 29.862
+    }
+  ],
+  "budget_scenarios": [
+    {
+      "name": "Historical 50-experiment mean, including diagnostics and retries",
+      "sample_n": 50,
+      "population_n": 7502,
+      "formula": "0.0593988 / 50 * 7502",
+      "estimated_usd": 8.912195952,
+      "estimated_usd_decimal": "8.912195952",
+      "scope": "Simple budget scenario. Repeats experimental diagnostic/retry overhead per complaint; does not estimate clean production marginal cost."
+    },
+    {
+      "name": "New source-span policy on the difficult 14",
+      "sample_n": 14,
+      "population_n": 7502,
+      "formula": "0.0118496 / 14 * 7502",
+      "estimated_usd": 6.3496928,
+      "estimated_usd_decimal": "6.3496928",
+      "scope": "Simple budget scenario. The 14 were selected for prior quote failures and all required a selection call. They do not represent the full complaint population."
+    }
+  ],
+  "scenario_limitations": [
+    "The two scenarios are not a confidence interval, guaranteed minimum/maximum, or a spending cap.",
+    "Longer complaint inputs within the 1500-character sending limit, candidate-window count, response length, retries, rate limits, and provider/account pricing can change cost and time.",
+    "API failures without returned usage have unknown billing; wait/cooldown time is not token cost and is excluded from the new-14 timing sum.",
+    "Human evidence review and label correctness are unmeasured. Successful strict validation does not establish label accuracy.",
+    "A larger, newly selected fixed sample can reduce selection bias before the 7502-row run. Any full-run spending ceiling requires separate user authorization."
+  ],
+  "verification": {
+    "per_response_decimal_cost_recomputed": true,
+    "each_run_tokens_responses_cost_match_ledger": true,
+    "duplicate_usage_identity_count": 0,
+    "all_ledger_odinos_within_completed_cohort": true,
+    "new_policy_run_ids_match_root_completion_report": true,
+    "actual_api_calls_during_audit": 0,
+    "secret_key_reads_during_audit": 0
+  }
+}

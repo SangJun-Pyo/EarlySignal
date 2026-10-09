@@ -14,6 +14,7 @@ from .export import CONTRACT, FLAGS, MONTHS, build_console, date_string, flags_f
 from .import_llm import load_complete, read_records
 from .label_llm import digest
 from .privacy import public_text, sensitive_values
+from .brief import load_validated_briefs
 
 REPRESENTATIVES={"PE19003","PE19004","PE20016"}
 
@@ -80,6 +81,24 @@ def prepare(con,config):
     return source,labels,detections,keyword_detections,provenance,comparison
 
 
+
+def write_development_comparison(frame, root):
+    """Visible predictions from the development cohort; never reset annotations."""
+    path=Path(root)/"data/labels/sample60_compare.csv"
+    path.parent.mkdir(parents=True,exist_ok=True)
+    try:
+        frame.to_csv(path,index=False,mode="x")
+    except FileExistsError:
+        pass  # Existing human values and notes survive every export rerun.
+    note={"purpose":"development comparison with visible predictions; not independent blind evaluation",
+          "selection":"seed42 first60, includes the development first50",
+          "independent_evaluation":False,"predictions_visible":True,
+          "existing_csv_preserved":True,
+          "human_gold_authority":"data/private/human_review_independent30/blind.csv",
+          "accuracy":None}
+    (path.with_suffix(".purpose.json")).write_text(json.dumps(note,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+
 def run(con,config,args=None):
     # Completion/privacy/provenance guards run before any output mutation.
     source,labels,detections,keyword_detections,provenance,comparison=prepare(con,config)
@@ -87,6 +106,8 @@ def run(con,config,args=None):
     output.parent.mkdir(parents=True,exist_ok=True)
     measured=json.loads((config.root/"data/backtest_kw.json").read_text())
     console=build_console(con,detections,source,"llm")
+    console["briefs"]=load_validated_briefs(console,root=config.root,
+        denied_by_id=sensitive_values(con,console["complaints"]))
     details={}
     for item in measured["cases"]:
         if item["case_id"] not in REPRESENTATIVES:
@@ -105,7 +126,7 @@ def run(con,config,args=None):
         run_keyword(con,config,SimpleNamespace(method="kw",output=stage))
         meta=json.loads((stage/"meta.json").read_text())
         meta["labels"].update({"llm_model":provenance["model"],"llm_labeled":len(labels),"sample_agreement":comparison["sample_agreement"],"cost_per_1k_usd":estimated_cost_per_1k(config,labels)})
-        meta["validation_notes"][-1]="38사례·36대조 주 검증과 검토 업무량은 키워드 기준선입니다. 콘솔의 LLM은 전체 demo를 사용하며, 사람 정답 검수는 미완료입니다."
+        meta["validation_notes"][-1]="38사례·36대조 주 검증과 검토 업무량은 키워드 기준선입니다. 콘솔의 LLM은 전체 demo를 사용합니다. 독립 30건 사람 검수는 자료 준비 후 도메인 지식·공모전 시간 제약으로 완료하지 못했으며, 분류 정확도는 미측정입니다. 전문가 검수는 후속 과제입니다."
         cases=json.loads((stage/"cases.json").read_text())
         for item in cases["cases"]:
             item["has_llm"]=item["case_id"] in details
@@ -135,5 +156,5 @@ def run(con,config,args=None):
     comparison_labels["snippet"]=[public_text(source_by_id.loc[odino,"text"],520,denied=denied[odino]) for odino in sample_ids]
     comparison_labels["human_gold"]=""
     comparison_labels["human_notes"]=""
-    comparison_labels.to_csv(config.root/"data/labels/sample60_compare.csv",index=False)
+    write_development_comparison(comparison_labels,config.root)
     return {"output":str(output),"files":len(manifest["files"])+1,"console_complaints":len(console["complaints"]),"evidence_cells":len(console["evidence"]),"labeler":"llm","labeled":len(labels),"briefs":len(console["briefs"]),"main_validation_labeler":"keyword","comparison":str(report)}

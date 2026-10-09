@@ -1,4 +1,5 @@
 import duckdb
+import pytest
 
 from es.privacy import privacy_matches, public_text, redact_text, sensitive_values
 
@@ -57,3 +58,36 @@ def test_known_latin_identifiers_with_korean_particles_are_still_private():
     # A different longer Latin name is not the known identifying value.
     assert not privacy_matches("Normalville에서 연기 발생", ["Normal"])
     assert not privacy_matches("Caféville에서 연기 발생", ["Caf"])
+
+
+@pytest.mark.parametrize("text,redacted", [
+    ("a@example.com에서 문의했습니다.", "[REDACTED EMAIL]에서 문의했습니다."),
+    ("문의a@example.com", "문의[REDACTED EMAIL]"),
+    ("문의a@example.com에서 문의했습니다.", "문의[REDACTED EMAIL]에서 문의했습니다."),
+    ("문의(A.User+tag@EXAMPLE.CO.UK)로 연락했습니다.", "문의([REDACTED EMAIL])로 연락했습니다."),
+    ("Email user_name@example-domain.com.", "Email [REDACTED EMAIL]."),
+])
+def test_ascii_email_detection_and_masking_with_korean_neighbors(text, redacted):
+    assert privacy_matches(text) == ["email"]
+    assert redact_text(text) == redacted
+    assert not privacy_matches(redacted)
+    assert public_text(text) == "[식별정보가 포함된 문장 생략]"
+
+
+def test_multiple_korean_adjacent_emails_are_all_masked():
+    text = "문의a@example.com이나b@example.org로 연락했습니다."
+    assert redact_text(text) == "문의[REDACTED EMAIL]이나[REDACTED EMAIL]로 연락했습니다."
+    assert not privacy_matches(redact_text(text))
+
+
+@pytest.mark.parametrize("text", [
+    "문의 이메일 주소는 없습니다.",
+    "엔진에서 연기가 발생했습니다.",
+    "2018-08-01 신고 #11115234에서 연기가 언급됐습니다.",
+    "example.com에서 안내했습니다.",
+    "a@example 주소는 이메일 전체 형식이 아닙니다.",
+])
+def test_ordinary_text_is_unchanged_by_email_boundary_handling(text):
+    assert not privacy_matches(text)
+    assert redact_text(text) == text
+    assert public_text(text) == text

@@ -63,7 +63,7 @@ def test_partial_export_keeps_existing_public_files_and_database_untouched(tmp_p
     con.execute("CREATE TABLE demo(odino VARCHAR,text VARCHAR)")
     con.execute("INSERT INTO demo VALUES ('1','Smoke appeared while driving.'),('2','Smoke appeared while driving.')")
     con.execute("CREATE TABLE complaints_raw(c02 VARCHAR,c15 VARCHAR,c13 VARCHAR,c41 VARCHAR,c42 VARCHAR,c43 VARCHAR,c51 VARCHAR)")
-    (tmp_path/"docs").mkdir(); (tmp_path/"docs/LLM_PROMPTS.md").write_text("### system\n```\nSynthetic test prompt.\n```\n")
+    (tmp_path/"docs").mkdir(); (tmp_path/"docs/LLM_PROMPTS.md").write_text("### system\n```\nSynthetic test prompt.\n```\n## 2. Brief\n### system\n```\nProvided reports only.\n```\n## 3. Request\n")
     ph=digest(system_prompt(tmp_path)+json.dumps(LABEL_SCHEMA,sort_keys=True))
     path=tmp_path/"data/labels/labels_llm.jsonl"; path.parent.mkdir(parents=True)
     path.write_text(json.dumps(record({"odino":"1","text":"Smoke appeared while driving."},ph))+"\n")
@@ -105,7 +105,7 @@ def test_complete_synthetic_cache_reaches_console_without_replacing_main_validat
     detected=detect_frame(aggregate_frame(source,keyword),config)
     con.register("synthetic_detected",detected);con.execute("CREATE TABLE detections_kw AS SELECT * FROM synthetic_detected")
     con.execute("CREATE TABLE complaints_raw(c02 VARCHAR,c15 VARCHAR,c13 VARCHAR,c41 VARCHAR,c42 VARCHAR,c43 VARCHAR,c51 VARCHAR)")
-    (tmp_path/"docs").mkdir();(tmp_path/"docs/LLM_PROMPTS.md").write_text("### system\n```\nSynthetic test prompt.\n```\n")
+    (tmp_path/"docs").mkdir();(tmp_path/"docs/LLM_PROMPTS.md").write_text("### system\n```\nSynthetic test prompt.\n```\n## 2. Brief\n### system\n```\nProvided reports only.\n```\n## 3. Request\n")
     ph=digest(system_prompt(tmp_path)+json.dumps(LABEL_SCHEMA,sort_keys=True))
     caches=[record(row,ph) for row in rows]
     for cached in caches:
@@ -138,6 +138,22 @@ def test_complete_synthetic_cache_reaches_console_without_replacing_main_validat
     assert set(manifest["files"])=={str(path.relative_to(output)) for path in output.rglob("*.json") if path.name!="completion.json"}
     for name in manifest["files"]:
         schema_validate(json.loads((output/name).read_text()),"case" if name.startswith(("cases/","cases_llm/")) else Path(name).stem)
+    # A real offline generated and input-bound cache reaches the next export.
+    import asyncio
+    from es.brief import generate_briefs, load_public_console
+    calls=[]
+    async def create(**kwargs):
+        calls.append(kwargs)
+        supplied=json.loads(kwargs["messages"][1]["content"])["evidence"]
+        content=json.dumps({"selected_ids":[supplied[0]["odino"]]})
+        return SimpleNamespace(usage=None,choices=[SimpleNamespace(finish_reason="stop",message=SimpleNamespace(content=content,refusal=None))])
+    client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    generated=asyncio.run(generate_briefs(console,root=tmp_path,client=client,limit=1))
+    assert generated["completed"]==1 and len(calls)==1
+    report=run(con,config,SimpleNamespace(method="llm",output=output))
+    complete_console=load_public_console(output/"console.json")
+    assert report["briefs"]==1 and len(complete_console["briefs"])==1
+    assert json.loads((output/"completion.json").read_text())["briefs"]==1
 
 
 

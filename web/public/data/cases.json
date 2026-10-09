@@ -426,7 +426,7 @@
       "first_alert_month": "2018-08-01",
       "first_alert_group": "HYUNDAI|SONATA",
       "first_alert_category": "fire_thermal",
-      "has_llm": false
+      "has_llm": true
     },
     {
       "case_id": "PE19004",
@@ -450,7 +450,7 @@
       "first_alert_month": "2018-07-01",
       "first_alert_group": "KIA|SORENTO",
       "first_alert_category": "fire_thermal",
-      "has_llm": false
+      "has_llm": true
     },
     {
       "case_id": "PE19008",
@@ -529,7 +529,7 @@
       "first_alert_month": null,
       "first_alert_group": null,
       "first_alert_category": null,
-      "has_llm": false
+      "has_llm": true
     },
     {
       "case_id": "PE21005",

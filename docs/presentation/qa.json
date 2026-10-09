@@ -3,10 +3,10 @@
   "checks": [
     {
       "pdf": "EarlySignal-preliminary-4min-DRAFT.pdf",
-      "sha256": "e3296971550a9b6f4ecb0d98ea14a22d1bf4ee073089a0b7fe63ac091c8f8ead",
-      "pages": 9,
-      "main_pages": 9,
-      "appendix_pages": 0,
+      "sha256": "598ebf4c858fa3f59d4d78df331b605d4deb32dc319acf617379d7c0e16d4f2a",
+      "pages": 19,
+      "main_pages": 12,
+      "appendix_pages": 7,
       "page_size_points": [
         1280,
         720
@@ -14,35 +14,7 @@
       "planned_presentation_seconds": 240,
       "planned_qa_seconds": 0,
       "draft_notice_on_each_page": true,
-      "forbidden_claims_found": false,
-      "rendered_pages": 9,
-      "visually_reviewed_pages": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-      ]
-    },
-    {
-      "pdf": "EarlySignal-finals-10min-DRAFT.pdf",
-      "sha256": "35368ba6246c7036053a583d28c6874d2911de1ecd99f49b4eaa6824a931221e",
-      "pages": 16,
-      "main_pages": 12,
-      "appendix_pages": 4,
-      "page_size_points": [
-        1280,
-        720
-      ],
-      "planned_presentation_seconds": 480,
-      "planned_qa_seconds": 120,
-      "draft_notice_on_each_page": true,
-      "forbidden_claims_found": false,
-      "rendered_pages": 16,
+      "rendered_pages": 19,
       "visually_reviewed_pages": [
         1,
         2,
@@ -59,34 +31,100 @@
         13,
         14,
         15,
-        16
-      ]
+        16,
+        17,
+        18,
+        19
+      ],
+      "statistic_body_pages": [
+        5,
+        6
+      ],
+      "llm_body_page": 4,
+      "validation_body_page": 7,
+      "proposal_comparison_page": 18
+    },
+    {
+      "pdf": "EarlySignal-finals-10min-DRAFT.pdf",
+      "sha256": "5668246ea19006242d27f1296876b912a802df3a2a35f5250827cb0f032ead4d",
+      "pages": 22,
+      "main_pages": 12,
+      "appendix_pages": 10,
+      "page_size_points": [
+        1280,
+        720
+      ],
+      "planned_presentation_seconds": 480,
+      "planned_qa_seconds": 120,
+      "draft_notice_on_each_page": true,
+      "rendered_pages": 22,
+      "visually_reviewed_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "statistic_body_pages": [
+        5,
+        6
+      ],
+      "llm_body_page": 4,
+      "validation_body_page": 7,
+      "proposal_comparison_page": 18
     }
   ],
   "font_glyph_missing": {
-    "regular": [],
-    "bold": []
+    "Regular": [],
+    "SemiBold": []
   },
   "product_metrics_included": true,
   "product_metric_basis": "keyword retrospective registered alert-month evaluation",
   "actual_product_capture_included": true,
-  "ai_state": "fixed pilot 6/50 successful; full pilot and human accuracy incomplete",
-  "visual_review": "All 25 pages rendered at 1280px and visually reviewed. Five wording/source issues identified in independent review were corrected; affected pages re-rendered and reviewed.",
-  "independent_review": "Independent evidence/time audit matched source numbers and requested 38-case cutoff wording, before/after evaluation wording, lead-day anchor, human/Codex role clarity, and storyboard consistency.",
+  "ai_state": "fixed cohort 50/50 passed API output checks; 14 prior quote failures resolved by source span selection; human accuracy unmeasured; full 7502 result not yet included",
+  "visual_review": "All 41 pages rendered at 1280px; unchanged pages retained the prior full review, changed classification/current-scope/proposal/hypothesis pages individually inspected. API output checks explicitly distinguished from 38-case backtest and unmeasured human-grounded accuracy.",
+  "independent_review": "brief_finish independently reviewed final pages 4/16/19: API-output vs human accuracy vs backtest distinction, 14 quote repair, full-run boundary and design-only hypotheses passed. Suggested source-wording clarification was applied.",
   "source_files_sha256": {
     "web/public/data/meta.json": "61c2c8c29e9400368c2ca6b02261639506883a7a7eff81f8c2ced5e610768d66",
+    "web/public/data/console.json": "3e19042ff94dcc4188d1f976873c85f76cb89d2feaecf239ae1c137926473260",
     "web/public/data/cases.json": "89c4f0f1e42a8b6f7876bfc93fdbab7c07e39a2b3b295338691e7e937f91005d",
+    "data/backtest_kw.json": "af122e3ce64fb812bfc5750b9399bd370845e57e508e6ea60e660868102ab319",
     "data/results/lookahead_kw.json": "8726559893c54d82b8e4c099890792d6d863150aeb2bed790d706b2fe9d6f927",
-    "data/results/llm_pilot.json": "dd0582f1249ed5cda743302a23a936aced0a57a444e312a759f550f40458ee5f",
+    "data/results/llm_pilot.json": "65f63d3a021cca722424007902a2aa5a3c5d5129920f035b871facca59e802ee",
     "data/results/sensitivity_single_group_kw.json": "727a22dedf3ca50e1f5610ace7eacdbef6f73e8310155140296f07378869cfa9",
-    "docs/presentation/assets/screenshots/request-desktop.jpg": "3c4db1e0da76b3c6d8934caf498f879139438a9879dd844588184d9346b01325",
     "docs/Reviews/R01-methodology.md": "da9a170b6c85c67c8116d4462faf694c4516b7da76c0a72581c676c96cabe3c7",
-    "docs/Reviews/R02-product.md": "a3f0d6674cbefba5d8c69a0ca834b232d08bb09b1064d910b247c857feaf7656",
-    "docs/Reviews/R03-integration.md": "df5afd87959bd9cfbb9b0463c5ab5f5ae2989e6855f05219df9143813570cf35"
+    "docs/ADR/ADR-016-retrieval-for-evidence-review.md": "425c2ea07d4b4751d57d978c91ad350de8b5957b3aaa44356ce9d90a88cff432",
+    "docs/ADR/ADR-017-submitted-proposal-and-delivery-scope.md": "7d03f7931dbf413f478cab789a1b1964b102c688fd4caea798743a7e3b919297",
+    "docs/ADR/ADR-018-label-quote-diagnostics.md": "8a62a08efe206589d70ab01f2378fb9e9ded1959f603afce60d3320d021f7f1b",
+    "docs/ADR/ADR-019-investigation-hypotheses-design-only.md": "55bf2e479fe5dcdf8793b9460f1c786011d066746d4fcc866713fe69e8aa0d73",
+    "docs/presentation/figures/source.json": "2c6764a74224b817dce349343861144b2585bd15e11561c6c42aeda1c2e27ec4",
+    "docs/presentation/figures/sonata-monthly-baseline.png": "bcd8131141aef6447e9b98d3ae25d3a5809227a12699aa480c4066172aa51bcc",
+    "docs/presentation/figures/poisson-right-tail.png": "d9a19fb6c498ec4116cc712dc74dfec6e62067b1eaf562aa513adbaa28be9e7a",
+    "docs/presentation/assets/screenshots/request-public.jpg": "33d1a8ede7da0f4413e2cb403106df64c5b4183d38b13f67330305d8a248b960"
   },
   "rehearsal_completed": false,
-  "deployment_capture": false,
+  "deployment_capture": true,
+  "deployment_url": "https://earlysignal.pages.dev/",
+  "deployment_capture_saved_at": "2026-10-09T02:13:23.730Z",
   "product_evidence_review_completed": true,
   "human_label_review_completed": false,
-  "independent_review_followup": "Latest PDF text re-extracted by independent reviewer; all requested changes confirmed, no additional content blockers."
+  "rag_implemented": false,
+  "rag_scope": "Original proposal similar-case feature remains unimplemented; approved evidence retrieval design only; see ADR016 and ADR017"
 }
