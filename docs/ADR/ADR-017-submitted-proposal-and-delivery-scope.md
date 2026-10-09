@@ -60,3 +60,11 @@
 - 실제 생성 연결: [S14](../Sessions/S14-step10.md); 최신 라벨 시험은 `data/results/llm_pilot.json`
 - 공개 배포 근거: https://earlysignal.pages.dev/ 및 `data/results/deployment_verification.json`
 - 실제 구현·검증 상태: [S04](../Sessions/S04-step7.md), [R03](../Reviews/R03-integration.md), [S10](../Sessions/S10-deployment.md)
+
+## 후속 변경: 대표 신고의 기존 AI 요약 인용 (2026-10-09)
+
+위 대조표와 구현 순서 설명은 최초 기록 당시의 상태를 보존한다. 이후 상황 요약은 [ADR-023](ADR-023-structured-brief-citations.md)의 문장별 자유 서술을 거쳐 [ADR-024](ADR-024-source-summary-selection.md)의 대표 신고 선택·기존 요약 인용으로 바뀌었다. 인용 형식 검사를 통과한 종합 문장에서도 제공된 요약과 인용의 의미 대응이 어긋난 사례를 총괄이 확인했고, 사용자가 “신고별 AI 요약을 그대로 인용하고 번호 연결”을 선택했다.
+
+현재 모델은 제공된 최대 10개 근거에서 대표 번호 1~3개만 선택한다. 프로그램이 실제 경보 통계문과 각 신고의 기존 `summary_ko`를 `(#번호) 기존 요약`의 독립 줄로 연결하며 새 상황이나 복합 주장을 만들지 않는다. 표시명은 “대표 신고 요약 (AI 요약 인용·담당자 검토)”다. 기존 AI 요약 자체의 원문 의미 정확성과 신고 분류 정확도를 입증한 변경은 아니며, 선택된 신고가 전체 신고의 동일 상황·빈도·공통 원인을 뜻하지 않는다.
+
+사람 정답 검수는 자료를 준비한 뒤 사용자의 도메인 지식·시간 제약으로 당일 완료하지 않기로 했다([ADR-020](ADR-020-independent-blind-human-review.md), S23). 분류 정확도는 미측정이고 전문가의 독립 검수는 후속 미완료 과제다. 기존 기획과 준비 이력을 지우거나 AI가 만든 정답으로 대체하지 않는다.
