@@ -6,7 +6,7 @@
 
 **현재 제품:** 전체 7,502건의 LLM 분류·출력 검사와 같은 모집단 비교를 완료하고 Cloudflare에 배포했습니다. 대표 신고 AI 요약은 18개 경보 중 16개에 기존 요약을 그대로 인용하고 번호를 연결합니다. 나머지 2개는 수량 표현 검사에서 거부돼 요약 없이 근거를 제공합니다. 공개 JSON 45개가 검수본과 일치하고 실제 요청서 저장·다운로드·재접속 후 이력 유지를 확인했습니다. Python 224개·웹 26개 검사와 타입·정적 빌드를 통과했습니다. 38사례 주 백테스트는 **키워드 기준선**이며, 사람 정답 기준 분류 정확도는 미측정입니다. [공개 데모](https://earlysignal.pages.dev/) · [최신 공개 문구·동작 확인](data/results/deployment_copy_verification.json)
 
-- [4분 예선 발표 자료: 본문7장 + 부록15장](docs/presentation/output/pdf/EarlySignal-preliminary-4min-simple.pdf)
+- [4분 예선 발표 자료: 본문7장 + 부록15장](docs/presentation/output/pdf/EarlySignal-preliminary-4min-humanized.pdf)
 - [결선 8분 발표 + 2분 질의응답: 본문9장 + 부록14장](docs/presentation/output/pdf/EarlySignal-finals-8min-qa2min-final.pdf)
 - [4분 발표 대본 Markdown](docs/presentation/speaker-script-4min.md)
 - [결선 대본·기존 질의응답 참고](docs/presentation/speaker-script-final.md) · [인쇄용 대본 PDF](docs/presentation/output/pdf/EarlySignal-presentation-script-final.pdf) · [기본39페이지 독립 검수](docs/Reviews/R09-final-presentation.md)

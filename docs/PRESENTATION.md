@@ -32,7 +32,7 @@
 
 ## 산출물과 시연
 
-- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min-simple.pdf): 본문7장+부록15장, 총22장.
+- [예선 PDF](presentation/output/pdf/EarlySignal-preliminary-4min-humanized.pdf): 본문7장+부록15장, 총22장.
 - [결선 PDF](presentation/output/pdf/EarlySignal-finals-8min-qa2min-final.pdf): 본문9장+부록14장, 총23장.
 - [예선4분 대본 Markdown](presentation/speaker-script-4min.md).
 - [기존 발표 대본 PDF](presentation/output/pdf/EarlySignal-presentation-script-final.pdf): 예선·결선 전체 발화와 데모 조작, 연식 질문30/60초 답변, 예상 질문.
@@ -45,3 +45,5 @@
 수정 전 발표 초안은 [보존용 과거 기록](presentation/history/PRESENTATION-before-approved-nine-slide-update.md)에 남겼다. 그 기록의 폐기된 수치·주장을 현재 발표에 사용하지 않는다. 기본판 [QA 스냅샷](presentation/qa.json)은 보존하며, 최신 연식 부록·대본은 [별도 QA](presentation/qa-v2.json)와 [R12](Reviews/R12-year-appendix-script.md)에서 확인한다.
 
 7장 예선 재구성의 최신 검수는 [QA](presentation/qa-simple.json)와 [R14](Reviews/R14-presentation-simple.md)다.
+
+문구 보강판은2장에 담당자·기존 키워드 방식 한계,3장에 입력 원문과 역할을 명시했다. [한국어 윤문 검증](presentation/humanize-verification.txt)과 [R15](Reviews/R15-presentation-copy.md)를 따른다.

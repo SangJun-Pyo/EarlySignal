@@ -24,7 +24,7 @@
 
 ## 발표 산출물
 
-- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min-simple.pdf): 본문7+부록15=22페이지,240초 배분·데모60초·상세 검증은 부록.
+- [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min-humanized.pdf): 본문7+부록15=22페이지,240초 배분·데모60초·상세 검증은 부록.
 - [결선 최종 PDF](../presentation/output/pdf/EarlySignal-finals-8min-qa2min-final.pdf): 본문9+부록14=23페이지,480초 발표·데모+질의응답120초.
 - [예선4분 Markdown 대본](../presentation/speaker-script-4min.md). 아래 기존 대본의 예선9장 부분은 이전 구성이다.
 - [결선·질의응답 참고 대본](../presentation/speaker-script-final.md)·[인쇄용 대본PDF](../presentation/output/pdf/EarlySignal-presentation-script-final.pdf): 읽을 문장·조작·예상질문 포함. S39에서 이슈#35 연식 분석 후속 부록을 각2쪽 추가했다. 기존39쪽과 검수 스냅샷은 보존한다.

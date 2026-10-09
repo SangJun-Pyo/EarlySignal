@@ -63,15 +63,15 @@ def problem(c, fact):
     d.text(c, '“연기가 났어요”', 57, 308, 36, d.CYAN, True)
     d.text(c, '“차가 과열됐어요”', 57, 365, 36, d.CYAN, True)
     d.text(c, '설명용 표현 예', 58, 421, 17, d.MUTED)
-    d.text(c, '제품안전·시장품질 담당자가 살펴볼 질문', 57, 492, 22, d.MUTED)
-    d.block(c, '어느 차종에서, 어떤 문제가 늘었을까?\n실제로 더 조사할 근거가 있을까?', 57, 535, 1000, 29, d.TEXT, True, leading=39)
+    d.text(c, '자동차 회사의 고객 안전 담당자', 57, 480, 24, d.MUTED)
+    d.block(c, '키워드 검색은 다른 표현의 신고를 놓칠 수 있습니다.\n원문을 읽고 더 조사할 이유를 찾아야 합니다.', 57, 526, 1160, 27, d.TEXT, True, leading=40)
 
 
 def roles(c, fact):
     art.background(c, 'roles', y=95, height=510)
-    d.block(c, '신고를 정리하고, 증가를 찾고,\n사람이 검토합니다', 52, 88, 1170, 42, bold=True, leading=52)
-    rows = [('LLM', '신고 정리', '다르게 쓰인 신고를\n같은 증상으로 묶습니다.', d.CYAN),
-            ('통계', '증가 확인', '각 차종의 평소 수준과\n이번 달을 비교합니다.', d.AMBER),
+    d.block(c, '신고를 정리하고 증가를 찾고\n사람이 검토합니다', 52, 88, 1170, 42, bold=True, leading=52)
+    rows = [('LLM', '신고 정리', '소비자 신고 원문을 읽고\n증상을 분류합니다.', d.CYAN),
+            ('통계', '증가 확인', '차종별 월간 신고 건수의\n이례적인 증가를 찾습니다.', d.AMBER),
             ('담당자', '조사 결정', '원문을 확인하고\n조사할지 결정합니다.', d.GREEN)]
     for i, (who, title, body, accent) in enumerate(rows):
         x = 56+i*400
@@ -150,7 +150,7 @@ def closing(c, fact):
     art.background(c, 'closing')
     d.block(c, '고객의 목소리를,\n조사의 근거로', 52, 98, 735, 53, d.TEXT, True, leading=68)
     d.block(c, '담당자가 조사할 근거를\n정리하도록 돕습니다', 57, 286, 700, 33, d.CYAN, True, leading=47)
-    d.block(c, '신고를 모으고, 원문을 확인하고,\n근거와 판단이 연결된 요청서를 완성합니다.', 57, 404, 700, 25, d.TEXT, leading=36)
+    d.block(c, '신고를 모으고 원문을 확인하고\n근거와 판단이 연결된 요청서를 완성합니다.', 57, 404, 700, 25, d.TEXT, leading=36)
     d.text(c, '다음 단계', 57, 522, 21, d.GREEN, True)
     d.block(c, '전문가와 분류·탐지 검증\n현업 담당자와 검토 시간 측정', 57, 559, 680, 23, d.TEXT, leading=32)
     d.text(c, '감사합니다', 1018, 548, 30, d.TEXT, True)
@@ -198,6 +198,8 @@ def write_script(story, appendix):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--storyboard',type=Path,default=ROOT/'storyboard-humanized.json')
+    ap.add_argument('--manifest',type=Path,default=ROOT/'humanized-build-manifest.json')
     ap.add_argument('--output-dir',type=Path,default=ROOT/'output/pdf')
     args=ap.parse_args();args.output_dir.mkdir(parents=True,exist_ok=True)
     for name,file in [('KR','IBMPlexSansKR-Regular.ttf'),('KR-Bold','IBMPlexSansKR-SemiBold.ttf')]:
@@ -214,7 +216,7 @@ def main():
     if digest(REPO/'web/public/data/console.json')!=capture['console_sha256']:raise ValueError('Capture data changed')
     for field,hashfield in [('image','image_sha256'),('detail_image','detail_image_sha256')]:
         if digest(ROOT/capture[field])!=capture[hashfield]:raise ValueError('Actual capture changed')
-    story=json.loads((ROOT/'storyboard-simple.json').read_text())
+    story=json.loads(args.storyboard.read_text())
     assert len(story['main'])==7 and sum(s['seconds'] for s in story['main'])==240 and story['main'][3]['seconds']==60
     old=json.loads((ROOT/'storyboard-final.json').read_text())['preliminary']
     appendix=appendices(old);assert len(appendix)==15
@@ -245,7 +247,7 @@ def main():
         c.showPage()
     c.save();write_script(story,appendix)
     story['appendices']=appendix
-    (ROOT/'simple-build-manifest.json').write_text(json.dumps({
+    args.manifest.write_text(json.dumps({
         'file':output.name,'sha256':digest(output),'pages':len(PdfReader(output).pages),'main_pages':7,'appendix_pages':15,
         'seconds':240,'demo_seconds':60,'presenter':story['presenter'],'actual_rehearsal_completed':False,
         'script_file':story['script'],'script_sha256':digest(ROOT/story['script']),

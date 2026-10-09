@@ -2,11 +2,12 @@
 
 ## 현재 예선: 4분 발표 7장
 
-- [예선 4분 PDF](output/pdf/EarlySignal-preliminary-4min-simple.pdf): 본문7 + 부록15 = 22쪽. 발표자 표상준.
+- [예선 4분 PDF](output/pdf/EarlySignal-preliminary-4min-humanized.pdf): 본문7 + 부록15 = 22쪽. 발표자 표상준.
 - [4분 대본 Markdown](speaker-script-4min.md): 읽을 문장과 조작 메모. 대본 PDF는 새로 만들지 않는다.
 - 문제→역할→60초 시연→증가 신호→검증 범위→마무리 순서다. 상세 통계·키워드/LLM 비교·도입/Codex는 부록으로 옮겼다. 기존11개 부록도 보존하며 이슈#35는21·22쪽이다.
 - 시간은20·30·25·60·35·40·30초=240초 배분이며 실제 리허설은 미완료다.
-- 재생성: `python docs/presentation/build_simple_deck.py`. 원본은 `storyboard-simple.json`, 근거·해시는 `simple-build-manifest.json`, 검수는 `qa-simple.json`·[R14](../Reviews/R14-presentation-simple.md).
+- 재생성: `python docs/presentation/build_simple_deck.py --storyboard docs/presentation/storyboard-humanized.json --manifest docs/presentation/humanized-build-manifest.json`. 원본은 `storyboard-humanized.json`, 근거·해시는 `humanized-build-manifest.json`, 검수는 `qa-humanized.json`·[R15](../Reviews/R15-presentation-copy.md).
+- 심사 기준01·02에 맞춰2장의 담당자·키워드 한계,3장의AI 입력과 역할을 명시했다. im-not-ai light 윤문 게이트 통과. 이전7장 PDF와 R14/qa-simple, 이전 대본 history는 보존한다.
 - 결선은 아래23쪽 최종본과 기존 결선 대본을 사용한다. 이전 예선20쪽과 검수는 보존한다.
 
 ## 결선 최종본·이전 예선 보존본
