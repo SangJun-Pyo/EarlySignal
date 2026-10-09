@@ -1,0 +1,182 @@
+{
+  "audit_version": "earlysignal-brief-completion-audit-v1",
+  "audited_at": "2026-10-09T03:51:02.161101+00:00",
+  "code_base": "a5c0783",
+  "status": "verified",
+  "mode": "source-summary-selection-v1",
+  "source_sha256": {
+    "data/labels/brief_usage.jsonl": "aee35d07545d6882cac9c1cf0ef7b7ea6cbee41822ba54c8003b43ca79873434",
+    "data/labels/brief_failures.jsonl": "519fc0aef7da3db113fd01950103a108b9edff9f2bdfbaa54ca6325c9d222fd5",
+    "data/results/brief_runs.jsonl": "6eb93367b3f3e9c6ee376d7eb87d1efceeadf40ded70094a2243b29ce8f35f0d",
+    "data/labels/briefs.json": "45fd4282dfc83686b49d6faf4863fa06c2b512742529e30755e5db04b4fd53ac",
+    "build/llm-export/console.json": "b4cfdd0a6a5710e6ad07727b2c97a4e39378957dec13700bf97a9b203b877298",
+    "data/labels/llm_usage.jsonl": "7e09f6ecb23e89ed5c6c1b83783028d70caff7a094f753743e8a4bd4d9157f0c",
+    "web/public/data/completion.json": "b20988ae92c885138dad6e20e04d6514768c5164de930220d82fa67b3cd90467",
+    "web/public/data/console.json": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8"
+  },
+  "briefs": {
+    "alert_cells": 18,
+    "accepted_current_mode": 16,
+    "omitted_failed_cells": 2,
+    "selected_source_summary_occurrences": 47,
+    "cached_legacy_candidates": 1,
+    "legacy_candidates_in_current_output": 0,
+    "exact_summary_or_statistics_mismatches": 0,
+    "out_of_supplied_scope_or_duplicate_ids": 0,
+    "current_pattern_privacy_failures": 0,
+    "failure_reason": "unsupported_narrative_number",
+    "attempts_each_failed_cell": 3,
+    "source_summary_copy_is_accuracy_measure": false,
+    "original_source_meaning_accuracy": null,
+    "human_gold_count": 0,
+    "known_identifier_input_hash_revalidation": "passed_against_read_only_db_known_identifiers"
+  },
+  "runs": [
+    {
+      "run_id": "2026-10-09T03:13:15.387229+00:00",
+      "population": 18,
+      "cohort_size": 18,
+      "selected": 18,
+      "cache_reused": 0,
+      "completed": 0,
+      "failed": 18,
+      "not_started": 0,
+      "api_responses": 54,
+      "prompt_tokens": 35646,
+      "completion_tokens": 4313,
+      "stage": "legacy_free_narrative_batch_failed",
+      "estimated_usd": "0.0211592",
+      "failure_reason_attempt_counts": {
+        "uncited_narrative": 37,
+        "outside_evidence_citation": 14,
+        "unsupported_narrative_number": 2,
+        "unsupported_conclusion": 1
+      }
+    },
+    {
+      "run_id": "2026-10-09T03:15:32.301388+00:00",
+      "population": 18,
+      "cohort_size": 1,
+      "selected": 1,
+      "cache_reused": 0,
+      "completed": 0,
+      "failed": 1,
+      "not_started": 0,
+      "api_responses": 1,
+      "prompt_tokens": 692,
+      "completion_tokens": 77,
+      "stage": "legacy_free_narrative_diagnostic_failed",
+      "estimated_usd": "0.0004000",
+      "failure_reason_attempt_counts": {
+        "uncited_narrative": 1
+      }
+    },
+    {
+      "run_id": "2026-10-09T03:28:18.670855+00:00",
+      "population": 18,
+      "cohort_size": 1,
+      "selected": 1,
+      "cache_reused": 0,
+      "completed": 1,
+      "failed": 0,
+      "not_started": 0,
+      "api_responses": 1,
+      "prompt_tokens": 831,
+      "completion_tokens": 102,
+      "stage": "structured_candidate_rejected_after_source_review",
+      "estimated_usd": "0.0004956",
+      "failure_reason_attempt_counts": {}
+    },
+    {
+      "run_id": "2026-10-09T03:43:33.964363+00:00",
+      "population": 18,
+      "cohort_size": 1,
+      "selected": 1,
+      "cache_reused": 0,
+      "completed": 1,
+      "failed": 0,
+      "not_started": 0,
+      "api_responses": 1,
+      "prompt_tokens": 776,
+      "completion_tokens": 17,
+      "stage": "source_selection_first_cell",
+      "estimated_usd": "0.0003376",
+      "failure_reason_attempt_counts": {}
+    },
+    {
+      "run_id": "2026-10-09T03:44:15.902885+00:00",
+      "population": 18,
+      "cohort_size": 18,
+      "selected": 17,
+      "cache_reused": 1,
+      "completed": 15,
+      "failed": 2,
+      "not_started": 0,
+      "api_responses": 21,
+      "prompt_tokens": 15622,
+      "completion_tokens": 353,
+      "stage": "source_selection_remaining_cells",
+      "estimated_usd": "0.0068136",
+      "failure_reason_attempt_counts": {
+        "unsupported_narrative_number": 6
+      }
+    }
+  ],
+  "costs": {
+    "kind": "returned_token_usage_estimate_not_invoice",
+    "rates_usd_per_million": {
+      "input": "0.40",
+      "cached_input": "0.10",
+      "output": "1.60"
+    },
+    "brief_all_experiments": {
+      "responses": 78,
+      "prompt_tokens": 53567,
+      "completion_tokens": 4862,
+      "cached_tokens": 0,
+      "estimated_usd": "0.0292060"
+    },
+    "source_selection_mode": {
+      "responses": 22,
+      "estimated_usd": "0.0071512",
+      "successful_cell_responses": 16,
+      "successful_cell_estimated_usd": "0.0051616",
+      "failed_cell_responses": 6,
+      "failed_cell_estimated_usd": "0.0019896"
+    },
+    "label_all_experiments": {
+      "responses": 9996,
+      "estimated_usd": "4.5448836",
+      "legacy_unlinked_usage_records": 10,
+      "exact_current_cache_cost_per_1k_usd": null
+    },
+    "combined_label_and_brief_experiments_estimated_usd": "4.5740896",
+    "per_record_or_run_cost_mismatches": 0
+  },
+  "final_public_export": {
+    "status": "verified",
+    "json_files": 45,
+    "payload_hashes_checked": 44,
+    "schema_or_forbidden_field_failures": 0,
+    "hash_mismatches": 0,
+    "llm_labeled": 7502,
+    "complaints": 2142,
+    "evidence_cells": 421,
+    "briefs": 16,
+    "known_identifier_and_pattern_text_fragments_checked": 18902,
+    "case_evidence_occurrences": 7309,
+    "brief_known_identifier_checks": 16,
+    "privacy_failures": 0,
+    "current_validated_cache_exactly_matches_public_briefs": true,
+    "console_except_briefs_unchanged_from_audited_stage": true,
+    "keyword_38_case_results_byte_identical_to_stage": true,
+    "db_connection_closed": true
+  },
+  "limits": [
+    "16/18 is publication format and source-copy validation, not classification or summarization accuracy.",
+    "Previously rejected structured prose remains only as a legacy cache record and is excluded by the new prompt/mode.",
+    "No new API call, secret read, DB write, or source complaint body output.",
+    "Known identifier and pattern checks do not prove complete anonymization; source-summary semantic accuracy remains unmeasured.",
+    "Full 7502 label input revalidation after the privacy change was performed by root export; this audit rechecked brief input hashes and public output."
+  ]
+}
