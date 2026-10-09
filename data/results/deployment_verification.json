@@ -1,0 +1,235 @@
+{
+  "checked_at": "2026-10-09T02:18:15.390613+00:00",
+  "url": "https://earlysignal.pages.dev",
+  "deployed_commit": "7186226de5834b24d9b83122d3d5e5805ac2b3dd",
+  "root_http_success": true,
+  "headers": {
+    "cache-control": "public, max-age=0, must-revalidate",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "x-content-type-options": "nosniff"
+  },
+  "json_count": 42,
+  "all_json_match": true,
+  "json_checks": [
+    {
+      "path": "/data/console.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/completion.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/meta.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE14030.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE19004.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23011.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE19008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE19009.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE16016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23006.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE20016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE24002.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23021.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23001.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE19003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE14017.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE17007.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23023.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE16013.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE15003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE14022.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE21005.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE23002.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE24010.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE21009.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18011.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE21022.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE15029.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE22008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE14028.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE16003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE15012.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE15028.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE17003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18010.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE18006.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE16018.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "/data/cases/PE20014.json",
+      "http_success": true,
+      "sha256_matches": true
+    }
+  ],
+  "downloaded_request": {
+    "request_sections": 7,
+    "cited_record": true,
+    "excluded_record_not_cited": true,
+    "saved_time_present": true
+  },
+  "browser_console_errors": 0,
+  "browser_note": "Actual public-origin browser: demo selected, #11115112 cited, #11118964 excluded, investigation chosen, request saved and downloaded.",
+  "browser_reload_history_count": 1,
+  "decision_json_download_verified": true
+}
