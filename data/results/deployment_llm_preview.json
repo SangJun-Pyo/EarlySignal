@@ -1,0 +1,252 @@
+{
+  "checked_at": "2026-10-09T03:55:49.628895+00:00",
+  "url": "https://codex-llm-evidence-validatio.earlysignal.pages.dev",
+  "data_commit": "d03a82d",
+  "json_count": 45,
+  "all_json_match": true,
+  "json_checks": [
+    {
+      "path": "cases.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE14017.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE14022.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE14028.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE14030.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE15003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE15012.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE15028.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE15029.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE16003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE16013.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE16016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE16018.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE17003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE17007.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18006.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18010.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18011.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE18016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE19003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE19004.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE19008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE19009.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE20014.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE20016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE21005.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE21009.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE21022.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE22008.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23001.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23002.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23006.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23011.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23021.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE23023.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE24002.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases/PE24010.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases_llm/PE19003.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases_llm/PE19004.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "cases_llm/PE20016.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "console.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "meta.json",
+      "http_success": true,
+      "sha256_matches": true
+    },
+    {
+      "path": "completion.json",
+      "http_success": true,
+      "sha256_matches": true
+    }
+  ],
+  "browser": {
+    "demo_opened": true,
+    "cited": "11115234",
+    "excluded": "11118964",
+    "request_saved_and_markdown_downloaded": true,
+    "labeler_visible": "사전 실행 LLM",
+    "poisson_display": "1.613e-5",
+    "source_summary_citations": [
+      "11115234",
+      "11115291",
+      "11118528"
+    ],
+    "validation_keyword_attribution_visible": true,
+    "llm_labeled_visible": 7502,
+    "human_gold_visible": 0,
+    "accuracy_visible": "미측정"
+  },
+  "http_note": "Initial Python urllib returned 403; normal curl retrieved all public files successfully."
+}
