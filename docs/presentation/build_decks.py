@@ -65,7 +65,7 @@ ROLES = [
 
 PRELIM = [
     slide('신고를\n조사 요청서로.', '소비자 신고에서 조사해야 할 안전 신호를 더 일찍 찾는 도구', 'hero',
-          kicker='EARLYSIGNAL  /  FINVIBE', tag='4분 예선 · 검토용 초안', time=15,
+          kicker='EARLYSIGNAL  /  FINVIBE', tag='4분 예선 · 발표자료', time=15,
           bottom='LLM은 측정하고, 통계는 판단하고, 담당자는 결정합니다.', refs='E01 · E02'),
     slide('운전자의 신고를, 담당자의 다음 조치로.', '설명 상황 예: “주행 중 타는 냄새가 났어요.” → 자동차 회사에서 고객 안전을 살피는 담당자',
           cards=[('운전자의 신고', '타는 냄새, 연기, 과열처럼\n같은 현상도 서로 다르게\n표현됩니다.\n\n설명용 표현 예', '데이터 형식에서 출발', CYAN),
@@ -90,7 +90,7 @@ PRELIM = [
 
 FINALS = [
     slide('신고를\n조사 요청서로.', '조사 후보를 발견하고, 원문을 검토하고, 다음 조치를 문서로 남깁니다.', 'hero',
-          kicker='EARLYSIGNAL  /  FINVIBE', tag='10분 결선 · 검토용 초안', time=20,
+          kicker='EARLYSIGNAL  /  FINVIBE', tag='10분 결선 · 발표자료', time=20,
           bottom='제품의 끝은 근거가 연결된 조사 요청서입니다.', refs='E01 · E02'),
     PRELIM[1] | dict(time=35),
     slide('공개 신고를 읽을 때 지켜야 할 기준.', '데이터 정의가 바뀌면 경보의 의미도 달라집니다.',
@@ -126,7 +126,7 @@ FINALS = [
           cards=[('문서로 확인', '역할 분담 · 시간 기준\n요청서 구조 · 데이터 계약\n\n설계가 문서에 명시되어\n있는 것은 확인했습니다.', '구현 성능과 별개', CYAN),
                  ('당일 확인 대기', '파이프라인 재현 결과\n미래 정보 차단 테스트\n요청서 저장과 인용 검사\n모델 비용과 검수 정확도', '실행 근거로 교체', AMBER),
                  ('현장 검증 다음', '품질팀 검토 업무 적합성\n요청서 검토 시간과 활용\n보증·생산 이력 연동\n지속 사용 · 구매 의사', '파일럿에서 확인', GREEN)],
-          takeaway='EarlySignal의 첫 목표: 담당자가 조사할 이유를 근거와 함께 남길 수 있도록 돕는 것.', time=10, refs='E01 · E12 · E13', status='검토용 초안'),
+          takeaway='EarlySignal의 첫 목표: 담당자가 조사할 이유를 근거와 함께 남길 수 있도록 돕는 것.', time=10, refs='E01 · E12 · E13', status='발표자료'),
 ]
 
 
@@ -200,19 +200,19 @@ def pill(c, s, x, y, fill=AMBER, size=14):
     return w
 
 
-def frame(c, s, index, total, deck):
+def frame(c, s, index, total, deck, main_pages):
     c.setFillColor(color(BG))
     c.rect(0, 0, W, H, fill=1, stroke=0)
     text(c, 'EARLYSIGNAL', 52, 28, 18, CYAN, True)
-    text(c, f'{deck}  |  검토본 · 2026.10.09', 730, 31, 15, MUTED)
-    if s['kind'] != 'hero':
+    text(c, f'{deck}  |  발표자료 · 2026.10.09', 730, 31, 15, MUTED)
+    if s['kind'] not in {'hero','case_opening'}:
         block(c, s['title'], 52, 85, 1180, 40, bold=True, leading=49, max_height=98)
         block(c, s['subtitle'], 54, 156, 1140, 21, MUTED, leading=29, max_height=60)
-        pill(c, s.get('status', '검토용 초안'), 54, 224)
+        pill(c, s.get('status', '발표자료'), 54, 224)
     line(c, 52, 661, 1228, 661)
-    text(c, f'DRAFT · {LABELER_NAME} 제품 · 38사례는 키워드 검증' if MEASURED else 'DRAFT · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
+    text(c, f'발표자료 · {LABELER_NAME} 제품 · 38사례는 키워드 검증' if MEASURED else '발표자료 · 결과 수치 및 제품 캡처 재현 대기', 54, 681, 14, MUTED)
     text(c, f'근거 {s["refs"]}', 640, 681, 14, MUTED)
-    text(c, f'부록 {index-12}' if s.get('appendix') else f'{index:02d} / 12', 1140, 678, 17, TEXT, True)
+    text(c, f'부록 {index-main_pages}' if s.get('appendix') else f'{index:02d} / {main_pages}', 1140, 678, 17, TEXT, True)
 
 
 def takeaway(c, s):
@@ -403,11 +403,11 @@ RENDERERS={'hero':hero,'cards':cards,'roles':roles,'requestflow':requestflow,
 
 def build(deck, slides, output):
     c=canvas.Canvas(str(output),pagesize=(W,H),pageCompression=1)
-    c.setTitle(f'EarlySignal | {deck} | 검토용 초안')
+    c.setTitle(f'EarlySignal | {deck} | 발표자료')
     c.setAuthor('FinVibe · Codex 협업')
     c.setSubject(f'{LABELER_NAME} 제품과 키워드 통계 백테스트. 사람 정답 기반 분류 정확도는 미측정.')
     for i,s in enumerate(slides,1):
-        frame(c,s,i,len(slides),deck)
+        frame(c,s,i,len(slides),deck,sum(not item.get('appendix') for item in slides))
         RENDERERS[s['kind']](c,s)
         c.showPage()
     c.save()
@@ -544,6 +544,44 @@ def llm_comparison(c,s):
     takeaway(c,s['takeaway'])
 
 
+def case_opening(c,s):
+    pill(c,s['tag'],54,93,CYAN,15)
+    text(c,'EARLYSIGNAL  /  FINVIBE',56,152,21,MUTED,True)
+    block(c,'고객의 목소리를,\n조사의 근거로.',52,207,770,57,TEXT,True,leading=72)
+    text(c,'2018년 미국, 현대·기아 차량의 비충돌 화재.',57,390,27,CYAN,True)
+    block(c,'신고가 쌓이며 조사 청원과 검토가 이어졌습니다.\n이 과거 사건으로, 조사 근거를 정리하는 도구를 만들었습니다.',57,442,745,24,leading=36)
+    box(c,849,145,379,401)
+    text(c,'공식 기록의 흐름',875,171,25,TEXT,True)
+    for y,date,label in [(225,'2018.06.11','CAS 조사 청원'),(320,'2018.08.21','DP18-003 청원 검토'),(415,'2019.03.29','지정 예비조사(PE) 개시')]:
+        text(c,date,876,y,26,CYAN,True)
+        text(c,label,877,y+39,21,TEXT)
+    takeaway(c,'앞선 조사 이력을 함께 봅니다. 지정 PE보다 이른 날짜가 기관의 최초 인지·조사보다 앞섰다는 뜻은 아닙니다.')
+
+
+def llm_changes(c,s):
+    agree=COMPARISON['primary_agreement']; alerts=COMPARISON['alert_cells']
+    entries=[('증상 분류의 차이',f"{100*agree['agree']/agree['n']:.2f}%",f"같은 {agree['n']:,}건 중 {agree['agree']:,}건 일치",'두 방법의 일치율 · 정확도 아님',CYAN),
+             ('같은 범위의 경보',f"{alerts['keyword']} → {alerts['llm']}",f"키워드 → LLM · 같은 {COMPARISON['detector_cells']['llm']:,}칸",'경보가 많아졌다는 사실만 확인',AMBER),
+             ('대표 신고 요약',f"{BRIEF_COUNT}/{BRIEF_AUDIT['briefs']['alert_cells']}개",'기존 AI 요약 인용 · 2개 검사 실패','사람 정답 0건 · 정확도 미측정',GREEN)]
+    for i,(title,value,label,note,accent) in enumerate(entries):
+        x=52+i*400
+        box(c,x,278,376,280)
+        text(c,title,x+22,307,25,accent,True)
+        text(c,value,x+22,364,42,TEXT,True)
+        block(c,label,x+22,431,332,21,leading=29)
+        block(c,note,x+22,498,332,19,MUTED,leading=27)
+    takeaway(c,s['takeaway'])
+
+
+def adoption_codex(c,s):
+    amount=float(BRIEF_AUDIT['costs']['combined_label_and_brief_experiments_estimated_usd'])
+    cards(c,s | dict(cards=[
+        ('고객 안전 담당자','원문 검토와 조사 요청서 준비\n\n도입 가설을 현장에서 확인\n검토 시간·요청서 활용 측정\n구매 의사·예방 효과는 미확인','',CYAN),
+        ('실제 실행과 비용',f"LLM {MEASURED['labels']['llm_labeled']:,}건 출력 검사\n누적 실험 약 ${amount:.2f}\n\n실패·진단 포함 사용량 추정\n청구액·검증된 단가와 구분",'',AMBER),
+        ('Codex와 개선','이슈 → 작업트리 → PR\n구현과 독립 검수를 분리\n\n요약 과장 발견 → 공개 거부\n기존 AI 요약 인용으로 변경','',GREEN),
+    ]))
+
+
 def validation_graph(c, s):
     # Counts originate in the current pipeline export, not illustrative chart data.
     vals = MEASURED['validation']
@@ -558,10 +596,12 @@ def validation_graph(c, s):
         if value['hits']:
             box(c,x0,y,value['hits']*scale,35,fill=accent,stroke=accent,radius=4)
         text(c,f"{value['hits']} / {value['n']}",x0+19*scale+15,y+6,24,accent,True)
-    text(c,'정해진 조사 전 기간에 표적 증상 경보가 있었던 사례 수',60,563,18,MUTED)
+    text(c,'등록 기간의 표적 경보 발생 비율 · 일반 정확도나 포아송 적합성 검사는 아님',60,563,18,MUTED)
     box(c,997,279,231,278)
-    text(c,'검증의 순서',1016,301,22,CYAN,True)
-    block(c,'개발 사례로\n규칙 선택\n↓\n규칙 고정\n↓\n검증·대조 평가',1016,350,190,20,leading=30)
+    text(c,'지정 PE 대비',1016,301,22,CYAN,True)
+    cases={item['case_id']:item for item in COMPARISON['cases']}
+    h=cases['PE19003']['llm']['lead_days']; k=cases['PE19004']['llm']['lead_days']; b=abs(cases['PE20016']['llm']['lead_days'])
+    block(c,f'현대 {h}일\n기아 {k}일\n두 방식 시점 동일\n\n볼트: 키워드 놓침\nLLM {b}일 늦음',1016,350,190,20,leading=28)
     takeaway(c,s['takeaway'])
 
 
@@ -707,7 +747,7 @@ def revise_stat_story(prelim, finals):
         figure='poisson-right-tail.png',
         metrics=[('관측 건수 이상 확률', f"{demo['p_value']*100:.3g}%", f"p = {demo['p_value']:.3g}"),
                  ('경보 조건', f"p < {source['rule']['alpha']:g}", f"그리고 월 {source['rule']['min_count']}건 이상"),
-                 ('이번 사례', '두 조건 충족' if demo['alert'] else '경보 조건 미충족', '원문을 검토할 후보로 표시' if demo['alert'] else '이달 경보로 표시하지 않음')],
+                 ('이번 사례', '두 조건 충족' if demo['alert'] else '경보 조건 미충족', '평소보다 이례적인 증가' if demo['alert'] else '이달 경보로 표시하지 않음')],
         status='통계의 역할 · 경보 후보 판단',
         takeaway='p값은 결함일 확률이 아닙니다. 배수가 커도 확률과 최소 건수 조건을 함께 통과해야 합니다.',
         refs='E04 · E19',time=25)
@@ -735,21 +775,27 @@ def revise_stat_story(prelim, finals):
         '신고별 기존 AI 요약을 그대로 인용하도록 사용자가 선택했습니다. 새 종합 문장을 만들지 않습니다.', 'brief_revision',
         status='실패·의미 과장·사용자 선택·수정 기록',time=0,appendix=True,refs='E06 · E27',
         takeaway='기존 AI 요약 자체의 의미 정확도는 미측정입니다. 대표 인용을 전체 신고의 공통 상황이나 원인으로 확대하지 않습니다.')
-    # Compact core story preserves the two statistical chart pages in the timed body.
-    comparison_slide=slide('같은 신고에 적용해도, 더 정확한지는 별도입니다.', '동일 데모 모집단의 키워드·LLM 비교입니다. 등록 38사례의 주 검증과 관측 범위가 다릅니다.', 'llm_comparison',status='같은 모집단 비교 · 일치율은 정확도 아님',time=15,refs='E09 · E10 · E11 · E26 · E28',takeaway='2018년 청원·검토가 이미 있었습니다. 지정 PE 대비 일수이며 기관 최초 인지·조사보다 먼저 찾았다는 뜻은 아닙니다.') if LABELER == 'llm' else prelim[5]|dict(time=15)
-    main=[prelim[0]|dict(time=15),prelim[1]|dict(time=15),prelim[2]|dict(time=10),llm,
-          monthly,poisson,val,prelim[4]|dict(time=15,subtitle='키워드 기준선: 38회 과거 경보 재계산·64칸 독립 검산. 당시 파일의 공개·수정 이력은 미복원입니다.'),comparison_slide,
-          prelim[3]|dict(time=50),prelim[7]|dict(time=10,refs='E12 · E13 · E27'),prelim[8]|dict(time=10)]
+    # The user-approved nine-page narrative preserves a 60-second demo and two statistics pages.
+    opening=slide('고객의 목소리를, 조사의 근거로.', '현대·기아의 실제 과거 사건에서 출발합니다.', 'case_opening',tag='4분 예선 · 발표자료',time=25,refs='E01 · E28 · E29')
+    roles_slide=prelim[2]|dict(time=20,takeaway=f"LLM {MEASURED['labels']['llm_labeled']:,}건 출력 검사 완료. 의미상 분류 정확도는 미측정이며 조사 착수는 담당자가 결정합니다.")
+    demo_slide=prelim[3]|dict(title='원문을 읽고, 조사 요청서를 완성합니다.',time=60,status='60초 실제 제품 시연 · 저장·다운로드 확인')
+    poisson.update(time=35,refs='E04 · E07 · E19 · E20',takeaway='p값은 결함 확률이 아닙니다. 미래 접수 차단·키워드 38회 재계산 일치를 확인했고, 분포 적합성은 미검증입니다.')
+    val.update(title='결과와 놓친 사례를 함께 공개합니다.',status='38사례 키워드 검증 · 오른쪽은 동일 데모 비교',refs='E08 · E09 · E20 · E26 · E28',takeaway='209·240일은 지정 2019년 PE 개시일 대비입니다. 앞선 청원·검토가 있어 기관의 최초 인지·조사보다 이르다는 뜻은 아닙니다.')
+    changes=slide('LLM이 바꾼 점과, 아직 모르는 점.', '같은 신고의 분류와 경보가 달라졌습니다. 사람 정답 없이 더 정확해졌다고 말하지 않습니다.', 'llm_changes',time=15,status='7,502건 분류 비교 · 별도 요약 출력 검사',refs='E10 · E11 · E26 · E27',takeaway='독립 30건 검수를 시도했지만 전문성·시간 제약으로 미완료입니다. 일치율·검사 통과를 정확도로 부르지 않습니다.')
+    closing=slide('더 이른 조사 착수를 돕는 도구로.', '도입 가능성은 현장에서 검증합니다. 구현·검수·수정 과정은 근거와 함께 남겼습니다.', 'adoption_codex',time=20,status='도입 가설 · 실제 실험 · Codex 협업 기록',refs='E12 · E13 · E14 · E15 · E27',takeaway='고객의 목소리를, 조사의 근거로. 현업 검토 시간과 예방 효과는 아직 검증하지 않았습니다.')
+    main=[opening,prelim[1]|dict(time=15,title='흩어진 고객의 목소리에서, 조사할 이유를 찾습니다.'),roles_slide,demo_slide,monthly,poisson,val,changes,closing]
     appendix_eval=slide('부록. 지정 예비조사 이전에도 검토가 있었습니다.', '209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.', 'investigation_context',appendix=True,time=0,status='공식 사건 이력 · 비교 시점의 한계',refs='E08 · E09 · E28 · E29',takeaway='리콜 원인을 데모의 모든 신고에 적용하지 않습니다. 날짜 비교는 실제 조사 착수·사고 예방을 앞당긴 효과가 아닙니다.')
     extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. 사람 정답 검수·유사 사례 검색은 미완료로 남깁니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
     extra.insert(4,brief)
-    fm=[s | dict(time=t) for s,t in zip(main,[15,25,25,40,45,45,50,35,40,100,35,25])]
+    extra.insert(0,llm | dict(title='부록. '+llm['title'],appendix=True,time=0))
+    fm=[s | dict(time=t) for s,t in zip(main,[40,25,45,100,50,65,60,40,55])]
     fm[0]['tag']='결선 · 8분 발표 + 2분 질의응답'
-    fm[-1]=fm[-1] | dict(takeaway='8분 발표·데모 종료 → 2분 질의응답. 근거 계산과 미사용 기술의 범위는 부록에서 확인합니다.')
+    fm[3]=fm[3] | dict(status='100초 실제 시연·설명 · 마지막 10초는 후속 설계')
+    fm[-1]=fm[-1] | dict(takeaway='고객의 목소리를, 조사의 근거로. 8분 발표를 마치고 2분 질의응답에서 검증 근거와 한계를 설명합니다.')
     prelim_result=main+[dict(s) for s in extra]
     finals_result=fm+[dict(s) for s in extra]+[s | dict(appendix=True,time=0) for s in [finals[12],finals[13],finals[15]]]
     for deck in (prelim_result,finals_result):
-        for i,item in enumerate(deck[12:],1):
+        for i,item in enumerate(deck[9:],1):
             item['title']=item['title'].replace('부록. ', '').replace('부록 1. ', '').replace('부록 2. ', '').replace('부록 4. ', '')
             item['title']=f'부록 {i}. '+item['title']
     return prelim_result,finals_result
@@ -774,15 +820,18 @@ def main():
     args.output_dir.mkdir(parents=True,exist_ok=True)
     prelim,finals=prepare_slides()
     prelim,finals=revise_stat_story(prelim,finals)
-    RENDERERS.update(product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,investigation_context=investigation_context,rag_scope=rag_scope,llm_detail=llm_detail,brief_revision=brief_revision,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
+    RENDERERS.update(case_opening=case_opening,llm_changes=llm_changes,adoption_codex=adoption_codex,product=product,figure=figure_panel,llm_flow=llm_flow,validation_graph=validation_graph,llm_comparison=llm_comparison,technical_stats=technical_stats,investigation_context=investigation_context,rag_scope=rag_scope,llm_detail=llm_detail,brief_revision=brief_revision,comparison_stats=comparison_stats,proposal_scope=proposal_scope,hypotheses_design=hypotheses_design)
     assert sum(s['time'] for s in prelim)==240
     assert sum(s['time'] for s in finals)==480
-    assert sum(not s.get('appendix', False) for s in finals)==12
+    assert sum(not s.get('appendix', False) for s in finals)==9
+    assert sum(not s.get('appendix', False) for s in prelim)==9
+    assert prelim[3]['time']==60
+    assert all(prelim[i]['kind']=='figure' for i in (4,5))
     build('4분 예선',prelim,args.output_dir/'EarlySignal-preliminary-4min-DRAFT.pdf')
     build('결선 8분 + Q&A 2분',finals,args.output_dir/'EarlySignal-finals-10min-DRAFT.pdf')
     source={'draft':True,'measured_product_results_included':bool(MEASURED),'product_capture':str(SCREENSHOT.relative_to(ROOT)) if SCREENSHOT.exists() else None,'finals_presentation_seconds':480,'finals_qa_seconds':120,'appendix_seconds':0,'preliminary':prelim,'finals':finals}
     (ROOT/'storyboard.json').write_text(json.dumps(source,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(f'Built preliminary 12 + {len(prelim)-12} appendix pages / 240 seconds; finals 12 + {len(finals)-12} appendix pages / 480 seconds + 120 seconds Q&A.')
+    print(f'Built preliminary 9 + {len(prelim)-9} appendix pages / 240 seconds; finals 9 + {len(finals)-9} appendix pages / 480 seconds + 120 seconds Q&A.')
 
 
 if __name__=='__main__':
