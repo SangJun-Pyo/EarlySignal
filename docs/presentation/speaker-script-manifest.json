@@ -1,0 +1,15 @@
+{
+  "file": "EarlySignal-presentation-script.pdf",
+  "pages": 10,
+  "sha256": "00730aed51988169a555713f50b52f061de0068d41e7ffc82c65ebb882fd050a",
+  "source": "speaker-script.json",
+  "source_sha256": "6a532e25db4c20816cbd26c2f0422e4974e1b3596e9b58521c68d93abe6974e5",
+  "spoken_nonspace_characters": {
+    "preliminary": 922,
+    "finals": 2309
+  },
+  "preliminary_seconds": 240,
+  "finals_seconds": 480,
+  "qa_seconds": 120,
+  "actual_rehearsal_completed": false
+}

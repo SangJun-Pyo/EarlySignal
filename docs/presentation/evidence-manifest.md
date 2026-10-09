@@ -33,6 +33,8 @@
 | E27 | 자유 종합→구조화 거부→기존 요약 선택 | `brief_runs.jsonl`, `brief_completed.json`, R08, `brief_semantic_review.json`, ADR-023·024 | 첫54응답0/18, 구조화1형식통과 후 의미과장 공개거부, 기존 요약16/18. 초기 실패 비용·이력 보존 |
 | E28 | 지정 PE 전 청원·검토 이력 | [PE19-003 개시서 p1](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19003-2613.PDF), [PE19-004 개시서 p1](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19004-4727.PDF): 2018-06-11 CAS청원, 08-21 DP18-003검토, 2019-03-29 PE개시, 기존RQ17-004·003 | 사후 맥락. 탐지 입력 미사용. 209/240일은 지정PE대비이며 최초발견·실제효과 아님 |
 | E29 | 2018년12월 연료관 리콜은 별도 실제 문제 예시 | [기아18V907 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V907-3425.PDF) 제출2018-12-19, [현대18V934 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V934-2602.PDF) 제출2018-12-28, 각각1~2쪽 | 이전 리콜의 엔진 교체 차량 일부 연료관 손상·정렬·체결 문제와 누유·화재 위험. 데모 전체신고 원인으로 동일시하지 않음 |
+| E30 | 데모17건의 모델연도 분포: 2011=4·2012=5·2013=7·2014=1 | `console.json`의 근거ID→신고year 재집계, `year-appendix-source.json`; [NHTSA 필드 정의](https://static.nhtsa.gov/odi/ffdd/cmpl/Import_Instructions_Excel_All.pdf) YEARTXT=MODEL YEAR | 같은 2018-08 접수월의 신고 구성. 위험률·제작/등록연도·세대/엔진 동일성·연식별 탐지 성능이 아님 |
+| E31 | 연식 통합 감시 유지, 연식별 상세 검토·독립 탐지는 후속 계획 | [이슈 #35](https://github.com/SangJun-Pyo/EarlySignal/issues/35), `sources/issue-35.json`, `ingest.py`, `aggregate.py`, `export.py`, `workspace.tsx`, ADR-001 | 화면은 상위4연식 표시, 필터/독립경보 미구현. 새 범위는 사전 정의·새 자료 검증. 기존38사례·209/240일 재사용 금지 |
 
 ## 수치를 읽는 기준
 

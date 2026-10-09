@@ -1,0 +1,61 @@
+{
+  "fact": {
+    "labeler": "llm",
+    "evidence_key": "HYUNDAI|SONATA:fire_thermal:2018-08-01",
+    "count": 17,
+    "years": [
+      [
+        "2011",
+        4
+      ],
+      [
+        "2012",
+        5
+      ],
+      [
+        "2013",
+        7
+      ],
+      [
+        "2014",
+        1
+      ]
+    ],
+    "unknown": 0,
+    "duplicate_ids": 0,
+    "source": "web/public/data/console.json",
+    "source_sha256": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8"
+  },
+  "outputs": [
+    {
+      "file": "EarlySignal-preliminary-4min-3d-v2.pdf",
+      "pages": 20,
+      "preserved_pages": 18,
+      "added_pages": [
+        19,
+        20
+      ],
+      "source_file": "EarlySignal-preliminary-4min-3d.pdf",
+      "source_sha256": "1e612e3fda7ccae8dc42f6897e0de7e5bc086ade7e548ef5ae17ddee93bfaaec",
+      "sha256": "4b16deab85ab8237bfb285286ea8aada9746aebb8feccd41bbcbdbb4a831c3db"
+    },
+    {
+      "file": "EarlySignal-finals-8min-qa2min-3d-v2.pdf",
+      "pages": 23,
+      "preserved_pages": 21,
+      "added_pages": [
+        22,
+        23
+      ],
+      "source_file": "EarlySignal-finals-8min-qa2min-3d.pdf",
+      "source_sha256": "228b5c009147c6599c0ea94c2c4f712481de81da67886102c25b9d9263f57969",
+      "sha256": "58163259c686680ff157eb9c994f70131272a4a2a3113249b4907d9499d63f18"
+    }
+  ],
+  "issue": "https://github.com/SangJun-Pyo/EarlySignal/issues/35",
+  "issue_state_at_read": "OPEN",
+  "product_year_features_implemented": false,
+  "preliminary_seconds": 240,
+  "finals_seconds": 480,
+  "qa_seconds": 120
+}
