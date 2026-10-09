@@ -33,6 +33,7 @@ import type {
   DecisionKind,
   Flag,
   MetaData,
+  RevealCase,
 } from "@/lib/types";
 
 type View = "pile" | "signals" | "request" | "validation";
@@ -1270,44 +1271,10 @@ export default function Workspace() {
                           AFTER-SAVE VERIFICATION · 사후 확인
                         </p>
                         <h3>접수일 기준으로 과거를 재현하면</h3>
-                        <div className="date-comparison">
-                          <div>
-                            <span>월 집계 확인 가능일</span>
-                            <b>{dateLabel(saved.available)}</b>
-                          </div>
-                          {postCase ? (
-                            <div>
-                              <span>
-                                NHTSA 공식 조사 개시 · {postCase.case_id}
-                              </span>
-                              <b>{dateLabel(postCase.odate)}</b>
-                            </div>
-                          ) : (
-                            <p className="muted small">
-                              이 신호에 연결된 공식 조사 사례가 없습니다.
-                            </p>
-                          )}
-                        </div>
-                        {postCase && (
-                          <p className="lead-result">
-                            <b>
-                              {Math.abs(
-                                Math.round(
-                                  (Date.parse(postCase.odate) -
-                                    Date.parse(saved.available)) /
-                                    86400000,
-                                ),
-                              )}
-                            </b>
-                            <span>
-                              일<br />
-                              조사 개시{" "}
-                              {postCase.odate >= saved.available
-                                ? "이전"
-                                : "이후"}
-                            </span>
-                          </p>
-                        )}
+                        <InvestigationComparison
+                          available={saved.available}
+                          investigation={postCase}
+                        />
                         <button
                           className="text-button"
                           onClick={() => setView("validation")}
@@ -1524,6 +1491,57 @@ function MarkdownDocument({ markdown }: { markdown: string }) {
     </>
   );
 }
+const priorInvestigationNote =
+  "이전 청원·리콜 조사가 있었으며 최초 발견 시점과의 비교는 아닙니다.";
+
+export function InvestigationComparison({
+  available,
+  investigation,
+}: {
+  available: string;
+  investigation: RevealCase | undefined;
+}) {
+  return (
+    <>
+      <div className="date-comparison">
+        <div>
+          <span>월 집계 확인 가능일</span>
+          <b>{dateLabel(available)}</b>
+        </div>
+        {investigation ? (
+          <div>
+            <span>지정 예비조사(PE) 개시 · {investigation.case_id}</span>
+            <b>{dateLabel(investigation.odate)}</b>
+          </div>
+        ) : (
+          <p className="muted small">이 신호에 연결된 예비조사 사례가 없습니다.</p>
+        )}
+      </div>
+      {investigation && (
+        <>
+          <p className="lead-result">
+            <b>
+              {Math.abs(
+                Math.round(
+                  (Date.parse(investigation.odate) - Date.parse(available)) /
+                    86400000,
+                ),
+              )}
+            </b>
+            <span>
+              일<br />
+              지정 PE 개시 {investigation.odate >= available ? "이전" : "이후"}
+            </span>
+          </p>
+          {["PE19003", "PE19004"].includes(investigation.case_id) && (
+            <p className="small muted">{priorInvestigationNote}</p>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
 export function SourceAttribution({ view, labeler }: { view: View; labeler: ConsoleData["labeler"] }) {
   return view === "validation" ? (
     <>백테스트 출처: 키워드 기준선</>
@@ -1550,7 +1568,7 @@ export function Validation({
           <p className="eyebrow">EVIDENCE, LIMITATIONS, NEXT STEPS</p>
           <h2>한 사례의 성공으로 끝내지 않았습니다.</h2>
           <p className="muted">
-            공식 조사 사례와 대조 차종을 나눠 확인했습니다. 사례·대조의 백테스트와
+            지정 예비조사(PE) 사례와 대조 차종을 나눠 확인했습니다. 사례·대조의 백테스트와
             아래 사례 표는 키워드 기준선 결과입니다. 콘솔의 LLM 분류와 구분합니다.
           </p>
         </div>
@@ -1639,6 +1657,9 @@ export function Validation({
             ))}
           </div>
         </div>
+        <p className="muted small">
+          PE19003·PE19004: {priorInvestigationNote}
+        </p>
         <div className="validation-table-scroll">
           <table className="validation-table">
             <thead>
@@ -1647,7 +1668,7 @@ export function Validation({
                 <th>사례 · 대상 차종</th>
                 <th>구분</th>
                 <th>검증 결과</th>
-                <th>조사 개시 대비</th>
+                <th>지정 PE 개시 대비</th>
               </tr>
             </thead>
             <tbody>

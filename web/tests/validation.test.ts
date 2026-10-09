@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { SourceAttribution, Validation } from "../components/workspace";
-import type { CasesData, LabelSource, MetaData } from "../lib/types";
+import { InvestigationComparison, SourceAttribution, Validation } from "../components/workspace";
+import type { CasesData, LabelSource, MetaData, RevealCase } from "../lib/types";
 
 const meta = JSON.parse(readFileSync(new URL("../public/data/meta.json", import.meta.url), "utf8")) as MetaData;
 const cases = JSON.parse(readFileSync(new URL("../public/data/cases.json", import.meta.url), "utf8")) as CasesData;
@@ -24,6 +24,9 @@ for (const labeler of ["keyword", "llm"] as const) {
       human_check: { n: 0, kw_correct: null, llm_correct: null } };
     const html = renderValidation(labeler, value);
     assert.match(html, /사례·대조의 백테스트와.*키워드 기준선 결과입니다/);
+    assert.match(html, /지정 예비조사\(PE\) 사례/);
+    assert.match(html, /지정 PE 개시 대비/);
+    assert.match(html, /PE19003·PE19004: 이전 청원·리콜 조사가 있었으며 최초 발견 시점과의 비교는 아닙니다/);
     assert.match(html, /백테스트 출처: 키워드 기준선/);
     assert.doesNotMatch(html, /LLM 분류 기준|백테스트 출처:.*LLM|콘솔 분류 출처:/);
     assert.match(html, /7,502/);
@@ -55,4 +58,48 @@ test("request workflow footer continues to describe its actual console classific
   const keyword = renderToStaticMarkup(createElement(SourceAttribution, { view: "signals", labeler: "keyword" }));
   assert.equal(llm, "콘솔 분류 출처: 사전 실행 LLM");
   assert.equal(keyword, "콘솔 분류 출처: 키워드 규칙");
+});
+
+for (const [caseId, available, days] of [
+  ["PE19003", "2018-09-01", 209],
+  ["PE19004", "2018-08-01", 240],
+] as const) {
+  test(`${caseId} comparison identifies the designated PE rather than first discovery`, () => {
+    // Only the saved comparison needs this synthetic, non-exported investigation.
+    const investigation: RevealCase = {
+      case_id: caseId, make: "synthetic", title: "synthetic",
+      odate: "2019-03-29", first_alert_month: null, first_alert_grp: null,
+      first_alert_category: null, available: null, lead_days: null,
+    };
+    const html = renderToStaticMarkup(createElement(InvestigationComparison, { available, investigation }));
+    assert.match(html, new RegExp(`지정 예비조사\\(PE\\) 개시 · ${caseId}`));
+    assert.ok(html.includes(`<b>${days}</b>`));
+    assert.match(html, /지정 PE 개시 이전/);
+    assert.match(html, /이전 청원·리콜 조사가 있었으며 최초 발견 시점과의 비교는 아닙니다/);
+    assert.doesNotMatch(html, /NHTSA 공식 조사 개시|최초 발견보다|최초 조사보다/);
+
+    const lateHtml = renderToStaticMarkup(createElement(InvestigationComparison, {
+      available: "2019-04-01", investigation,
+    }));
+    assert.ok(lateHtml.includes("<b>3</b>"));
+    assert.match(lateHtml, /지정 PE 개시 이후/);
+  });
+}
+
+test("no linked PE means no lead claim and known context is not generalized to other PEs", () => {
+  const missing = renderToStaticMarkup(createElement(InvestigationComparison, {
+    available: "2018-09-01", investigation: undefined,
+  }));
+  assert.match(missing, /이 신호에 연결된 예비조사 사례가 없습니다/);
+  assert.doesNotMatch(missing, /lead-result|지정 PE 개시 이전|이전 청원·리콜 조사/);
+  const other: RevealCase = {
+    case_id: "PE20016", make: "synthetic", title: "synthetic", odate: "2020-10-09",
+    first_alert_month: null, first_alert_grp: null, first_alert_category: null,
+    available: null, lead_days: null,
+  };
+  const html = renderToStaticMarkup(createElement(InvestigationComparison, {
+    available: "2020-10-01", investigation: other,
+  }));
+  assert.match(html, /지정 예비조사\(PE\) 개시 · PE20016/);
+  assert.doesNotMatch(html, /이전 청원·리콜 조사/);
 });
