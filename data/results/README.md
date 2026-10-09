@@ -7,7 +7,8 @@
 | 전체 분류·출처 검사 | `llm_full_completed.json`, `llm_batch.json` | 출력 검사 완료이며 사람 정답 정확도는 미측정 |
 | 같은 모집단의 키워드/LLM 비교 | `llm_demo_comparison.json` | 3,793/7,502 일치는 정확도가 아님. 제한된 LLM 관측창 |
 | 대표 요약·최종 누적 비용 | `brief_completed.json` | 16/18 공개, 실패 2개 유지. 반환 사용량 추정이며 청구액 아님 |
-| LLM 공개 제품 검증 | `deployment_llm_verification.json` | 기록된 커밋·시각의 검수. 최신 문구 배포 확인은 S37 기록 참조 |
+| 현재 문구·저장 동작 확인 | `deployment_copy_verification.json` | 웹 커밋1db76f7, 새 제목·45JSON 일치·실제 저장·다운로드·재접속5기록 |
+| 전체 LLM 공개 제품 최초 검증 | `deployment_llm_verification.json` | 기록된8b50a75 커밋·시각의 검수. 후속 문구 배포 확인은 위 기록 |
 | 38사례 주 평가 | `../backtest_kw.json`, `lookahead_kw.json` | 키워드 기준선. 실제 예방 효과·기관 최초 인지 비교가 아님 |
 | 원본 출처 | `source_manifest.json` | 관측일과 실제 다운로드일을 구분 |
 

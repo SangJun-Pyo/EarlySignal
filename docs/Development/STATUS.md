@@ -18,6 +18,10 @@
 
 계산상 미래 접수 차단·64칸 독립 계산은 [R01](../Reviews/R01-methodology.md), 전체 분류 출력·동일 모집단 비교는 [R06](../Reviews/R06-full-llm-audit.md), 대표 요약·비용은 [R08](../Reviews/R08-brief-completion.md)에 있다. 이 검수들은 원문 의미의 사람 정답 정확도를 측정한 것이 아니다.
 
+## 현재 안내 최신화
+
+이슈#27의 전수 점검으로 홈페이지·README·현재 SPEC·계약·ADR 후속 상태·발표 링크를 맞췄다. 웹PR#28·문서PR#30은 각각 독립 검수 후 통합했다. [S37](../Sessions/S37-current-copy-audit.md)과 [공개 문구 검수](../../data/results/deployment_copy_verification.json)는 웹1db76f7의 새 문구, 공개45JSON 동일, 실제 요청서 저장·다운로드·재접속5기록을 확인한다. 과거 시험과 검수 보고는 당시 상태로 보존한다.
+
 ## 발표 산출물
 
 - [예선 최종 PDF](../presentation/output/pdf/EarlySignal-preliminary-4min.pdf): 본문9+부록9=18페이지,240초 배분·데모60초·통계본문2장.
