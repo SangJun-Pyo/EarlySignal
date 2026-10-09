@@ -1,0 +1,236 @@
+{
+  "method": "kw",
+  "complete_month_cutoffs": 38,
+  "exact_match": true,
+  "elapsed_s": 126.32,
+  "results": [
+    {
+      "case_id": "PE14017",
+      "cutoff": "2014-05-31",
+      "cells": 18784,
+      "equal": true
+    },
+    {
+      "case_id": "PE14022",
+      "cutoff": "2014-06-30",
+      "cells": 19456,
+      "equal": true
+    },
+    {
+      "case_id": "PE14028",
+      "cutoff": "2014-08-31",
+      "cells": 20832,
+      "equal": true
+    },
+    {
+      "case_id": "PE14030",
+      "cutoff": "2014-09-30",
+      "cells": 21584,
+      "equal": true
+    },
+    {
+      "case_id": "PE15003",
+      "cutoff": "2014-12-31",
+      "cells": 24144,
+      "equal": true
+    },
+    {
+      "case_id": "PE15012",
+      "cutoff": "2015-03-31",
+      "cells": 26896,
+      "equal": true
+    },
+    {
+      "case_id": "PE15028",
+      "cutoff": "2015-07-31",
+      "cells": 30944,
+      "equal": true
+    },
+    {
+      "case_id": "PE15029",
+      "cutoff": "2015-07-31",
+      "cells": 30944,
+      "equal": true
+    },
+    {
+      "case_id": "PE16003",
+      "cutoff": "2016-01-31",
+      "cells": 37184,
+      "equal": true
+    },
+    {
+      "case_id": "PE16013",
+      "cutoff": "2016-08-31",
+      "cells": 44496,
+      "equal": true
+    },
+    {
+      "case_id": "PE16016",
+      "cutoff": "2016-11-30",
+      "cells": 47792,
+      "equal": true
+    },
+    {
+      "case_id": "PE16018",
+      "cutoff": "2016-11-30",
+      "cells": 47792,
+      "equal": true
+    },
+    {
+      "case_id": "PE17003",
+      "cutoff": "2017-05-31",
+      "cells": 54864,
+      "equal": true
+    },
+    {
+      "case_id": "PE17007",
+      "cutoff": "2017-09-30",
+      "cells": 59920,
+      "equal": true
+    },
+    {
+      "case_id": "PE18003",
+      "cutoff": "2018-02-28",
+      "cells": 66464,
+      "equal": true
+    },
+    {
+      "case_id": "PE18006",
+      "cutoff": "2018-04-30",
+      "cells": 69152,
+      "equal": true
+    },
+    {
+      "case_id": "PE18008",
+      "cutoff": "2018-07-31",
+      "cells": 73232,
+      "equal": true
+    },
+    {
+      "case_id": "PE18010",
+      "cutoff": "2018-07-31",
+      "cells": 73232,
+      "equal": true
+    },
+    {
+      "case_id": "PE18011",
+      "cutoff": "2018-09-30",
+      "cells": 76016,
+      "equal": true
+    },
+    {
+      "case_id": "PE18016",
+      "cutoff": "2018-11-30",
+      "cells": 78800,
+      "equal": true
+    },
+    {
+      "case_id": "PE19003",
+      "cutoff": "2019-02-28",
+      "cells": 83008,
+      "equal": true
+    },
+    {
+      "case_id": "PE19004",
+      "cutoff": "2019-02-28",
+      "cells": 83008,
+      "equal": true
+    },
+    {
+      "case_id": "PE19008",
+      "cutoff": "2019-06-30",
+      "cells": 88864,
+      "equal": true
+    },
+    {
+      "case_id": "PE19009",
+      "cutoff": "2019-07-31",
+      "cells": 90336,
+      "equal": true
+    },
+    {
+      "case_id": "PE20014",
+      "cutoff": "2020-08-31",
+      "cells": 110336,
+      "equal": true
+    },
+    {
+      "case_id": "PE20016",
+      "cutoff": "2020-09-30",
+      "cells": 111904,
+      "equal": true
+    },
+    {
+      "case_id": "PE21005",
+      "cutoff": "2021-01-31",
+      "cells": 118176,
+      "equal": true
+    },
+    {
+      "case_id": "PE21009",
+      "cutoff": "2021-02-28",
+      "cells": 119744,
+      "equal": true
+    },
+    {
+      "case_id": "PE21022",
+      "cutoff": "2021-11-30",
+      "cells": 134080,
+      "equal": true
+    },
+    {
+      "case_id": "PE22008",
+      "cutoff": "2022-06-30",
+      "cells": 145472,
+      "equal": true
+    },
+    {
+      "case_id": "PE23001",
+      "cutoff": "2022-12-31",
+      "cells": 155360,
+      "equal": true
+    },
+    {
+      "case_id": "PE23002",
+      "cutoff": "2022-12-31",
+      "cells": 155360,
+      "equal": true
+    },
+    {
+      "case_id": "PE23006",
+      "cutoff": "2023-02-28",
+      "cells": 158656,
+      "equal": true
+    },
+    {
+      "case_id": "PE23011",
+      "cutoff": "2023-05-31",
+      "cells": 163648,
+      "equal": true
+    },
+    {
+      "case_id": "PE23021",
+      "cutoff": "2023-10-31",
+      "cells": 171984,
+      "equal": true
+    },
+    {
+      "case_id": "PE23023",
+      "cutoff": "2023-11-30",
+      "cells": 173664,
+      "equal": true
+    },
+    {
+      "case_id": "PE24002",
+      "cutoff": "2023-12-31",
+      "cells": 175344,
+      "equal": true
+    },
+    {
+      "case_id": "PE24010",
+      "cutoff": "2024-03-31",
+      "cells": 180384,
+      "equal": true
+    }
+  ]
+}
