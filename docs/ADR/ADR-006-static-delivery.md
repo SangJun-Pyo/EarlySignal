@@ -26,3 +26,11 @@
 기본 응답 헤더는 MIME sniffing 방지·referrer 범위·데이터 재검증만 설정한다. 새 CSP나 서버 기능을 추가하지 않는다. 계정 연결과 실제 게시·공개 URL 확인은 Astra가 담당한다.
 
 공식 근거(2026-10-09 확인): [Next.js static export on Pages](https://developers.cloudflare.com/pages/framework-guides/nextjs/deploy-a-static-nextjs-site/), [build image와 Node 버전 설정](https://developers.cloudflare.com/pages/configuration/build-image/), [정적 응답 헤더](https://developers.cloudflare.com/pages/configuration/headers/).
+
+## 2026-10-09 PR 자동 검증
+
+[이슈 #2](https://github.com/SangJun-Pyo/EarlySignal/issues/2)에 따라 PR과 `main` push에서 Python 전체 테스트와 웹 테스트·타입 검사·정적 빌드를 실행한다. Python 지원 하한 3.10과 대표 버전 3.13을 검사하며, Node는 기존 `web/.node-version`을 읽는다. 테스트는 합성 자료와 커밋된 공개 JSON을 사용하고 원본 신고·작업 DB·API 키를 가져오거나 실제 AI API를 호출하지 않는다.
+
+GitHub Actions는 `contents: read`만 허용하고 checkout 인증을 남기지 않는다. 같은 PR/브랜치의 오래된 실행은 취소하며 공식 actions 저장소에서 확인한 버전을 커밋 SHA로 고정한다. 자동 검증은 Cloudflare 배포와 분리한다. 원문 의미·사람 정답 정확도·공개 배포의 실제 브라우저 동작은 별도 수동 검수가 필요하다.
+
+공식 actions 근거: [checkout](https://github.com/actions/checkout), [setup-python](https://github.com/actions/setup-python), [setup-node](https://github.com/actions/setup-node).
