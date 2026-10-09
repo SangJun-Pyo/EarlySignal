@@ -1,1 +1,2 @@
 *.pdf binary
+Codex[[:space:]]Log.zip filter=lfs diff=lfs merge=lfs -text
