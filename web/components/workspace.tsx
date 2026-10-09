@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import { availableDate, evidenceKey, getAsOf } from "@/lib/asof";
-import { createRequest } from "@/lib/request";
+import { BRIEF_TITLE, BRIEF_REVIEW_NOTE, BRIEF_UNAVAILABLE, createRequest } from "@/lib/request";
 import {
   categories as categoryNames,
   flags as flagNames,
@@ -1010,16 +1010,16 @@ export default function Workspace() {
                           {data.briefs[key] ? (
                             <div className="brief-box">
                               <span className="eyebrow">
-                                AI 상황 요약 · 담당자 검토 필요
+                                {BRIEF_TITLE} ({BRIEF_REVIEW_NOTE})
                               </span>
                               <p>{data.briefs[key]}</p>
+                              <p>기존 신고별 AI 요약을 그대로 인용합니다. 원문과의 의미 일치는 담당자가 확인해야 합니다.</p>
                             </div>
                           ) : (
                             <div className="brief-empty">
                               <Icon name="pile" size={17} />
                               <span>
-                                AI 상황 요약은 아직 생성하지 않았습니다. 아래
-                                원문에서 근거를 직접 확인하세요.
+                                {BRIEF_UNAVAILABLE}
                               </span>
                             </div>
                           )}
