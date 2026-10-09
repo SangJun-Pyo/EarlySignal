@@ -1,6 +1,6 @@
 # ADR 목록
 
-설계 결정 기록. 10/8 사전 조사에서 정한 결정은 '사전 작업'이고, 당일 새 결정이나 변경은 ADR-009부터 추가한다(기존 ADR을 고칠 때는 '변경 이력'을 덧붙인다).
+설계 결정 기록. 10/8 사전 조사에서 정한 결정은 '사전 작업'이고, ADR-001~009는 사전 결정이며 당일 새 결정은 ADR-010부터 추가한다(기존 ADR을 고칠 때는 '변경 이력'을 덧붙인다).
 
 | 번호 | 제목 |
 |---|---|
@@ -26,6 +26,14 @@
 | [ADR-020](ADR-020-independent-blind-human-review.md) | 개발 표본과 분리한 예측 비공개 사람 정답 검수 |
 | [ADR-021](ADR-021-approved-full-labeling.md) | 승인된 전체 분류와 고정 시험 결과 분리 |
 | [ADR-022](ADR-022-issue-branch-pr-review.md) | 이슈·브랜치·PR·독립 검수 연결 |
+
+| [ADR-023](ADR-023-structured-brief-citations.md) | 문장별 상황 서술 실험 — ADR-024로 대체 |
+| [ADR-024](ADR-024-source-summary-selection.md) | 대표 ID 선택과 기존 신고별 AI 요약 그대로 인용 |
+| [ADR-025](ADR-025-designated-pe-comparison-context.md) | 선행 기간은 지정 예비조사(PE) 개시일과 비교 |
+
+## 기록을 읽는 기준
+
+ADR은 결정 당시의 근거를 보존한다. 승인 한도·작업 진행 상태·자유 서술·전망 띠처럼 달라진 항목은 각 문서 상단의 후속 상태를 우선한다. 최신 제품·미구현 범위는 [현재 명세](../SPEC.md), 실행 결과는 [현재 상태](../Development/STATUS.md)와 [작업 색인](../CODEX_LOG.md)에 있다. 역사 기록의 과거 수치를 현재 성능으로 인용하지 않는다.
 
 ## 새 ADR 양식
 ```
