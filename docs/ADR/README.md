@@ -29,6 +29,7 @@
 | [ADR-023](ADR-023-structured-brief-citations.md) | 문장별 상황 서술 실험 — ADR-024로 대체 |
 | [ADR-024](ADR-024-source-summary-selection.md) | 대표 ID 선택과 기존 신고별 AI 요약 그대로 인용 |
 | [ADR-025](ADR-025-designated-pe-comparison-context.md) | 선행 기간은 지정 예비조사(PE) 개시일과 비교 |
+| [ADR-028](ADR-028-revert-web-accent.md) | 사용자 요청으로 PR38의 마지막 웹 시각 변경만 되돌림; ADR027·S40은 원래 Git 기록에 보존 |
 
 ## 기록을 읽는 기준
 
