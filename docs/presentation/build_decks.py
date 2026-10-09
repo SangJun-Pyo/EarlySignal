@@ -577,9 +577,9 @@ def investigation_context(c,s):
         text(c,title,x+23,380,24,TEXT,True)
         block(c,body,x+23,426,330,20,leading=27)
         if i<2:arrow(c,x+380,399,x+396,AMBER)
-    text(c,'검증 범위',57,514,20,CYAN,True)
-    text(c,'38사례 키워드 규칙은 dev에서 선택·고정 후 holdout 평가. 현재 데모 비교는 별도 관측창입니다.',183,514,19,TEXT)
-    text(c,'출처: NHTSA PE19-003·PE19-004 개시서 1쪽 · 사건 이력은 사후 해석용이며 탐지 입력에 쓰지 않습니다.',57,550,18,MUTED)
+    text(c,'별도 실제 문제',57,514,20,CYAN,True)
+    text(c,'2018년 12월 연료관 리콜: 엔진 교체 차량 일부의 연료관 문제로 누유·화재 위험.',221,514,18,TEXT)
+    text(c,'출처: NHTSA PE19-003·004 개시서, 18V907·934 보고서 · 사후 맥락이며 탐지 입력에는 미사용',57,550,18,MUTED)
     takeaway(c,s['takeaway'])
 
 
@@ -740,7 +740,7 @@ def revise_stat_story(prelim, finals):
     main=[prelim[0]|dict(time=15),prelim[1]|dict(time=15),prelim[2]|dict(time=10),llm,
           monthly,poisson,val,prelim[4]|dict(time=15,subtitle='키워드 기준선: 38회 과거 경보 재계산·64칸 독립 검산. 당시 파일의 공개·수정 이력은 미복원입니다.'),comparison_slide,
           prelim[3]|dict(time=50),prelim[7]|dict(time=10,refs='E12 · E13 · E27'),prelim[8]|dict(time=10)]
-    appendix_eval=slide('부록. 지정 예비조사 이전에도 검토가 있었습니다.', '209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.', 'investigation_context',appendix=True,time=0,status='공식 사건 이력 · 비교 시점의 한계',refs='E08 · E09 · E28',takeaway='접수일로 재현한 경보와 지정 기록의 날짜를 비교합니다. 실제 당시 조사 착수나 사고 예방을 앞당긴 효과는 미측정입니다.')
+    appendix_eval=slide('부록. 지정 예비조사 이전에도 검토가 있었습니다.', '209일·240일은 지정 PE 개시일 대비입니다. 기관의 최초 인지·최초 조사나 AI의 최초 발견을 뜻하지 않습니다.', 'investigation_context',appendix=True,time=0,status='공식 사건 이력 · 비교 시점의 한계',refs='E08 · E09 · E28 · E29',takeaway='리콜 원인을 데모의 모든 신고에 적용하지 않습니다. 날짜 비교는 실제 조사 착수·사고 예방을 앞당긴 효과가 아닙니다.')
     extra=[stats,slide('부록. 비교 통계와 업무량도 범위를 밝힙니다.', '이항 계산은 비교용이며, 포아송이 현재 주 경보 규칙입니다. 업무량은 현업 투입 시간이 아닙니다.', 'comparison_stats',status='실제 계산 · 주 분석과 보조 분석 분리',time=0,appendix=True,refs='E04 · E13 · E18 · E19 · E23',takeaway='서로 다른 지표를 하나의 정확도로 합치지 않습니다. 발생 비율·경보량·모형 적합성·분류 정답은 별개입니다.'),appendix_eval,detail,rag,slide('부록. 제출 기획과 현재 구현의 차이를 남깁니다.', '요청서는 원래 기획의 담당자 결정을 구체화했습니다. 사람 정답 검수·유사 사례 검색은 미완료로 남깁니다.', 'proposal_scope',status='제출 기획 보존 · 미완료·보완 이유 공개',time=0,appendix=True,refs='E01 · E02 · E22 · E24',takeaway='유사 사례는 원래 기획의 미구현 기능입니다. 직접 분류 검증을 먼저 하고, 근거 검색으로 보완합니다.'),slide('부록. 증상 다음에는 조사 질문과 확인 자료가 필요합니다.', '현재 제품 완성을 우선합니다. 가설과 확인 절차는 후속 설계이며 실제 원인 추정 기능은 아닙니다.', 'hypotheses_design',status='설계·발표만 · 자료 연결·가설 생성 미구현',time=0,appendix=True,refs='E01 · E22 · E24 · E25',takeaway='현재는 조사 요청서를 완성합니다. 이후의 가설·추가 자료·담당자 확인은 출처와 상태를 나누어 검증합니다.')]
     extra.insert(4,brief)
     fm=[s | dict(time=t) for s,t in zip(main,[15,25,25,40,45,45,50,35,40,100,35,25])]
