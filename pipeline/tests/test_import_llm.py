@@ -145,7 +145,7 @@ def test_complete_synthetic_cache_reaches_console_without_replacing_main_validat
     async def create(**kwargs):
         calls.append(kwargs)
         supplied=json.loads(kwargs["messages"][1]["content"])["evidence"]
-        content=json.dumps({"sentences":[{"text":"주행 중 연기가 발생했다는 신고입니다.","citation_ids":[supplied[0]["odino"]]}]})
+        content=json.dumps({"selected_ids":[supplied[0]["odino"]]})
         return SimpleNamespace(usage=None,choices=[SimpleNamespace(finish_reason="stop",message=SimpleNamespace(content=content,refusal=None))])
     client=SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
     generated=asyncio.run(generate_briefs(console,root=tmp_path,client=client,limit=1))
