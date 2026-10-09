@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-09T02:16:47.909758+00:00",
+  "generated_at": "2026-10-09T03:52:30.567050+00:00",
   "sources": [
     {
       "path": "web/public/data/console.json",
-      "sha256": "3e19042ff94dcc4188d1f976873c85f76cb89d2feaecf239ae1c137926473260"
+      "sha256": "0ac92b9d65f2620a185f25221a6ed5caec50c9df3446f6a18158b16ab347ccd8"
     },
     {
       "path": "web/public/data/meta.json",
-      "sha256": "61c2c8c29e9400368c2ca6b02261639506883a7a7eff81f8c2ced5e610768d66"
+      "sha256": "4942b5993a4bab3120ee85755b8a8094dfb31fc120cb5b30de236317c9251286"
     },
     {
       "path": "data/backtest_kw.json",
@@ -26,35 +26,36 @@
       "sha256": "0d77e41ea6120cfadb4913e54726ae97c21959d3c55b6c8846b24c344e4d45f7"
     }
   ],
-  "labeler": "keyword",
+  "labeler": "llm",
   "example": {
     "group": "HYUNDAI|SONATA",
     "category": "fire_thermal",
-    "display_name": "SONATA · 화재·열 관련 신고",
+    "display_name": "HYUNDAI SONATA · 화재·과열",
+    "labeler": "llm",
     "monthly_rows": [
       {
         "month": "2017-08-01",
-        "n": 9,
+        "n": 5,
         "total": 101
       },
       {
         "month": "2017-09-01",
-        "n": 9,
+        "n": 5,
         "total": 109
       },
       {
         "month": "2017-10-01",
-        "n": 3,
+        "n": 1,
         "total": 66
       },
       {
         "month": "2017-11-01",
-        "n": 7,
+        "n": 6,
         "total": 87
       },
       {
         "month": "2017-12-01",
-        "n": 4,
+        "n": 5,
         "total": 66
       },
       {
@@ -69,12 +70,12 @@
       },
       {
         "month": "2018-03-01",
-        "n": 5,
+        "n": 3,
         "total": 78
       },
       {
         "month": "2018-04-01",
-        "n": 6,
+        "n": 5,
         "total": 70
       },
       {
@@ -84,12 +85,12 @@
       },
       {
         "month": "2018-06-01",
-        "n": 13,
+        "n": 7,
         "total": 98
       },
       {
         "month": "2018-07-01",
-        "n": 11,
+        "n": 7,
         "total": 129
       },
       {
@@ -103,135 +104,35 @@
       "2018-07-01"
     ],
     "target_month": "2018-08-01",
-    "baseline_sum": 82,
+    "available": "2018-09-01",
+    "baseline_sum": 59,
     "baseline_months": 12,
-    "baseline": 6.833333333333333,
+    "raw_baseline": 4.916666666666667,
+    "baseline": 4.916666666666667,
     "observed": 17,
-    "ratio": 2.4878048780487805,
-    "p_value": 0.0007412096015825125,
-    "p_value_percent": 0.07412096015825125,
-    "comparison_binomial": {
-      "historical_category_sum": 82,
-      "historical_total_sum": 1005,
-      "historical_rate": 0.08159203980099503,
-      "current_total": 108,
-      "p_value": 0.006586025840789413,
-      "p_value_percent": 0.6586025840789412,
-      "alert": false,
-      "used_for_primary": false,
-      "formula": "scipy.stats.binom.sf(observed-1, current_total, historical_category_sum/historical_total_sum)"
-    },
-    "exported_baseline": 6.833333333333333,
+    "ratio": 3.4576271186440675,
+    "p_value": 1.6130219673942316e-05,
+    "p_value_percent": 0.0016130219673942316,
+    "exported_baseline": 4.916666666666667,
     "alert": true,
-    "formula": "P(X >= observed | X ~ Poisson(baseline)) = scipy.stats.poisson.sf(observed-1, baseline)",
-    "pmf_rows": [
-      {
-        "n": 0,
-        "probability": 0.0010772612553122203
-      },
-      {
-        "n": 1,
-        "probability": 0.007361285244633504
-      },
-      {
-        "n": 2,
-        "probability": 0.025151057919164475
-      },
-      {
-        "n": 3,
-        "probability": 0.057288520815874655
-      },
-      {
-        "n": 4,
-        "probability": 0.09786788972711911
-      },
-      {
-        "n": 5,
-        "probability": 0.13375278262706297
-      },
-      {
-        "n": 6,
-        "probability": 0.15232955799193273
-      },
-      {
-        "n": 7,
-        "probability": 0.14870266375402952
-      },
-      {
-        "n": 8,
-        "probability": 0.12701685862323348
-      },
-      {
-        "n": 9,
-        "probability": 0.0964387259917144
-      },
-      {
-        "n": 10,
-        "probability": 0.0658997960943382
-      },
-      {
-        "n": 11,
-        "probability": 0.040937752119210004
-      },
-      {
-        "n": 12,
-        "probability": 0.023311775512327923
-      },
-      {
-        "n": 13,
-        "probability": 0.01225362558981342
-      },
-      {
-        "n": 14,
-        "probability": 0.005980936299789869
-      },
-      {
-        "n": 15,
-        "probability": 0.0027246487587931655
-      },
-      {
-        "n": 16,
-        "probability": 0.0011636520740679118
-      },
-      {
-        "n": 17,
-        "probability": 0.00046774250036063064
-      },
-      {
-        "n": 18,
-        "probability": 0.00017756891217394404
-      },
-      {
-        "n": 19,
-        "probability": 6.386250350115531e-05
-      },
-      {
-        "n": 20,
-        "probability": 2.181968869622811e-05
-      },
-      {
-        "n": 21,
-        "probability": 7.100057432899536e-06
-      },
-      {
-        "n": 22,
-        "probability": 2.205320869309715e-06
-      },
-      {
-        "n": 23,
-        "probability": 6.552040263891193e-07
-      },
-      {
-        "n": 24,
-        "probability": 1.8655114640245856e-07
-      },
-      {
-        "n": 25,
-        "probability": 5.0990646683338466e-08
-      }
-    ],
-    "pmf_plotted_through": 25,
-    "probability_above_plotted_range": 1.7872728871704344e-08,
+    "comparison_binomial": {
+      "historical_category_sum": 59,
+      "historical_total_sum": 1005,
+      "historical_rate": 0.05870646766169154,
+      "current_total": 108,
+      "p_value": 0.00018881215511292116,
+      "p_value_percent": 0.018881215511292116,
+      "alert": true,
+      "used_for_primary": false,
+      "formula": "scipy.stats.binom.sf(observed-1,current_total,historical_rate)"
+    },
+    "formula": "P(X >= observed | X ~ Poisson(baseline)) = scipy.stats.poisson.sf(observed-1,baseline)",
+    "verification": {
+      "independent_sum": 1.613021967394233e-05,
+      "independent_stop": 117,
+      "monthly_baseline_matches_export": true,
+      "alert_matches_export": true
+    },
     "tail_expansion": {
       "n_range": [
         17,
@@ -239,10 +140,118 @@
       ],
       "y_range_probability": [
         0,
-        0.00055
+        1.392949284367224e-05
       ],
       "scale": "linear; separately labelled y axis"
-    }
+    },
+    "pmf_rows": [
+      {
+        "n": 0,
+        "probability": 0.007323501878765404
+      },
+      {
+        "n": 1,
+        "probability": 0.036007217570596564
+      },
+      {
+        "n": 2,
+        "probability": 0.08851774319438323
+      },
+      {
+        "n": 3,
+        "probability": 0.14507074579079476
+      },
+      {
+        "n": 4,
+        "probability": 0.17831612503451852
+      },
+      {
+        "n": 5,
+        "probability": 0.17534418961727655
+      },
+      {
+        "n": 6,
+        "probability": 0.14368482204749053
+      },
+      {
+        "n": 7,
+        "probability": 0.10092148215240403
+      },
+      {
+        "n": 8,
+        "probability": 0.062024660906164944
+      },
+      {
+        "n": 9,
+        "probability": 0.03388384253207162
+      },
+      {
+        "n": 10,
+        "probability": 0.01665955591160186
+      },
+      {
+        "n": 11,
+        "probability": 0.007446316657458403
+      },
+      {
+        "n": 12,
+        "probability": 0.0030509214082642074
+      },
+      {
+        "n": 13,
+        "probability": 0.0011538741223563371
+      },
+      {
+        "n": 14,
+        "probability": 0.00040522960249418893
+      },
+      {
+        "n": 15,
+        "probability": 0.0001328252585953175
+      },
+      {
+        "n": 16,
+        "probability": 4.081609508918601e-05
+      },
+      {
+        "n": 17,
+        "probability": 1.180465495226461e-05
+      },
+      {
+        "n": 18,
+        "probability": 3.224419639738947e-06
+      },
+      {
+        "n": 19,
+        "probability": 8.343892927394643e-07
+      },
+      {
+        "n": 20,
+        "probability": 2.051207011317847e-07
+      },
+      {
+        "n": 21,
+        "probability": 4.8024291137996964e-08
+      },
+      {
+        "n": 22,
+        "probability": 1.0732701428567518e-08
+      },
+      {
+        "n": 23,
+        "probability": 2.294309363353197e-09
+      },
+      {
+        "n": 24,
+        "probability": 4.700147654091661e-10
+      },
+      {
+        "n": 25,
+        "probability": 9.243623719713528e-11
+      }
+    ],
+    "pmf_plotted_through": 25,
+    "probability_above_plotted_range": 2.1335134997150657e-11
   },
   "rule": {
     "rule": "poisson",
@@ -254,6 +263,7 @@
     "pre_window_months": 12,
     "evaluation_window_basis": "alert_month"
   },
+  "validation_labeler": "keyword",
   "validation": [
     {
       "split": "dev",
@@ -300,26 +310,27 @@
   "validation_definition": {
     "primary_window": "alert_month >= odate-12 calendar months AND alert_month < odate-1 calendar month",
     "window_basis": "alert_month",
-    "unit": "Selected investigation case bundles and matched single-model controls; counts of units with a target-category alert in the specified window.",
-    "split": "38 selected investigation cases randomized dev/holdout, seed 42; controls 19 dev and 17 holdout.",
+    "unit": "Selected investigation case bundles and matched single-model controls; counts with target-category alerts.",
     "limitations": [
-      "This is not general accuracy or a false-positive rate.",
-      "Case bundles and single-model controls have different units.",
-      "Group overlap between dev/holdout reduces independence.",
-      "Current file LDATE supports retrospective receipt-time analysis, not a historical file availability reconstruction."
+      "Not general accuracy or a false-positive rate.",
+      "Case bundles and controls have different units.",
+      "Group overlap reduces dev/holdout independence.",
+      "Receipt-time retrospective analysis does not reconstruct historical file availability."
     ]
   },
   "verification": {
     "scipy_poisson_sf_matches_independent_sum": true,
-    "independent_sum_17_to_100": 0.0007412096015825152,
+    "independent_sum": 1.613021967394233e-05,
+    "independent_stop": 117,
     "monthly_baseline_matches_export": true,
+    "alert_matches_export": true,
     "validation_counts_match_backtest_csv": true
   },
   "model_assumptions": {
-    "form": "Poisson count model; mean equals variance under model; independent counts assumption.",
+    "form": "Poisson count model; mean equals variance; independent counts assumption.",
     "tested_fit": false,
     "tested_independence": false,
-    "note": "PMF is an assumed theoretical distribution. Backtest results assess alerts on selected cases; they do not establish Poisson goodness-of-fit, independence, or the probability of a defect."
+    "note": "Backtest results do not establish Poisson goodness-of-fit or a defect probability."
   },
   "figure_files": [
     "sonata-monthly-baseline.png",
