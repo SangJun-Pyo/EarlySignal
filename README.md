@@ -143,12 +143,14 @@ python -m es.cli export --method llm --output build/llm-export
 
 실제 적재한 NHTSA ODI 공개 파일입니다. 파일별 SHA256은 [출처 manifest](data/results/source_manifest.json), 다운로드 경로는 [ingest.py](pipeline/es/ingest.py)에 기록했습니다.
 
-| 원본 파일 · 공식 직접 링크 | 사용 용도 |
-|---|---|
-| [COMPLAINTS_RECEIVED_2010-2014.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2010-2014.zip) | 2010~2014년 접수 신고 적재, 사례·대조군 평가 범위 추출 |
-| [COMPLAINTS_RECEIVED_2015-2019.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2015-2019.zip) | 2015~2019년 접수 신고 적재, 사례 평가와 현대·기아 데모 범위 추출 |
-| [COMPLAINTS_RECEIVED_2020-2024.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip) | 2020~2024년 접수 신고 적재, 사례 평가와 볼트 EV 데모 범위 추출 |
-| [FLAT_INV.zip](https://static.nhtsa.gov/odi/ffdd/inv/FLAT_INV.zip) | 조사 기록 적재·확인, 조사 개시일 등 사후 비교 자료 |
+| 공식 원본 URL | 참고 크기 | 사용 용도 |
+|---|---|---|
+| <https://static.nhtsa.gov/odi/ffdd/inv/FLAT_INV.zip> | 약 4MB · 조사파일 | 조사 기록 적재·확인, 조사 개시일 등 사후 비교 자료 |
+| <https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2015-2019.zip> | 약 78MB | 2015~2019년 접수 신고 적재, 사례 평가와 현대·기아 데모 범위 추출 |
+| <https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip> | 약 72MB | 2020~2024년 접수 신고 적재, 사례 평가와 볼트 EV 데모 범위 추출 |
+| <https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2010-2014.zip> | 약 69MB | 2010~2014년 접수 신고 적재, 사례·대조군 평가 범위 추출 |
+
+크기는 참고용 반올림 값이며 원본이 갱신되면 달라질 수 있습니다.
 
 ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. LLM 분류는 [SPEC Step 2](docs/SPEC.md#step-2-범위)의 현대·기아와 볼트 EV 고정 데모 범위 7,502건이며, 공개 콘솔은 현대·기아 9개 차종의 2018-03~10 접수월을 제공합니다. 조사 파일의 사후 정보는 탐지 입력으로 쓰지 않습니다.
 
