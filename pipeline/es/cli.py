@@ -35,6 +35,10 @@ def main(argv=None):
     label = sub.add_parser("label-llm")
     label.add_argument("--limit", type=int, default=50)
     label.add_argument("--concurrency", type=int, default=12)
+    brief = sub.add_parser("briefs")
+    brief.add_argument("--console", type=Path)
+    brief.add_argument("--limit", type=int, default=1)
+    brief.add_argument("--model")
     sub.add_parser("download")
     args = parser.parse_args(argv)
     config = Config(root=args.root.resolve(), db_path=args.db, raw_path=args.raw_dir, cases_path=args.cases)
@@ -43,6 +47,11 @@ def main(argv=None):
         from .label_llm import run_label_llm
         result = run_label_llm(config,args.limit,args.concurrency)
         print(json.dumps(result,ensure_ascii=False,default=str,indent=2))
+        return
+    if args.command == "briefs":
+        from .brief import run_briefs
+        result = run_briefs(config, console_path=args.console, limit=args.limit, model=args.model)
+        print(json.dumps(result, ensure_ascii=False, default=str, indent=2))
         return
     if args.command == "download":
         from .ingest import download

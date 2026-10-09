@@ -14,6 +14,7 @@ from .export import CONTRACT, FLAGS, MONTHS, build_console, date_string, flags_f
 from .import_llm import load_complete, read_records
 from .label_llm import digest
 from .privacy import public_text, sensitive_values
+from .brief import load_validated_briefs
 
 REPRESENTATIVES={"PE19003","PE19004","PE20016"}
 
@@ -87,6 +88,8 @@ def run(con,config,args=None):
     output.parent.mkdir(parents=True,exist_ok=True)
     measured=json.loads((config.root/"data/backtest_kw.json").read_text())
     console=build_console(con,detections,source,"llm")
+    console["briefs"]=load_validated_briefs(console,root=config.root,
+        denied_by_id=sensitive_values(con,console["complaints"]))
     details={}
     for item in measured["cases"]:
         if item["case_id"] not in REPRESENTATIVES:
