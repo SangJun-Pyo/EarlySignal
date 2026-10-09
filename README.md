@@ -150,7 +150,7 @@ python -m es.cli export --method llm --output build/llm-export
 | <https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip> | 약 72MB | 2020~2024년 접수 신고 적재, 사례 평가와 볼트 EV 데모 범위 추출 |
 | <https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2010-2014.zip> | 약 69MB | 2010~2014년 접수 신고 적재, 사례·대조군 평가 범위 추출 |
 
-크기는 사용자가 제공한 참고용 반올림 값이며 원본이 갱신되면 달라질 수 있습니다.
+크기는 참고용 반올림 값이며 원본이 갱신되면 달라질 수 있습니다.
 
 ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. LLM 분류는 [SPEC Step 2](docs/SPEC.md#step-2-범위)의 현대·기아와 볼트 EV 고정 데모 범위 7,502건이며, 공개 콘솔은 현대·기아 9개 차종의 2018-03~10 접수월을 제공합니다. 조사 파일의 사후 정보는 탐지 입력으로 쓰지 않습니다.
 
