@@ -1,5 +1,7 @@
 # 화면 참고 (DESIGN_REF)
 
+> **역사 기록 · 2026-10-08 화면 시안:** 아래 수치·문구·문서번호·저장일·연결 상태는 당시 시안이며 현재 제품의 구현 근거가 아니다. 현재 화면은 [공개 제품](https://earlysignal.pages.dev/), 명세는 [SPEC](SPEC.md), 값은 [console.json](../web/public/data/console.json)을 따른다.
+
 > 사전 작업(10/8). 참고 시안은 행사 전 AI 도구(Claude)로 만든 클릭 시안이며, 이 문서는 그 화면을 글로 옮긴 것이다. **코드는 포함하지 않는다.** Codex는 이 문서와 `docs/design-ref/*.png` 캡처를 흐름·배치 참고용으로만 쓰고, 화면 코드는 새로 작성한다. 숫자는 시제품 값이므로 당일 `console.json` 값으로 바뀐다. 결정 배경은 ADR-007, ADR-009.
 
 ## 공통
