@@ -466,7 +466,7 @@ export default function Workspace() {
           </div>
         </header>
         <div className="page-heading">
-          <div>
+          <div className="page-heading-copy">
             <p className="eyebrow">COMPLAINTS TO INVESTIGATION</p>
             <h1>
               {view === "validation"
@@ -479,6 +479,17 @@ export default function Workspace() {
                 : "신호를 고르고 원문을 검토하면, 근거가 연결된 조사 요청서가 완성됩니다."}
             </p>
           </div>
+          {view !== "validation" && (
+            <div className="heading-art" aria-hidden="true">
+              <img
+                src="/images/vehicle-concept.webp"
+                alt=""
+                width={960}
+                height={540}
+                decoding="async"
+              />
+            </div>
+          )}
           <button
             className="subtle-button demo-button"
             onClick={() => {
