@@ -6,10 +6,10 @@
 
 | 파일 | 구성 | 시간 |
 |---|---|---|
-| `output/pdf/EarlySignal-preliminary-4min-DRAFT.pdf` | 본문 9장 + 부록 9장 | 발표·데모 240초 |
-| `output/pdf/EarlySignal-finals-10min-DRAFT.pdf` | 본문 9장 + 부록 12장 | 발표·데모 480초 + 질의응답 120초 |
+| `output/pdf/EarlySignal-preliminary-4min.pdf` | 본문 9장 + 부록 9장 | 발표·데모 240초 |
+| `output/pdf/EarlySignal-finals-8min-qa2min.pdf` | 본문 9장 + 부록 12장 | 발표·데모 480초 + 질의응답 120초 |
 
-파일명의 `DRAFT`는 기존 링크를 보존하기 위해 남겼으며, PDF 내부 표기는 발표자료로 확정했다. 부록은 시간 외 참고자료다. 시간은 배분안이며 실제 타이머 리허설 완료를 뜻하지 않는다. 예선 제품 조작은 60초, 결선은 100초(후속 조사 설계 설명 10초 포함)다.
+최종 파일명은 위 표를 사용한다. 이전 `DRAFT` 파일은 같은 바이트의 호환본으로 유지한다. PDF 내용·렌더는 R09 최종 검수본과 같다. 부록은 시간 외 참고자료다. 시간은 배분안이며 실제 타이머 리허설 완료를 뜻하지 않는다. 예선 제품 조작은 60초, 결선은 100초(후속 조사 설계 설명 10초 포함)다.
 
 ## 실제 결과와 한계
 
@@ -32,7 +32,7 @@
 - `evidence-manifest.md`, `qa.json`: 주장·근거·한계 및 파일 해시·렌더 검수.
 - `SESSION.md`, `../Sessions/S25-llm-presentation.md`: 결정·수정·실제 실행 기록.
 
-그림과 PDF는 로컬 공개 결과만 읽으며 API를 호출하지 않는다. Python3.10+와 reportlab·matplotlib·scipy·numpy가 필요하다.
+그림과 PDF는 로컬 공개 결과만 읽으며 API를 호출하지 않는다. 아래 명령은 편집 후 새 산출물을 생성하는 명령이며, 실행 뒤에는 새 해시·렌더 검수가 필요하다. 이미 검수한 최종 PDF를 열기 위해 재생성할 필요는 없다. Python3.10+와 reportlab·matplotlib·scipy·numpy가 필요하다.
 
 ```bash
 python docs/presentation/figures/build_stat_figures.py
@@ -43,4 +43,4 @@ python docs/presentation/build_decks.py
 
 ## 최종 검수
 
-main8b50a75의 실제 LLM 공개 화면 두 장을 변경 없이 복사했다. 요청서 저장 시각은2026-10-09 13:17:28 KST이며 촬영 시각은 별도 미기록이다. 캡처 출처·파일 해시는 `assets/screenshots/request-public.json`에 남겼다. 두 PDF 총39페이지를 렌더링해 QA를 갱신했다. 내용·그림·글리프·출처·시간을 독립 검수했고, 최종 표기 변경의 외관 검수도 통과했다. 실제 타이머 리허설과 동일 버전 장애 대비 녹화는 미완료다. 구현자 외 독립 검수 결과를 main 대상 후속 PR에 연결한다.
+main8b50a75의 실제 LLM 공개 화면 두 장을 변경 없이 복사했다. 요청서 저장 시각은2026-10-09 13:17:28 KST이며 촬영 시각은 별도 미기록이다. 캡처 출처·파일 해시는 `assets/screenshots/request-public.json`에 남겼다. 두 PDF 총39페이지를 렌더링해 QA를 갱신했다. 내용·그림·글리프·출처·시간을 독립 검수했고, 최종 표기 변경의 외관 검수도 통과했다. 실제 타이머 리허설과 동일 버전 장애 대비 녹화는 미완료다. 구현자 외 독립 검수와 PR #25 통합을 완료했다. `qa.json`의 PDF 검사·36개 원본 해시는 당시 스냅샷이며, 이후 문서 변경을 다시 검수했다고 의미하지 않는다. 최종 이름 추가는 기존 파일과 바이트 일치만 별도 확인했다.

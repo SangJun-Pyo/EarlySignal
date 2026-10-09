@@ -3,7 +3,7 @@ import type { Category, ConsoleData, Decision, DecisionKind, Flag } from "./type
 
 export const BRIEF_TITLE = "대표 신고 요약";
 export const BRIEF_REVIEW_NOTE = "AI 요약 인용·담당자 검토";
-export const BRIEF_UNAVAILABLE = "대표 신고 요약이 아직 준비되지 않았습니다. 아래 원문에서 근거를 직접 확인해 주세요.";
+export const BRIEF_UNAVAILABLE = "이 경보의 대표 신고 요약은 없습니다. 아래 원문에서 근거를 직접 확인해 주세요.";
 
 export const CATEGORY_NAMES: Record<Category, string> = {
   fire_thermal: "화재·과열", electrical_failure: "전기 계통", loss_of_power: "동력 상실", engine_stall: "주행 중 멈춤",
@@ -75,7 +75,7 @@ export function createRequest(input: RequestInput) {
     `## 1. 신고 증가와 경보 근거\n이번 달 ${alert.n}건, 평소 ${alert.baseline.toFixed(2)}건, ${(alert.n / alert.baseline).toFixed(2)}배 (p=${alert.p_value.toExponential(3)}). 연속 경보 ${alert.streak}개월.\n경보 기준: 이전 12개월 평균 대비 p<0.001, 3건 이상(최소 이력 6개월).\n같은 시기 같은 증상 경보 차종: ${alert.comove.map(g => g.replace("|", " ")).join(", ") || "없음"}.\n최근 6개월: ${history}`,
     `## 2. 반복되는 발생 상황 (${sourceName}, ${evidence.n}건 기준)\n${Object.entries(evidence.agg).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]).map(([flag, n]) => `${FLAG_NAMES[flag as Flag]} ${n}건`).join(" · ") || "집계된 발생 상황 없음"}\n${flagSourceNote}\n함께 언급: ${evidence.co.map(([c, n]) => `${CATEGORY_NAMES[c]} ${n}건`).join(" · ") || "없음"}\n신고 차량 연식: ${evidence.years.map(([year, n]) => `${year}년 ${n}건`).join(" · ") || "미상"}\n통계·상황 집계는 최초 분류된 전체 근거 기준입니다. 담당자 제외는 요청서 인용에 반영됩니다.`,
     `## 3. ${BRIEF_TITLE}${rawBrief && !briefSuppressed ? ` (${BRIEF_REVIEW_NOTE})\n기존 신고별 AI 요약을 그대로 인용합니다. 원문과의 의미 일치는 담당자가 확인해야 합니다.` : ""}\n${brief}`,
-    `## 4. 인용 신고\n${quoteLines.join("\n")}\n검토 후 제외 ${excluded.length}건${excluded.length ? ` (${excluded.map(id => `신고 ${id}`).join(", ")})` : ""}.\nNHTSA ODI 신고 번호로 근거를 식별할 수 있습니다. 원문은 식별정보를 가린 발췌입니다.`,
+    `## 4. 인용 신고\n${quoteLines.join("\n")}\n검토 후 제외 ${excluded.length}건${excluded.length ? ` (${excluded.map(id => `신고 ${id}`).join(", ")})` : ""}.\nNHTSA ODI 신고 번호로 근거를 식별할 수 있습니다. 원문은 알려진 식별정보를 가린 발췌입니다.`,
     "## 5. 아직 확인되지 않은 사항\n- 원인과 결함 여부\n- 판매·운행 대수 대비 신고 비율\n- 동일인·중복 신고 여부\n- 정비·수리 이력과 미국 외 시장에서의 발생 여부",
     `## 6. 내부 데이터로 확인할 항목\n- 고객 상담·보증 수리 기록: 신고 차량의 연식과 증상 대조\n- 생산 기록: 같은 시기·공장에서 생산한 차량에 반복되는지 확인\n- 부품 공급사와 부품 변경 이력 확인`,
     `## 7. 담당자 판단과 다음 조치\n판단: ${decision ?? "미선택"}\n다음 조치: ${actions.join(" · ") || "미선택"}\n메모: ${memo || "없음"}`,
