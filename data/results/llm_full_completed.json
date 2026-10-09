@@ -1,0 +1,148 @@
+{
+  "audit_version": "full-llm-audit-v1",
+  "audited_at_utc": "2026-10-09T03:15:39.457872+00:00",
+  "scope": "full demo label completion, provenance, usage, and same-population statistics; not classification accuracy",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt_hash": "ce6c823c8460219b5326acba2fa4d42483b387e13d512855522f8ae3eb186816",
+  "cache_fingerprint": "eb4d2646e8251aaed7ae8ce281c9f7829c720af86ab680b31e6274718d3de4ad",
+  "completion": {
+    "population": 7502,
+    "success_records": 7502,
+    "unique_success_ids": 7502,
+    "unique_cache_keys": 7502,
+    "current_input_coverage": 7502,
+    "missing_or_stale": 0,
+    "schema_failures": 0,
+    "exact_quote_or_privacy_failures": 0,
+    "quote_selection_records": 2443,
+    "quote_selection_policy_failures": {
+      "candidate_count": 0,
+      "candidate_hash": 0,
+      "source_offsets": 0,
+      "exact_quote_slice": 0,
+      "selection_prompt_hash": 0,
+      "selection_usage_link": 0
+    },
+    "source_connection": "closed after read-only inspection"
+  },
+  "final_batch": {
+    "run_id": "2026-10-09T02:41:23.447388+00:00",
+    "selected": 7451,
+    "completed": 7451,
+    "cache_reused": 51,
+    "failed": 0,
+    "api_responses": 9880,
+    "quote_selection_completed": 2429,
+    "retry_attempts": 0,
+    "prompt_tokens": 7706637,
+    "completion_tokens": 876472,
+    "elapsed_s": 1556.513,
+    "estimated_usd": 4.48501
+  },
+  "label_usage": {
+    "returned_usage_records": 9996,
+    "all_usage_available": true,
+    "prompt_tokens": 7804049,
+    "completion_tokens": 889540,
+    "cached_tokens": 0,
+    "cumulative_experiment_estimated_usd": 4.5448836,
+    "final_batch_estimated_usd": 4.48501,
+    "preceding_pilot_diagnostics_and_probe_estimated_usd": 0.0598736,
+    "legacy_unlinked_usage_records": 10,
+    "legacy_unlinked_estimated_usd": 0.0053076,
+    "linked_usage_records": 9986,
+    "linked_current_cache_keys": 7496,
+    "cache_keys_without_linked_usage": 6,
+    "exact_current_cache_cost_per_1k_usd": null,
+    "cost_per_1k_status": "unmeasured: 10 legacy usage entries lack cache keys and 6 current cache keys lack linked usage",
+    "ledger_run_reconciliation": "all 8 run response counts and token-price estimates matched",
+    "price_basis": "recorded model tariff: uncached input 0.40, cached input 0.10, output 1.60 USD per million tokens",
+    "limitations": "Usage-based estimate, not an invoice; responses with no returned usage and account-specific charges may differ. Cumulative experiment spend includes earlier failures and diagnostics and is not per-cache unit cost."
+  },
+  "independent_statistics": {
+    "source": "same 7502 demo complaints; received-date months; unique complaint IDs and all assigned categories",
+    "primary_agreement": {
+      "agree": 3793,
+      "n": 7502,
+      "rate": 0.5055985070647827
+    },
+    "detector_cells": {
+      "keyword": 4464,
+      "llm": 4464
+    },
+    "alert_cells": {
+      "keyword": 34,
+      "llm": 39
+    },
+    "scalar_oracle_mismatches": {
+      "keyword": 0,
+      "llm": 0
+    },
+    "parameters": {
+      "baseline_months": 12,
+      "minimum_history": 6,
+      "baseline_floor": 0.5,
+      "alpha": 0.001,
+      "minimum_count": 3
+    },
+    "representatives": [
+      {
+        "case_id": "PE19003",
+        "registered_window_complete": false,
+        "keyword": {
+          "result": "early",
+          "lead_days": 209
+        },
+        "llm": {
+          "result": "early",
+          "lead_days": 209
+        }
+      },
+      {
+        "case_id": "PE19004",
+        "registered_window_complete": false,
+        "keyword": {
+          "result": "early",
+          "lead_days": 240
+        },
+        "llm": {
+          "result": "early",
+          "lead_days": 240
+        }
+      },
+      {
+        "case_id": "PE20016",
+        "registered_window_complete": false,
+        "keyword": {
+          "result": "missed",
+          "lead_days": null
+        },
+        "llm": {
+          "result": "late",
+          "lead_days": -23
+        }
+      }
+    ],
+    "caveat": "These are same-demo comparisons with incomplete registered case windows. They do not replace the registered 38-case keyword backtest or establish LLM superiority.",
+    "representative_lead_date_checks": 5,
+    "representative_lead_date_mismatches": 0
+  },
+  "human_evaluation": {
+    "status": "cancelled_by_user",
+    "reviewed_gold_rows": 0,
+    "kw_accuracy": null,
+    "llm_accuracy": null,
+    "accuracy_status": "unmeasured; output validation is not accuracy"
+  },
+  "brief_usage": {
+    "status": "not_included; separate generation/audit pending",
+    "estimated_usd": null
+  },
+  "source_file_sha256": {
+    "data/labels/labels_llm.jsonl": "34ff21a39485cf4b139001f6e3604e65a84cc1682847acdb8eca76480b9549ba",
+    "data/labels/llm_usage.jsonl": "7e09f6ecb23e89ed5c6c1b83783028d70caff7a094f753743e8a4bd4d9157f0c",
+    "data/results/llm_runs.jsonl": "ccffd62f3a7eb7c9b6d611a48b585f0c85461e1903b38e5c19ce3c72b3a0ab7d",
+    "data/results/llm_batch.json": "004063a4a5ecba4b6b0f303ba009a2aee2ecca09892aa613872dc28c385e7a68",
+    "data/results/llm_demo_comparison.json": "9fdaf3641b86133311cbdca8583a1cc39ecea72299f4adcc714099aacf63ca4b"
+  }
+}
