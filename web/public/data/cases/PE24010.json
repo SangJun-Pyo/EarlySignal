@@ -1,0 +1,2246 @@
+{
+  "contract": "earlysignal-data-v1",
+  "case_id": "PE24010",
+  "labeler": "keyword",
+  "odate": "2024-04-01",
+  "target_categories": [
+    "structure_body"
+  ],
+  "groups": {
+    "FISKER|OCEAN": {
+      "months": [
+        "2023-10-01",
+        "2023-11-01",
+        "2023-12-01",
+        "2024-01-01",
+        "2024-02-01",
+        "2024-03-01",
+        "2024-04-01",
+        "2024-05-01",
+        "2024-06-01",
+        "2024-07-01",
+        "2024-08-01",
+        "2024-09-01"
+      ],
+      "total": [
+        2,
+        7,
+        8,
+        31,
+        15,
+        14,
+        43,
+        39,
+        63,
+        60,
+        100,
+        42
+      ],
+      "categories": {
+        "fire_thermal": {
+          "n": [
+            0,
+            0,
+            0,
+            2,
+            1,
+            1,
+            2,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.6666666666666666,
+            0.8571428571428571,
+            0.75,
+            0.6666666666666666,
+            0.7,
+            0.6363636363636364
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "electrical_failure": {
+          "n": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            0,
+            11,
+            4,
+            6,
+            25,
+            56,
+            10
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.6666666666666666,
+            2.142857142857143,
+            2.375,
+            2.7777777777777777,
+            5.0,
+            9.636363636363637
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            true,
+            false
+          ]
+        },
+        "loss_of_power": {
+          "n": [
+            0,
+            0,
+            0,
+            1,
+            3,
+            0,
+            4,
+            0,
+            3,
+            7,
+            6,
+            1
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.6666666666666666,
+            1.1428571428571428,
+            1.0,
+            1.2222222222222223,
+            1.8,
+            2.1818181818181817
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ]
+        },
+        "engine_stall": {
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            3,
+            3
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5454545454545454
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "engine_failure": {
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "airbag": {
+          "n": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            0
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "brakes": {
+          "n": [
+            2,
+            5,
+            4,
+            18,
+            7,
+            11,
+            21,
+            25,
+            27,
+            14,
+            24,
+            8
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            7.833333333333333,
+            9.714285714285714,
+            11.625,
+            13.333333333333334,
+            13.4,
+            14.363636363636363
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        "steering": {
+          "n": [
+            0,
+            0,
+            0,
+            3,
+            0,
+            0,
+            1,
+            0,
+            3,
+            1,
+            1,
+            2
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5714285714285714,
+            0.5,
+            0.7777777777777778,
+            0.8,
+            0.8181818181818182
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "seat_belt": {
+          "n": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            2,
+            1,
+            0,
+            1,
+            2,
+            1
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.6363636363636364
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "fuel_leak": {
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "transmission": {
+          "n": [
+            0,
+            1,
+            0,
+            3,
+            2,
+            0,
+            7,
+            9,
+            4,
+            10,
+            6,
+            2
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            1.0,
+            1.8571428571428572,
+            2.75,
+            2.888888888888889,
+            3.6,
+            3.8181818181818183
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            true,
+            false,
+            false
+          ]
+        },
+        "lighting": {
+          "n": [
+            0,
+            1,
+            1,
+            0,
+            2,
+            0,
+            2,
+            0,
+            3,
+            0,
+            0,
+            0
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.6666666666666666,
+            0.8571428571428571,
+            0.75,
+            1.0,
+            0.9,
+            0.8181818181818182
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "suspension": {
+          "n": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "structure_body": {
+          "n": [
+            0,
+            1,
+            3,
+            10,
+            3,
+            1,
+            14,
+            5,
+            12,
+            12,
+            16,
+            4
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            3.0,
+            4.571428571428571,
+            4.625,
+            5.444444444444445,
+            6.1,
+            7.0
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        "tires_wheels": {
+          "n": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            3,
+            1,
+            0,
+            2
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0.5,
+            0.5714285714285714,
+            0.625,
+            0.8888888888888888,
+            0.9,
+            0.8181818181818182
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "other": {
+          "n": [
+            0,
+            0,
+            2,
+            4,
+            4,
+            2,
+            6,
+            8,
+            15,
+            12,
+            18,
+            17
+          ],
+          "baseline": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            2.0,
+            2.5714285714285716,
+            3.25,
+            4.555555555555555,
+            5.3,
+            6.454545454545454
+          ],
+          "alert": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            true,
+            true
+          ]
+        }
+      }
+    }
+  },
+  "alerts": [
+    {
+      "id": "FISKER|OCEAN:brakes:2024-04-01",
+      "grp": "FISKER|OCEAN",
+      "category": "brakes",
+      "month": "2024-04-01",
+      "observed": 21,
+      "baseline": 7.833333333333333,
+      "p_value": 7.055709589253142e-05,
+      "is_target": false,
+      "available": "2024-05-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11582104",
+          "ldate": "2024-04-10",
+          "fire": false,
+          "crash": false,
+          "injured": 1,
+          "summary_ko": null,
+          "snippet": "Today, I had to slam on my breaks on the freeway. Luckily I was able to stop in time. However the Fisker completely shut off, flashed every warning light imaginable and wouldn’t respond. I sat diagonally in the middle of a 6 lane freeway and for 5 straight minutes the car wouldn’t work. I finally go"
+        },
+        {
+          "odino": "11580804",
+          "ldate": "2024-04-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Advanced Driver Assistance System (ADAS called Fi-Pilot in Fisker) and Sensor Malfunction: On multiple occasions, I have experienced instances where multiple warnings would come up such as regenerative braking, front collision system unavailable, front cameras not functional, side sensors, lane keep"
+        },
+        {
+          "odino": "11580834",
+          "ldate": "2024-04-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "What component or system failed or malfunctioned, and is it available for inspection upon request? Brakes system How was your safety or the safety of others put at risk? When hitting a bump or pothole, the brake would not work properly, and the vehicle keeps moving forward almost accelerating Has th"
+        },
+        {
+          "odino": "11580966",
+          "ldate": "2024-04-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean One. The contact stated while shifted into reverse(R) the vehicle independently shifted to park(P). There was no warning light illuminated. The contact had to release the accelerator pedal and depress the brake pedal to shift into the desired gear. Additionally, "
+        },
+        {
+          "odino": "11581076",
+          "ldate": "2024-04-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "There have been many issues with my Fisker..Since the first day I got it I have had problems trying to get the car doors to open. I have even been TRAPPED MULTIPLE TIMES IN THE CAR unable to get out because the doors won't unlock to let me OUT. Since the first day I got the car I have been sending m"
+        },
+        {
+          "odino": "11581100",
+          "ldate": "2024-04-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "As I was driving in the middle of a rainstorm and the typical collision avoidance, lane departure, blind spot monitoring lights turned on and off intermittently, which was expected with this car. I’m used to it by now. But as I came down a descent on the two lane highway (CA interstate 80 around Tru"
+        },
+        {
+          "odino": "11581527",
+          "ldate": "2024-04-06",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "When accelerating quickly in drive, the vehicle shifts into neutral, brakes, goes into park and shuts down. Technicians have repeated the issue and attempted to fix it but no solution has been found. The dash displays the message, \"Brake System malfunction. Service Required.\" There are a few dash ic"
+        },
+        {
+          "odino": "11582100",
+          "ldate": "2024-04-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker ocean issues - [ ] Air conditioner/heating vents broken - [ ] Key fob only works occasionally - [ ] Multiple warning lights on - [ ] Software not updated - [ ] Brakes feel faulty catching when applied - [ ] Car pulls to the left hard if stops quickly - [ ] Windshield 2-3 ft crack/no glass to "
+        },
+        {
+          "odino": "11582493",
+          "ldate": "2024-04-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "On 3/29/24 my wife was driving the Fisker home on the freeway. She had about 20% battery left and was 5 miles from home. All of a sudden, the car lost power and she started to coast on the freeway. Nothing happened when she pushed on the accelerator. She made it to the side of the road. Stopped the "
+        },
+        {
+          "odino": "11582636",
+          "ldate": "2024-04-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while depressing the brake pedal, a vibration and tapping sound was coming from the brake pedal. Additionally, the \"Regen Braking\" message was displayed, and the stopping distance was extended. The manufacturer was notified of the failure"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:brakes:2024-05-01",
+      "grp": "FISKER|OCEAN",
+      "category": "brakes",
+      "month": "2024-05-01",
+      "observed": 25,
+      "baseline": 9.714285714285714,
+      "p_value": 2.9769543018878607e-05,
+      "is_target": false,
+      "available": "2024-06-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11586414",
+          "ldate": "2024-05-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "My 2023 Fisker Ocean One automatically/randomly shifts into PARK, with the parking brake on, when I come to a stop, and sometimes doesn't come out of PARK when I press the PARK button and shift into DRIVE. For example, the car is in DRIVE, I come to a complete stop at a stoplight and the car automat"
+        },
+        {
+          "odino": "11586422",
+          "ldate": "2024-05-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I was driving at 50 mph, midday, on a local road. All of a sudden, got a motor error, the motor light came up in red on the dash, all safety lights turned on on the dashboard - brake, adaptive assist (ADAS), motor fault, no safety features available. The car would not accelerate wit pushing the peda"
+        },
+        {
+          "odino": "11586519",
+          "ldate": "2024-05-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "After enabling a \"hill hold\" feature where the car will stop after braking without needing to leave foot on brake, the car will automatically go into park/standby mode which results in car basically shutting off. This has affected many fisker oceans since their latest update. The car will stall on t"
+        },
+        {
+          "odino": "11586665",
+          "ldate": "2024-05-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The most critical issue is a malfunction in the vehicle's regenerative braking system, which has caused the car to lurch forward unexpectedly during stop-and-go traffic on several occasions since I purchased . This sudden and unpredictable acceleration poses a clear risk of collision and injury to b"
+        },
+        {
+          "odino": "11586729",
+          "ldate": "2024-05-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "During Moderate Braking, while driving over a bump, the entire drivetrain and braking system with \"let go\", and it feels like a surge in the drivetrain. During this time braking is unresponsive until it re-engages the system. If attempting to replicate, and viewing the driver's information console, "
+        },
+        {
+          "odino": "11586754",
+          "ldate": "2024-05-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "When driving and releasing the accelerator, the regen kicks in to slow the car and provide deceleration and regeneration. During this time, you can feel the brake pedal vibrate. When allowing regen to kick in and suddenly driving over a bump or uneven surface, the regen turns off, and thus, the car "
+        },
+        {
+          "odino": "11586841",
+          "ldate": "2024-05-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I have severe safety concerns about the malfunction of the vehicle’s regenerative braking system. Since I purchased the car, it has unexpectedly lurched forward during stop-and-go traffic on several occasions. This sudden and unpredictable acceleration poses a clear risk of collision and injury to b"
+        },
+        {
+          "odino": "11587115",
+          "ldate": "2024-05-06",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The brakes fail to operate when brake regeneration is active while driving over rough road surfaces. The brake pedal must be applied a second time in order to engage the power brake system."
+        },
+        {
+          "odino": "11587951",
+          "ldate": "2024-05-09",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The loss of regenerative braking that I have experienced over uneven roads. While driving over a speed bump, slightly bumpy road, and gravel, the vehicle accelerates without me having pushed anything. As a driver, I feel like I am out of control of my vehicle. No warning lights or alerts come on whe"
+        },
+        {
+          "odino": "11588020",
+          "ldate": "2024-05-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "We have experienced a consistent issue on a local street by our elementary child's school. We have contacted Fisker no fewer than 5-6 times since December 2023 about this issue. Fisker has consistently stated that an upcoming over the air (OTA) software update would fix this issue. We are currently "
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:brakes:2024-06-01",
+      "grp": "FISKER|OCEAN",
+      "category": "brakes",
+      "month": "2024-06-01",
+      "observed": 27,
+      "baseline": 11.625,
+      "p_value": 8.058022252548548e-05,
+      "is_target": false,
+      "available": "2024-07-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11594667",
+          "ldate": "2024-06-16",
+          "fire": false,
+          "crash": false,
+          "injured": 1,
+          "summary_ko": null,
+          "snippet": "Several potential dangerous situations have occurred with this car. 1. Brakes often fail on first attempt, only stops with pumping them. 2. Car randomly swerved to right twice, each time stopping by hitting something. 3. Car has locked itself and am unable to unlock with key fob, had to manually for"
+        },
+        {
+          "odino": "11595028",
+          "ldate": "2024-06-18",
+          "fire": false,
+          "crash": true,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I was merging on to Interstate 5 when the vehicle in front stopped very hard to avoid hitting construction equipment that had likely fallen off a truck. I was not able to stop the car in time as the brakes seemed to not be effective. The collision warning braking system did not activate. The airbags"
+        },
+        {
+          "odino": "11597357",
+          "ldate": "2024-06-27",
+          "fire": false,
+          "crash": true,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The regenerative braking is not occurring once removing the foot from accelerator, when driving over uneven or bumpy surface. In fact the car accelerates on it's own which several times lead to collision."
+        },
+        {
+          "odino": "11592213",
+          "ldate": "2024-06-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "5 times going over bump regen braking goes off but hard to still have the car brake even stepping on braking. And couple times car detects something ahead and applies emergency braking but nothing or no one was anywhere near by"
+        },
+        {
+          "odino": "11592318",
+          "ldate": "2024-06-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "After reporting multiple times to Fisker about the Brake pedal, which is very loose (lots of gap between the pedal resting position to the braking , no response from them. I have several incidents about stopping the car, either delayed response or sudden stopping which makes it unpredictable. Needs "
+        },
+        {
+          "odino": "11592930",
+          "ldate": "2024-06-06",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Multiple system warning lights come on at various times when driving the vehicle. These startle my wife and she is concerned with the safety of the vehicle. When she lifts her foot off the accelerator the brake and accelerator shimmy and move causing alarm that something is wrong. System says chargi"
+        },
+        {
+          "odino": "11593054",
+          "ldate": "2024-06-07",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Loss of braking occurs when either slowing down using regen braking or applying brakes if driving over uneven or rough pavement. For example going or railroad tracks. Lane keep assistance pulls car into turn while driving around on ramps. It should not pull you into turn of same direction. Blind spo"
+        },
+        {
+          "odino": "11593574",
+          "ldate": "2024-06-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I just bought/got my Fisker Ocean Extreme, it barely had 500 miles on it. I have already had numerous issues with this car. Ex, emergency braking system, electrical, GPS, sensors, honestly you name it! The company has been of no help, I was on hold for 5 1/2 hours today. Only to hear from a robot te"
+        },
+        {
+          "odino": "11593723",
+          "ldate": "2024-06-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "numerous occasions of collision warning braking system activating, sometimes applying brakes, and sometimes just the warning. Alternatively, initial attempts of braking do not work, and only releasing the brake pedal and reapplying will initiate actual braking. Six examples with date, time, and loca"
+        },
+        {
+          "odino": "11593755",
+          "ldate": "2024-06-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while driving at an undisclosed speed, the air bag warning light was illuminated and a system braking assist message was displayed. The contact stated that several other unknown warning lights were illuminated. The vehicle was not diagnos"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:electrical_failure:2024-04-01",
+      "grp": "FISKER|OCEAN",
+      "category": "electrical_failure",
+      "month": "2024-04-01",
+      "observed": 11,
+      "baseline": 0.6666666666666666,
+      "p_value": 1.5740579783164622e-10,
+      "is_target": false,
+      "available": "2024-05-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11582104",
+          "ldate": "2024-04-10",
+          "fire": false,
+          "crash": false,
+          "injured": 1,
+          "summary_ko": null,
+          "snippet": "Today, I had to slam on my breaks on the freeway. Luckily I was able to stop in time. However the Fisker completely shut off, flashed every warning light imaginable and wouldn’t respond. I sat diagonally in the middle of a 6 lane freeway and for 5 straight minutes the car wouldn’t work. I finally go"
+        },
+        {
+          "odino": "11580493",
+          "ldate": "2024-04-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while driving at approximately 65 MPH, the vehicle lost motive power. The \"Battery Power Low\" message was displayed. The contact was able to coast the vehicle to a safe location and turn off the vehicle. The vehicle was able to restart, a"
+        },
+        {
+          "odino": "11581189",
+          "ldate": "2024-04-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I have created some service tickets thru the Fisker website and got no response, Shawn did a great job taking care of the initial issues I had, I just keep finding more that have not been addressed or stopped working with the OS2.0, the Bluetooth keeps disconnecting or not connecting at all when I e"
+        },
+        {
+          "odino": "11582493",
+          "ldate": "2024-04-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "On 3/29/24 my wife was driving the Fisker home on the freeway. She had about 20% battery left and was 5 miles from home. All of a sudden, the car lost power and she started to coast on the freeway. Nothing happened when she pushed on the accelerator. She made it to the side of the road. Stopped the "
+        },
+        {
+          "odino": "11583184",
+          "ldate": "2024-04-15",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "My Fisker Ocean Extreme has been inoperable since [XXX]. Initially, a Fisker rep told me it was likely due to software update Fisker pushed to the car, causing the car alarm to sound and the 12 volt battery to die. Fisker did not notify me that it was pushing an update to my car on [XXX], nor did I "
+        },
+        {
+          "odino": "11584207",
+          "ldate": "2024-04-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "During high speeds on the highway the car starting making random beeping and booping alerts, every warning showed up on the dash and a notification quickly popped up that said something along the lines of battery failure and need service, then disappeared, then a red battery indicator remained displ"
+        },
+        {
+          "odino": "11584381",
+          "ldate": "2024-04-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I began driving home from work with the vehicle at 75% charge. As I pulled onto the main road the vehicle experienced a regenerative braking error, then proceeded to lose power. The vehicle came to a halt and then displayed an error that the battery charge level was 0%. At this time every single err"
+        },
+        {
+          "odino": "11584528",
+          "ldate": "2024-04-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "A week ago my wife was locked out of our Fisker. The battery in hte key fob was new. No matter what she tried, the doors would not open. After an hour, the doors responded to the key fob. Saturday April 20, the same thing happened to me. The door would not open even though I had put a new battery in"
+        },
+        {
+          "odino": "11584757",
+          "ldate": "2024-04-23",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Was driving vehicle on highway. Road was being milled. Went over the transition from milled to normal asphalt pavement. Vehicle lost power, error message appeared about battery, transmission shifted to neutral. Once vehicle was on the side of the highway, stopped, it turned itself off."
+        },
+        {
+          "odino": "11585054",
+          "ldate": "2024-04-24",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The vehicle has 4 coolant pumps to keep the batteries from overheating. One of my pumps stopped working and the company sent me the new pump a month ago but have yet to schedule a tech to come here to replace it as promised. The car has less than 500 miles on it and is dangerous to drive as it will "
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:electrical_failure:2024-07-01",
+      "grp": "FISKER|OCEAN",
+      "category": "electrical_failure",
+      "month": "2024-07-01",
+      "observed": 25,
+      "baseline": 2.7777777777777777,
+      "p_value": 5.549601081792723e-16,
+      "is_target": false,
+      "available": "2024-08-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11598044",
+          "ldate": "2024-07-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while the vehicle was parked, the vehicle was started, and the \"Low Battery Power\" message was displayed. The contact attempted to exit the vehicle but was unable to unlock the door with the key fob or manually. The contact's husband was "
+        },
+        {
+          "odino": "11598262",
+          "ldate": "2024-07-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while driving 15 MPH, the brake pedal was depressed, and the contact heard an abnormal squeaking sound. In addition, the contact stated the vehicle stalled and lost motive power with low battery warning light illuminated. The contact stated th"
+        },
+        {
+          "odino": "11599247",
+          "ldate": "2024-07-05",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while starting the vehicle, several unknown warning lights illuminated, and the infotainment system screen displayed that the vehicle was rebooting. The contact stated that the automatic emergency braking system, the regenerative braking syste"
+        },
+        {
+          "odino": "11600911",
+          "ldate": "2024-07-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "My Fisker Ocean One was non-responsive when I tried to unlock it with the key fob and Fisker app. After researching on social media sites, I found out that if the battery for the key fob is too low, the vehicle will not respond. From the Fisker Owner's manual, it states the key fob battery should la"
+        },
+        {
+          "odino": "11600935",
+          "ldate": "2024-07-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "FOB battery has to be replaced every few weeks. I have also had instances where Iock the car and it repeatedly locks and unlocks for several minutes."
+        },
+        {
+          "odino": "11601033",
+          "ldate": "2024-07-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "As you know, there are 4 recalls on the Fisker Ocean. 1. Vehicle shifts into park on its own. 2. Door handles have a recall that prevent exiting the vehicle. 3. I was made aware through the internet that my vehicle was subject to a recall due to Incorrectly Displayed Warning Lights/FMVSS 135,101, NT"
+        },
+        {
+          "odino": "11601209",
+          "ldate": "2024-07-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "There are 3 major issues/concerns with this vehicle. 1. Sunroof/Roof - This rooftop does not seal completely. Initially this roof would rattle and you could hear squeaks and movement. Then the sunroof would only open on a half and then soon not at all. Because of this, the top is never fully sealed "
+        },
+        {
+          "odino": "11602897",
+          "ldate": "2024-07-17",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. [식별정보가 포함된 문장 생략] The contact stated while driving 15 MPH downhill and depressing the brake pedal to come to a complete stop at a stop sign, the vehicle skidded, lunged forward, and the vehicle then stopped. There was no warning light illuminated. The contact st"
+        },
+        {
+          "odino": "11603671",
+          "ldate": "2024-07-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "While stop at a traffic light, the car reverted from hold status to emergency parking. It did cause the driver behind me to stop on their brakes to avoid an accident. Luckily this happened at a dead stop and not while the car is in motion. I had to push the emergency brake switch and I cycle from dr"
+        },
+        {
+          "odino": "11604195",
+          "ldate": "2024-07-24",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notifications of NHTSA Campaign Number: 24V404000 (Electrical System) and 24V405000 (Electrical System) however, the part to do the recall repair was unavailable. The contact stated that the manufacturer had exceeded a reasonable amount of t"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:electrical_failure:2024-08-01",
+      "grp": "FISKER|OCEAN",
+      "category": "electrical_failure",
+      "month": "2024-08-01",
+      "observed": 56,
+      "baseline": 5.0,
+      "p_value": 1.441391148801662e-38,
+      "is_target": false,
+      "available": "2024-09-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11606123",
+          "ldate": "2024-08-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Numbers: 24V404000 (Electrical System) and 24V405000 (Electrical System). The contact stated while driving at an undisclosed speed, the contact noticed that a radar fault detected warning light was illuminated."
+        },
+        {
+          "odino": "11608329",
+          "ldate": "2024-08-13",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "On 3 occasions, the digital cluster screen has gone completely black, for couple of seconds, no visible driving speed, no visible anything on the screen, it is very unsafe to drive a vehicle not knowing at what speed you are traveling, no warning or no information about drive mode or battery charge "
+        },
+        {
+          "odino": "11608406",
+          "ldate": "2024-08-14",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The vehicle's entire electrical system is down after a random alarm that start approximately 7am EDT on August 14, 2024. The alarm lasted approximately 30 minutes in duration. After attempts to disarm the alarm via the vehicle's key fob failed, I disconnected the level 2 charger from the vehicle and"
+        },
+        {
+          "odino": "11608503",
+          "ldate": "2024-08-14",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Brake system malfunction. Drive motor malfunction. 12v battery always low causing the car lock out or lock inside"
+        },
+        {
+          "odino": "11608786",
+          "ldate": "2024-08-15",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V404000 (Electrical System); however, the part to do the recall repair was unavailable. The contact stated that the manufacturer had exceeded a reasonable amount of time for the recall repair. The con"
+        },
+        {
+          "odino": "11609499",
+          "ldate": "2024-08-19",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V499000 (Electrical System); however, the part to do the recall repair was unavailable. The contact stated that the manufacturer had exceeded a reasonable amount of time for the recall repair. The man"
+        },
+        {
+          "odino": "11609527",
+          "ldate": "2024-08-19",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V499000 (Electrical System); however, the part to do the recall repair was unavailable. The contact stated that the manufacturer had exceeded a reasonable amount of time for the recall repair. The man"
+        },
+        {
+          "odino": "11609582",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "As you know, there are 4 recalls on the Fisker Ocean. 1. Vehicle shifts into park on its own. 2. Door handles have a recall that prevent exiting the vehicle. 3. I was made aware through the internet that my vehicle was subject to a recall due to Incorrectly Displayed Warning Lights/FMVSS 135,101, NT"
+        },
+        {
+          "odino": "11609607",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that after the OTA software updates were received under NHTSA Campaign Numbers: 24V405000 (Electrical System) and 24V404000 (Electrical System); the vehicle was rendered inoperable, and the contact was unable to enter the vehicle. The contact "
+        },
+        {
+          "odino": "11609625",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V499000(Electrical System) however, the part to do the recall repair was unavailable. The local dealer and manufacturer were unable to be contacted regarding the recall. The contact stated that the ma"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:loss_of_power:2024-07-01",
+      "grp": "FISKER|OCEAN",
+      "category": "loss_of_power",
+      "month": "2024-07-01",
+      "observed": 7,
+      "baseline": 1.2222222222222223,
+      "p_value": 0.000280131513169285,
+      "is_target": false,
+      "available": "2024-08-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11597891",
+          "ldate": "2024-07-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I am writing to formally notify the National Highway Traffic Safety Administration of a significant concern regarding Fisker Automotive’s failure to meet the deadline for a mandated recall and their neglect in providing me with a recall notice. As an owner of a Fisker Ocen One, I was made aware thro"
+        },
+        {
+          "odino": "11598044",
+          "ldate": "2024-07-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while the vehicle was parked, the vehicle was started, and the \"Low Battery Power\" message was displayed. The contact attempted to exit the vehicle but was unable to unlock the door with the key fob or manually. The contact's husband was "
+        },
+        {
+          "odino": "11598262",
+          "ldate": "2024-07-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while driving 15 MPH, the brake pedal was depressed, and the contact heard an abnormal squeaking sound. In addition, the contact stated the vehicle stalled and lost motive power with low battery warning light illuminated. The contact stated th"
+        },
+        {
+          "odino": "11601033",
+          "ldate": "2024-07-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "As you know, there are 4 recalls on the Fisker Ocean. 1. Vehicle shifts into park on its own. 2. Door handles have a recall that prevent exiting the vehicle. 3. I was made aware through the internet that my vehicle was subject to a recall due to Incorrectly Displayed Warning Lights/FMVSS 135,101, NT"
+        },
+        {
+          "odino": "11601151",
+          "ldate": "2024-07-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Interior Lights Activation: During nighttime driving, the interior lights of the vehicle come on unexpectedly. Interior Light Activation is distracting and can be perceived as improper vehicle operation, potentially leading to a risk of being pulled over by law enforcement. Power Loss and Vehicle Sh"
+        },
+        {
+          "odino": "11603146",
+          "ldate": "2024-07-18",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while driving at various speeds, the vehicle lost motive power with several unknown warning lights being illuminated. The vehicle was eventually taken to an independent mechanic and the manufacturer sent a technician to inspect the vehicle. Th"
+        },
+        {
+          "odino": "11604658",
+          "ldate": "2024-07-26",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V405000 (Electrical System). The contact stated that on several occasions while driving at various speeds, several unknown warning lights illuminated. Additionally, the vehicle lost power. The vehicle"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:other:2024-06-01",
+      "grp": "FISKER|OCEAN",
+      "category": "other",
+      "month": "2024-06-01",
+      "observed": 15,
+      "baseline": 3.25,
+      "p_value": 1.7674301856594074e-06,
+      "is_target": false,
+      "available": "2024-07-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11591889",
+          "ldate": "2024-06-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The 2 LCD screens that display all car data from speed to navigation to charging to safety features have all gone dark. My Fisker Ocean One only had 1485 miles on it when this screen failure occurred. I cannot tell how much change the car has. I cannot tell how fast I am driving."
+        },
+        {
+          "odino": "11591951",
+          "ldate": "2024-06-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Since I got the car in January, 2024 I have had system failure messages pop up randomly. I have tried to get Fisker to address this issue, but I have had ZERO response from them. I’ve opened online requests for service and they have gone unanswered. So when these failures occur, I’ll be driving and "
+        },
+        {
+          "odino": "11593065",
+          "ldate": "2024-06-07",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The vehicle accelerates when foot is off accelerator and vehicle going over a small bump on road that causes the vehicle to lift a little. This lifting causes the vehicle to accelerate without warning. The accelerate is quite sudden and at high speeed. The ADAS system often malfunction. Emergency br"
+        },
+        {
+          "odino": "11593136",
+          "ldate": "2024-06-07",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The ADAS system has constant problems. [식별정보가 포함된 문장 생략] I charged the car to 100% for the first time. All ADAS and the HVAC quit working. The car has had a repeated Ultrasonic Sensor Fault Warning nearly constantly every sense. In addition, the blind spot warning sometimes identifies cars and somet"
+        },
+        {
+          "odino": "11593163",
+          "ldate": "2024-06-07",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "[식별정보가 포함된 문장 생략] I have called. Emailed. And send message on social media with zero responses. Service department has not responded in months to any service requests."
+        },
+        {
+          "odino": "11593338",
+          "ldate": "2024-06-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Our Fisker Ocean has experienced occasional power lapses, but we could overcome them by switching driving modes. This afternoon on our return drive home the car shuddered when approaching a red light, and my ADAS alert went off. A few miles later the car would not proceed at all, and I switched driv"
+        },
+        {
+          "odino": "11593879",
+          "ldate": "2024-06-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Ghost lights - the backseat lighting turns on and off during driving. It can be turned off after a few presses from the front overhead controls, but then will turn on again on its own. This creates a dangerous situation at night. This has been happening since the update to 2.0 software."
+        },
+        {
+          "odino": "11593881",
+          "ldate": "2024-06-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The parking sonar will sound but there is no indication where the area of concern is. Meaning it will ping slowly and then speed up as nearing collision, but I don't know if it is coming from the front, the side, etc."
+        },
+        {
+          "odino": "11593971",
+          "ldate": "2024-06-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "[식별정보가 포함된 문장 생략] [식별정보가 포함된 문장 생략] There are serious issues and safety concerns with the vehicle that are not resolved and no one is helping the consumer or general public."
+        },
+        {
+          "odino": "11594038",
+          "ldate": "2024-06-12",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "1. While driving, occasionally, a collision warning flashes on the screen in bright red with a loud sound, which is alarming and a safety issue, especially when. Secondly, while backing up, often, if you move within your seat, the car goes into park! Very unsettling. Thirdly, while at a stoplight, t"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:other:2024-08-01",
+      "grp": "FISKER|OCEAN",
+      "category": "other",
+      "month": "2024-08-01",
+      "observed": 18,
+      "baseline": 5.3,
+      "p_value": 1.1692473542945463e-05,
+      "is_target": false,
+      "available": "2024-09-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11607850",
+          "ldate": "2024-08-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "[식별정보가 포함된 문장 생략] Driving at around 60 mph. This vehicle all of sudden turns from Drive to Neutral by itself and Showing several warnings (Please see attached video). Not much traffic luckily, So, we took the exit safely, Hit the break and then everything comes back NORMAL immediately as if nothing "
+        },
+        {
+          "odino": "11608492",
+          "ldate": "2024-08-14",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Car keeps putting in to park mode when driving. When I lean my back forward car switch drive mode back to park. I believe the seats sensor is not working."
+        },
+        {
+          "odino": "11609348",
+          "ldate": "2024-08-19",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker sent me a recall notice TSB30032401 with instructions to contact an authorized service provider to fix a recall-related issue. I am unaware of any as Fisker was to provide this service itself but no longer is doing so. The phone number on the recall notice 1-844-FISKER1 is no longer active."
+        },
+        {
+          "odino": "11609543",
+          "ldate": "2024-08-19",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I received a Safety Recall Notification, NHTSA Campaign Number: 24V499 in the mail today. I tried contacting the number listed on the recall and the phone number is out of service. This recall is to completely replace the Cabin Electric Water Pump"
+        },
+        {
+          "odino": "11609744",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "A RECALL WAS ISSUED, # 24V499. FISKER SENT A LETTER ADVISING ME TO CONTACT 1844FISKER1, BUT THAT NUMBER HAS BEEN DISCONNECTED. FISKER ALSO ADVISED WE SHOULD CONTACT OUR FISKER AUTHORIZED SERVICE PROVIDER, OF WHICH, THERE NONE. THERE IS NO WAY OF HAVING THIS IMPORTANT RECALL ADDRESSED."
+        },
+        {
+          "odino": "11609787",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Received an email from Fisker regarding of two recalls for Cluster Telltales and Powertrain Modules. Both issues are addressed with the OS 2.1 software update. Received OS 2.1 software update on July 4,2025 after the update my Ocean One is bricking and have to toll it to my house."
+        },
+        {
+          "odino": "11609805",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I own a new Fisker Ocean One (electric SUV) and have been notified that there is a safety recall due to a water pump problem that can result in the vehicle suddenly entering limp mode (20 mph) unexpectedly. I'd like the problem fixed ASAP, but do not know how to get the service done. Fisker Inc. is "
+        },
+        {
+          "odino": "11609819",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I have received Safety Recall notice TSB30032401 - Cabin Electric Water Pump. However, as the company is in bankruptcy, there are no parts available, no service centers available, and the contact information provided on the notice is no longer in service. Therefore, there is no possible way to addre"
+        },
+        {
+          "odino": "11610063",
+          "ldate": "2024-08-21",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "See attached document for complaint."
+        },
+        {
+          "odino": "11610081",
+          "ldate": "2024-08-21",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I received a recall notice for my Fisker Ocean's electric water pump (NHTSA Campaign Number 24V499). The notice advises me to contact my Fisker Authorized service provider. No authorized service provider exists and Fisker does not respond to customer phone calls or emails. Please advise how I can ha"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:other:2024-09-01",
+      "grp": "FISKER|OCEAN",
+      "category": "other",
+      "month": "2024-09-01",
+      "observed": 17,
+      "baseline": 6.454545454545454,
+      "p_value": 0.00039816474995886357,
+      "is_target": false,
+      "available": "2024-10-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11612035",
+          "ldate": "2024-09-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I'm writing to complain the manufacturer (Fisker) has not sent out software version 2.1 over the air, as it stated it would in NHTSA Campaign Numbers: 24V405 and 24V404 -- dated July 2024."
+        },
+        {
+          "odino": "11612114",
+          "ldate": "2024-09-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "- Air vent is broken - missing driver kick panel - adas system hasn't worked for several months - red circle. - cruise control stops working randomly"
+        },
+        {
+          "odino": "11612130",
+          "ldate": "2024-09-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The vents have stopped operating g in the vehicle and are defective. They have been changed once by Fisker and have failed again."
+        },
+        {
+          "odino": "11612169",
+          "ldate": "2024-09-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "AC and Heat vents stuck closed and do not work"
+        },
+        {
+          "odino": "11612201",
+          "ldate": "2024-09-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The issue began with 1 vent not properly working. Now, know 3 of the 4 vents' mechanical functions have stopped working and cannot be adjusted via the center console. Everytime vehicle is unlocked a loud clicking noise if heard from the vents that continues for about 20-30 seconds varying. The vents"
+        },
+        {
+          "odino": "11612208",
+          "ldate": "2024-09-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The front air vents for the AC are non functioning. There are pieces that broke and make them unresponsive to controls for direction or sometimes in opening. They are only controlled by software. There was an internal recall for this part but"
+        },
+        {
+          "odino": "11612231",
+          "ldate": "2024-09-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Unsure if this falls under the remit of the NHTSA, but any Fisker Ocean car produced by December '23 needs to have its air vents motors replaced. There are several loud clicking sounds when the car starts up which indicates that the air vent motors are faulty, and will eventually break. This will le"
+        },
+        {
+          "odino": "11612367",
+          "ldate": "2024-09-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "See attached document for complaint."
+        },
+        {
+          "odino": "11612799",
+          "ldate": "2024-09-05",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The air vents do not function, the fan can be heard but no air comes out of the vents in the dash"
+        },
+        {
+          "odino": "11612976",
+          "ldate": "2024-09-06",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "See attached document for complaint."
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:structure_body:2024-04-01",
+      "grp": "FISKER|OCEAN",
+      "category": "structure_body",
+      "month": "2024-04-01",
+      "observed": 14,
+      "baseline": 3.0,
+      "p_value": 3.4019146132435507e-06,
+      "is_target": true,
+      "available": "2024-05-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11580543",
+          "ldate": "2024-04-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Vehicle loses power/loss of throttle/loss of the accelerator. The first time this happened I was unaware and stuck in the middle of a turning lane when it lost power to the accelerator, after a couple of minutes the vehicle responded and because I was pressing on the pedal it kicked into full power "
+        },
+        {
+          "odino": "11580833",
+          "ldate": "2024-04-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "On Monday March 25th the 12v died with my whole family in the car my wife and two kids couldn't open any of the doors or trunk and there's no emergency latch to get out of the vehicle we were stuck in the vehicle for 2 hours before assistance came for us."
+        },
+        {
+          "odino": "11580873",
+          "ldate": "2024-04-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Passenger Door Unlock fails, and passenger is stuck in the cabin and unable to open door - I have reported this to Fisker multiple times since my vehicle was delivered in September 2023, and despite three mobile technician visits, the problem persists."
+        },
+        {
+          "odino": "11580924",
+          "ldate": "2024-04-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Seatbelt Malfunctions Warning when driving, break malfunction warning while driving, doors wont open, Vehicle stopped accelerating on the freeway, and vehicle plagued with bugs that prevent charging."
+        },
+        {
+          "odino": "11581076",
+          "ldate": "2024-04-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "There have been many issues with my Fisker..Since the first day I got it I have had problems trying to get the car doors to open. I have even been TRAPPED MULTIPLE TIMES IN THE CAR unable to get out because the doors won't unlock to let me OUT. Since the first day I got the car I have been sending m"
+        },
+        {
+          "odino": "11581236",
+          "ldate": "2024-04-04",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Passenger side door would not open from inside on multiple occasions"
+        },
+        {
+          "odino": "11582100",
+          "ldate": "2024-04-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker ocean issues - [ ] Air conditioner/heating vents broken - [ ] Key fob only works occasionally - [ ] Multiple warning lights on - [ ] Software not updated - [ ] Brakes feel faulty catching when applied - [ ] Car pulls to the left hard if stops quickly - [ ] Windshield 2-3 ft crack/no glass to "
+        },
+        {
+          "odino": "11583936",
+          "ldate": "2024-04-18",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Front passenger door does not open from car interior"
+        },
+        {
+          "odino": "11584528",
+          "ldate": "2024-04-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "A week ago my wife was locked out of our Fisker. The battery in hte key fob was new. No matter what she tried, the doors would not open. After an hour, the doors responded to the key fob. Saturday April 20, the same thing happened to me. The door would not open even though I had put a new battery in"
+        },
+        {
+          "odino": "11584644",
+          "ldate": "2024-04-23",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Two Safety Issues; 1. Driver side front inside door handle malfunctioning so that it cannot be opened from the inside. I have to lock/unlock the car to apparently reset the system so that it will open. This does not happen all the time but has happened twice over the past week. Clearly a safety issu"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:structure_body:2024-08-01",
+      "grp": "FISKER|OCEAN",
+      "category": "structure_body",
+      "month": "2024-08-01",
+      "observed": 16,
+      "baseline": 6.1,
+      "p_value": 0.0006051867113731474,
+      "is_target": true,
+      "available": "2024-09-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11607617",
+          "ldate": "2024-08-09",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "AC not working properly, it just blows out air. Windshield is broken and needs to be replaced, but we couldn't get a new windshield from Fisker."
+        },
+        {
+          "odino": "11608498",
+          "ldate": "2024-08-14",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The doors won't open from the inside. I was lock inside."
+        },
+        {
+          "odino": "11609674",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker Ocean owner, recall notices for Cabin Electric Water Pump and Door Handles. I have no response from Fisker, they don't answer the phone number provided and the website contact them is disabled. The OTA updates have been incomplete, causing fear in the Fisker owners' community that they will m"
+        },
+        {
+          "odino": "11609694",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V499000 (Electrical System); however, the part to do the recall repair was unavailable. The contact stated that the manufacturer had exceeded a reasonable amount of time for the recall repair. The con"
+        },
+        {
+          "odino": "11609701",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V499000 (Electrical System). The contact stated that on several occasions while driving at various speeds, the vehicle lost motive power and would not accelerate above 20 MPH. Additionally, the contac"
+        },
+        {
+          "odino": "11609748",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Since June 15, 2024, my vehicle is not operating. It locked me out; electronic key fob stopped working. Unable to charge my vehicle as charing port door seems to be stuck. Electrical system in this vehicle is faulty and very much sub-standard in quality. I have filed complaints with Fisker service t"
+        },
+        {
+          "odino": "11609799",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I am writing to complain that there are 4 outstanding recalls on my vehicle, but I have not received any OTA software updates OR communications regarding the door-handle or water pump failure issues. Fisker is now bankrupt and seems to have abandoned its owners regarding these safety recalls."
+        },
+        {
+          "odino": "11609834",
+          "ldate": "2024-08-20",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "1) BODY: My passenger was unable to open the door from the inside and I was unable to open the door from the outside. I had to unlock and lock the car with the key fob and I was able to open the door from the outside. 2) LIGHTING: Rear reading lights turn on randomly. 3) SEATS: When passengers are i"
+        },
+        {
+          "odino": "11609932",
+          "ldate": "2024-08-21",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Safety Recall Campaign TSB30032401 - Cabin Electric Water Pump NHTSA Campaign Number: 24V499 Tried Contacting Fisker via telephone and number is disconnected. Submitted on-line service request although I have done this multiple times in past months and Fisker does not reply. Recall notice indicates "
+        },
+        {
+          "odino": "11610335",
+          "ldate": "2024-08-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "water pump recall, vent failure, recall for braking failures, safety features not working, door handles sticking recall, non-responsive customer support, acceleration fails when pedal pressed down causing dangerous collision avoidance maneuver, ADAS features not working, no software updates."
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:transmission:2024-04-01",
+      "grp": "FISKER|OCEAN",
+      "category": "transmission",
+      "month": "2024-04-01",
+      "observed": 7,
+      "baseline": 1.0,
+      "p_value": 8.32411492880231e-05,
+      "is_target": false,
+      "available": "2024-05-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11581527",
+          "ldate": "2024-04-06",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "When accelerating quickly in drive, the vehicle shifts into neutral, brakes, goes into park and shuts down. Technicians have repeated the issue and attempted to fix it but no solution has been found. The dash displays the message, \"Brake System malfunction. Service Required.\" There are a few dash ic"
+        },
+        {
+          "odino": "11582100",
+          "ldate": "2024-04-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker ocean issues - [ ] Air conditioner/heating vents broken - [ ] Key fob only works occasionally - [ ] Multiple warning lights on - [ ] Software not updated - [ ] Brakes feel faulty catching when applied - [ ] Car pulls to the left hard if stops quickly - [ ] Windshield 2-3 ft crack/no glass to "
+        },
+        {
+          "odino": "11582890",
+          "ldate": "2024-04-14",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Gearshift stick popped out and dropped to the floor while trying to reverse at parking lot. We were able to plug it in after few attempts to get it to function and drive back home nearby. Called Fisker support and reported the incident and are waiting for their service to fix the issue. If this had "
+        },
+        {
+          "odino": "11584381",
+          "ldate": "2024-04-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I began driving home from work with the vehicle at 75% charge. As I pulled onto the main road the vehicle experienced a regenerative braking error, then proceeded to lose power. The vehicle came to a halt and then displayed an error that the battery charge level was 0%. At this time every single err"
+        },
+        {
+          "odino": "11584644",
+          "ldate": "2024-04-23",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Two Safety Issues; 1. Driver side front inside door handle malfunctioning so that it cannot be opened from the inside. I have to lock/unlock the car to apparently reset the system so that it will open. This does not happen all the time but has happened twice over the past week. Clearly a safety issu"
+        },
+        {
+          "odino": "11584757",
+          "ldate": "2024-04-23",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Was driving vehicle on highway. Road was being milled. Went over the transition from milled to normal asphalt pavement. Vehicle lost power, error message appeared about battery, transmission shifted to neutral. Once vehicle was on the side of the highway, stopped, it turned itself off."
+        },
+        {
+          "odino": "11585310",
+          "ldate": "2024-04-25",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "This vehicle is not safe to be on the road. I've had numerous safety issues: 1) Electrical: --every day I get warnings about faults, particularly with many of the ADAS features being unavailable. --the dash screen with the speedometer fades out while driving. --the main screen stops working or locks"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:transmission:2024-05-01",
+      "grp": "FISKER|OCEAN",
+      "category": "transmission",
+      "month": "2024-05-01",
+      "observed": 9,
+      "baseline": 1.8571428571428572,
+      "p_value": 0.00013823709311311069,
+      "is_target": false,
+      "available": "2024-06-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11586414",
+          "ldate": "2024-05-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "My 2023 Fisker Ocean One automatically/randomly shifts into PARK, with the parking brake on, when I come to a stop, and sometimes doesn't come out of PARK when I press the PARK button and shift into DRIVE. For example, the car is in DRIVE, I come to a complete stop at a stoplight and the car automat"
+        },
+        {
+          "odino": "11586484",
+          "ldate": "2024-05-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Vehicle will often not recognize included key FOB resulting in car shifting into park while stopped on the road, sometimes for multiple minutes, creating a very unsafe stopped car in active roadways. Vehicle dash will state \"FOB not in vehicle.\" FOB is designed to communicate via NFC to ensure that "
+        },
+        {
+          "odino": "11586519",
+          "ldate": "2024-05-02",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "After enabling a \"hill hold\" feature where the car will stop after braking without needing to leave foot on brake, the car will automatically go into park/standby mode which results in car basically shutting off. This has affected many fisker oceans since their latest update. The car will stall on t"
+        },
+        {
+          "odino": "11586729",
+          "ldate": "2024-05-03",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "During Moderate Braking, while driving over a bump, the entire drivetrain and braking system with \"let go\", and it feels like a surge in the drivetrain. During this time braking is unresponsive until it re-engages the system. If attempting to replicate, and viewing the driver's information console, "
+        },
+        {
+          "odino": "11587668",
+          "ldate": "2024-05-08",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The vehicle will not go into drive or reverse unless you move to the front edge of the driver seat. The vehicle will go into park whenever you come to a stop, whether at traffic lights, in traffic at a roundabout, or on the highway when there is a lot of traffic. Due to the first issue of getting it"
+        },
+        {
+          "odino": "11588257",
+          "ldate": "2024-05-11",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "I was driving and I received a drive motor failure. I lost all ability to accelerate and once under 7 mph the car shuddered to a stop. The dash shut down immediately. After exiting the vehicle and locking it, I rendered and the car seemed operational. I drove again to try to return home with the sam"
+        },
+        {
+          "odino": "11588431",
+          "ldate": "2024-05-13",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while driving 30 MPH and attempting to come to a complete stop, the vehicle inadvertently applied the brakes and shifted into park independently, prompting the contact to turn off the vehicle. After restarting the vehicle, the vehicle returned"
+        },
+        {
+          "odino": "11588516",
+          "ldate": "2024-05-13",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "My Fisker has had multiple issues from the beginning. Seat sensor does not allow you to shift the car into drive or reverse. I had to shake my butt to get it into gear. There are at times that when I drive it goes into park for no reason. When it comes to braking it does this skip feeling which is v"
+        },
+        {
+          "odino": "11588879",
+          "ldate": "2024-05-15",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Fisker’s long-awaited 2.0 software update failed to correct the frequent failures of emergency braking and regenerative braking (ADAS features such as lane keep assist, blind spot monitoring, forward facing camera are also regularly malfunctioning) two new problems presented themselves; the car will"
+        }
+      ]
+    },
+    {
+      "id": "FISKER|OCEAN:transmission:2024-07-01",
+      "grp": "FISKER|OCEAN",
+      "category": "transmission",
+      "month": "2024-07-01",
+      "observed": 10,
+      "baseline": 2.888888888888889,
+      "p_value": 0.0008339653286831858,
+      "is_target": false,
+      "available": "2024-08-01",
+      "brief": null,
+      "evidence": [
+        {
+          "odino": "11598079",
+          "ldate": "2024-07-01",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while driving at an undisclosed speed and attempting to make a right turn, the vehicle unexpectedly shifted to park(P). There were no warning lights illuminated. The contact stated that the failure was a recurring failure. The contact stated t"
+        },
+        {
+          "odino": "11599247",
+          "ldate": "2024-07-05",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated while starting the vehicle, several unknown warning lights illuminated, and the infotainment system screen displayed that the vehicle was rebooting. The contact stated that the automatic emergency braking system, the regenerative braking syste"
+        },
+        {
+          "odino": "11599835",
+          "ldate": "2024-07-07",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "Car will not move, gear selection is stuck in park since May 2024 when OTA software update bricked the car. Problem confirmed by Fisker Indianapolis, without resolution."
+        },
+        {
+          "odino": "11601033",
+          "ldate": "2024-07-10",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "As you know, there are 4 recalls on the Fisker Ocean. 1. Vehicle shifts into park on its own. 2. Door handles have a recall that prevent exiting the vehicle. 3. I was made aware through the internet that my vehicle was subject to a recall due to Incorrectly Displayed Warning Lights/FMVSS 135,101, NT"
+        },
+        {
+          "odino": "11603671",
+          "ldate": "2024-07-22",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "While stop at a traffic light, the car reverted from hold status to emergency parking. It did cause the driver behind me to stop on their brakes to avoid an accident. Luckily this happened at a dead stop and not while the car is in motion. I had to push the emergency brake switch and I cycle from dr"
+        },
+        {
+          "odino": "11604493",
+          "ldate": "2024-07-25",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notifications of NHTSA Campaign Numbers: 24V404000 (Electrical System) and 24V405000 (Electrical System); however, the parts to do the recall repairs were not yet available. The contact stated that the manufacturer had exceeded a reasonable "
+        },
+        {
+          "odino": "11604537",
+          "ldate": "2024-07-25",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notifications of NHTSA Campaign Numbers: 24V404000 (Electrical System) and 24V405000 (Electrical System); however, the parts to do the recall repairs were not yet available. The contact stated that the manufacturer had exceeded a reasonable "
+        },
+        {
+          "odino": "11604737",
+          "ldate": "2024-07-26",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notification of NHTSA Campaign Number: 24V405000 (Electrical System); however, the part to do the recall repair was not yet available. The contact stated that the manufacturer had exceeded a reasonable amount of time for the recall repair. T"
+        },
+        {
+          "odino": "11604774",
+          "ldate": "2024-07-26",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact received notifications of NHTSA Campaign Numbers: 24V404000 (Electrical System) and 24V405000 (Electrical System) and 24V499000 (Electrical System); however, the parts to do the recall repairs were not yet available. The contact stated that the messa"
+        },
+        {
+          "odino": "11605220",
+          "ldate": "2024-07-29",
+          "fire": false,
+          "crash": false,
+          "injured": 0,
+          "summary_ko": null,
+          "snippet": "The contact owns a 2023 Fisker Ocean. The contact stated that while stationary at a stop sign, the vehicle shifted from neutral to park unintendedly. There were no warning lights illuminated. The vehicle was not diagnosed or repaired by an independent mechanic or local dealer. The manufacturer was n"
+        }
+      ]
+    }
+  ]
+}

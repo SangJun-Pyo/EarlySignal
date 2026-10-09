@@ -1,0 +1,68 @@
+{
+  "contract": "earlysignal-data-v1",
+  "generated_at": "2026-10-09T01:48:48.470110+00:00",
+  "data_source": {
+    "name": "NHTSA ODI complaints & investigations",
+    "downloaded_at": null,
+    "observed_local_date": "2026-10-09",
+    "license": "public domain"
+  },
+  "params": {
+    "rule": "poisson",
+    "alpha": 0.001,
+    "min_count": 3,
+    "baseline_months": 12,
+    "min_history": 6,
+    "lambda_floor": 0.5,
+    "pre_window_months": 12,
+    "evaluation_window_basis": "alert_month"
+  },
+  "validation": {
+    "dev": {
+      "case": {
+        "hits": 9,
+        "n": 19
+      },
+      "control": {
+        "hits": 0,
+        "n": 19
+      }
+    },
+    "holdout": {
+      "case": {
+        "hits": 7,
+        "n": 19
+      },
+      "control": {
+        "hits": 1,
+        "n": 17
+      }
+    }
+  },
+  "burden": {
+    "case_alerts_per_group_month": 0.19932049830124576,
+    "control_alerts_per_group_month": 0.09230769230769231
+  },
+  "labels": {
+    "llm_model": null,
+    "llm_labeled": 0,
+    "sample_agreement": {
+      "agree": 0,
+      "n": 0
+    },
+    "human_check": {
+      "n": 0,
+      "kw_correct": null,
+      "llm_correct": null
+    },
+    "cost_per_1k_usd": null
+  },
+  "validation_notes": [
+    "접수일 기준 회고적 분석이며 당시 파일 공개·수정 이력은 복원하지 않았습니다.",
+    "사전 dev 8/19와 현재 9/19는 다릅니다. 기존 키워드 코드가 제공되지 않아 완전 동일성은 미확인입니다.",
+    "holdout 결과를 보고 탐지 임계값이나 키워드를 바꾸지 않았습니다.",
+    "볼트 EV는 현재 키워드 기준 놓친 사례입니다. 사전 시제품의 late 결과와 다릅니다.",
+    "검토 업무량은 등록 평가창의 그룹월을 합산한 관측치이며 현업 업무량은 미검증입니다.",
+    "LLM·사람 라벨 검수·라벨 비용은 이 키워드 화면에 미반영입니다."
+  ]
+}

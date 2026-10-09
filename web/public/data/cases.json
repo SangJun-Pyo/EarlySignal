@@ -1,0 +1,963 @@
+{
+  "contract": "earlysignal-data-v1",
+  "cases": [
+    {
+      "case_id": "PE14017",
+      "split": "dev",
+      "investigation": "PE14017",
+      "note": "Air Bag Non-deployment",
+      "groups": [
+        "JEEP|COMMANDER",
+        "JEEP|COMMANDER 4X2",
+        "JEEP|COMMANDER 4X4",
+        "JEEP|GRAND CHEROKEE"
+      ],
+      "target_categories": [
+        "airbag",
+        "electrical_failure"
+      ],
+      "odate": "2014-06-16",
+      "result": "early",
+      "lead_days": 319,
+      "first_alert_month": "2013-07-01",
+      "first_alert_group": "JEEP|GRAND CHEROKEE",
+      "first_alert_category": "airbag",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE14022",
+      "split": "dev",
+      "investigation": "PE14022",
+      "note": "Alternator failure",
+      "groups": [
+        "DODGE|CHARGER"
+      ],
+      "target_categories": [
+        "electrical_failure"
+      ],
+      "odate": "2014-07-22",
+      "result": "late",
+      "lead_days": -10,
+      "first_alert_month": "2014-07-01",
+      "first_alert_group": "DODGE|CHARGER",
+      "first_alert_category": "electrical_failure",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE14028",
+      "split": "dev",
+      "investigation": "PE14028",
+      "note": "Door Latch Failure",
+      "groups": [
+        "FORD|FIESTA"
+      ],
+      "target_categories": [
+        "structure_body"
+      ],
+      "odate": "2014-09-11",
+      "result": "early",
+      "lead_days": 72,
+      "first_alert_month": "2014-06-01",
+      "first_alert_group": "FORD|FIESTA",
+      "first_alert_category": "structure_body",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE14030",
+      "split": "dev",
+      "investigation": "PE14030",
+      "note": "Electric power steering failure",
+      "groups": [
+        "FORD|FUSION",
+        "FORD|FUSION HYBRID",
+        "LINCOLN|MKZ",
+        "LINCOLN|MKZ HYBRID",
+        "MERCURY|MILAN"
+      ],
+      "target_categories": [
+        "steering"
+      ],
+      "odate": "2014-10-02",
+      "result": "early",
+      "lead_days": 93,
+      "first_alert_month": "2014-06-01",
+      "first_alert_group": "FORD|FUSION",
+      "first_alert_category": "steering",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE15003",
+      "split": "holdout",
+      "investigation": "PE15003",
+      "note": "Engine compartment fire",
+      "groups": [
+        "JEEP|CHEROKEE"
+      ],
+      "target_categories": [
+        "fire_thermal"
+      ],
+      "odate": "2015-01-13",
+      "result": "late",
+      "lead_days": -19,
+      "first_alert_month": "2015-01-01",
+      "first_alert_group": "JEEP|CHEROKEE",
+      "first_alert_category": "fire_thermal",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE15012",
+      "split": "holdout",
+      "investigation": "PE15012",
+      "note": "Passenger Front Air Bag Suppression",
+      "groups": [
+        "SUBARU|IMPREZA"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2015-04-10",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE15028",
+      "split": "holdout",
+      "investigation": "PE15028",
+      "note": "Loss of headlights",
+      "groups": [
+        "FORD|CROWN VICTORIA",
+        "MERCURY|GRAND MARQUIS"
+      ],
+      "target_categories": [
+        "lighting"
+      ],
+      "odate": "2015-08-10",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE15029",
+      "split": "holdout",
+      "investigation": "PE15029",
+      "note": "SRS Control Module Failure",
+      "groups": [
+        "HONDA|ACCORD"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2015-08-18",
+      "result": "early",
+      "lead_days": 290,
+      "first_alert_month": "2014-10-01",
+      "first_alert_group": "HONDA|ACCORD",
+      "first_alert_category": "airbag",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE16003",
+      "split": "dev",
+      "investigation": "PE16003",
+      "note": "Master Cylinder External Leak",
+      "groups": [
+        "FORD|F-150"
+      ],
+      "target_categories": [
+        "brakes"
+      ],
+      "odate": "2016-02-29",
+      "result": "early",
+      "lead_days": 243,
+      "first_alert_month": "2015-06-01",
+      "first_alert_group": "FORD|F-150",
+      "first_alert_category": "brakes",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE16013",
+      "split": "dev",
+      "investigation": "PE16013",
+      "note": "Inadvertent Curtain and Seat Air Bag",
+      "groups": [
+        "NISSAN|VERSA"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2016-09-28",
+      "result": "early",
+      "lead_days": 58,
+      "first_alert_month": "2016-07-01",
+      "first_alert_group": "NISSAN|VERSA",
+      "first_alert_category": "airbag",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE16016",
+      "split": "dev",
+      "investigation": "PE16016",
+      "note": "Engine Compartment Fire",
+      "groups": [
+        "SMART|FORTWO",
+        "SMART|FORTWO CABRIO",
+        "SMART|FORTWO COUPE"
+      ],
+      "target_categories": [
+        "fire_thermal"
+      ],
+      "odate": "2016-12-16",
+      "result": "late",
+      "lead_days": -47,
+      "first_alert_month": "2017-01-01",
+      "first_alert_group": "SMART|FORTWO",
+      "first_alert_category": "fire_thermal",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE16018",
+      "split": "dev",
+      "investigation": "PE16018",
+      "note": "Front Passenger Seat Belt Anchor Failure",
+      "groups": [
+        "HYUNDAI|SONATA"
+      ],
+      "target_categories": [
+        "seat_belt"
+      ],
+      "odate": "2016-12-27",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE17003",
+      "split": "dev",
+      "investigation": "PE17003",
+      "note": "Occupant Restraint Controller Failure",
+      "groups": [
+        "JEEP|LIBERTY"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2017-06-01",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE17007",
+      "split": "dev",
+      "investigation": "PE17007",
+      "note": "Steering Wheel Fastening Bolt Loosens",
+      "groups": [
+        "FORD|FUSION"
+      ],
+      "target_categories": [
+        "steering"
+      ],
+      "odate": "2017-10-23",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18003",
+      "split": "holdout",
+      "investigation": "PE18003",
+      "note": "Air bags may be disabled during crash",
+      "groups": [
+        "HYUNDAI|SONATA",
+        "HYUNDAI|SONATA HYBRID",
+        "KIA|FORTE",
+        "KIA|FORTE KOUP",
+        "KIA|SEDONA"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2018-03-16",
+      "result": "late",
+      "lead_days": -16,
+      "first_alert_month": "2018-03-01",
+      "first_alert_group": "KIA|FORTE",
+      "first_alert_category": "airbag",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18006",
+      "split": "dev",
+      "investigation": "PE18006",
+      "note": "Front Subframe Corrosion",
+      "groups": [
+        "MAZDA|MAZDA6"
+      ],
+      "target_categories": [
+        "structure_body"
+      ],
+      "odate": "2018-05-21",
+      "result": "early",
+      "lead_days": 262,
+      "first_alert_month": "2017-08-01",
+      "first_alert_group": "MAZDA|MAZDA6",
+      "first_alert_category": "structure_body",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18008",
+      "split": "dev",
+      "investigation": "PE18008",
+      "note": "Seatbelt Pretensioner Fire",
+      "groups": [
+        "FORD|F-150"
+      ],
+      "target_categories": [
+        "fire_thermal",
+        "seat_belt"
+      ],
+      "odate": "2018-08-03",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18010",
+      "split": "holdout",
+      "investigation": "PE18010",
+      "note": "Internal transmission failure",
+      "groups": [
+        "FORD|E-350",
+        "FORD|E-450",
+        "FORD|ECONOLINE"
+      ],
+      "target_categories": [
+        "transmission"
+      ],
+      "odate": "2018-08-21",
+      "result": "early",
+      "lead_days": 173,
+      "first_alert_month": "2018-02-01",
+      "first_alert_group": "FORD|E-450",
+      "first_alert_category": "transmission",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18011",
+      "split": "holdout",
+      "investigation": "PE18011",
+      "note": "Power tailgate opens unintended",
+      "groups": [
+        "FORD|F-250",
+        "FORD|F-250 SD",
+        "FORD|F-350",
+        "FORD|F-350 SD",
+        "FORD|F-450",
+        "FORD|F-450 SD"
+      ],
+      "target_categories": [
+        "electrical_failure"
+      ],
+      "odate": "2018-10-12",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE18016",
+      "split": "holdout",
+      "investigation": "PE18016",
+      "note": "Steering loss due to linkage separation",
+      "groups": [
+        "RAM|2500",
+        "RAM|3500"
+      ],
+      "target_categories": [
+        "steering"
+      ],
+      "odate": "2018-12-17",
+      "result": "late",
+      "lead_days": -135,
+      "first_alert_month": "2019-04-01",
+      "first_alert_group": "RAM|2500",
+      "first_alert_category": "steering",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE19003",
+      "split": "dev",
+      "investigation": "PE19003",
+      "note": "Non-crash Vehicle Fires",
+      "groups": [
+        "HYUNDAI|SANTA FE",
+        "HYUNDAI|SANTA FE SPORT",
+        "HYUNDAI|SONATA",
+        "HYUNDAI|SONATA HYBRID"
+      ],
+      "target_categories": [
+        "fire_thermal",
+        "electrical_failure"
+      ],
+      "odate": "2019-03-29",
+      "result": "early",
+      "lead_days": 209,
+      "first_alert_month": "2018-08-01",
+      "first_alert_group": "HYUNDAI|SONATA",
+      "first_alert_category": "fire_thermal",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE19004",
+      "split": "dev",
+      "investigation": "PE19004",
+      "note": "Non-crash Vehicle Fires",
+      "groups": [
+        "KIA|OPTIMA",
+        "KIA|OPTIMA HYBRID",
+        "KIA|SORENTO",
+        "KIA|SOUL",
+        "KIA|SOUL EV"
+      ],
+      "target_categories": [
+        "fire_thermal",
+        "electrical_failure"
+      ],
+      "odate": "2019-03-29",
+      "result": "early",
+      "lead_days": 240,
+      "first_alert_month": "2018-07-01",
+      "first_alert_group": "KIA|SORENTO",
+      "first_alert_category": "fire_thermal",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE19008",
+      "split": "holdout",
+      "investigation": "PE19008",
+      "note": "Seat belt buckle bracket failure",
+      "groups": [
+        "JEEP|WRANGLER"
+      ],
+      "target_categories": [
+        "seat_belt"
+      ],
+      "odate": "2019-07-29",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE19009",
+      "split": "holdout",
+      "investigation": "PE19009",
+      "note": "Occupant Detection System (ODS) Failure",
+      "groups": [
+        "SUBARU|FORESTER"
+      ],
+      "target_categories": [
+        "airbag"
+      ],
+      "odate": "2019-08-06",
+      "result": "early",
+      "lead_days": 127,
+      "first_alert_month": "2019-03-01",
+      "first_alert_group": "SUBARU|FORESTER",
+      "first_alert_category": "airbag",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE20014",
+      "split": "holdout",
+      "investigation": "PE20014",
+      "note": "Rear Wheel Speed Sensor Failure",
+      "groups": [
+        "MERCEDES-BENZ|SPRINTER 2500",
+        "MERCEDES-BENZ|SPRINTER 3500"
+      ],
+      "target_categories": [
+        "brakes"
+      ],
+      "odate": "2020-09-21",
+      "result": "late",
+      "lead_days": -41,
+      "first_alert_month": "2020-10-01",
+      "first_alert_group": "MERCEDES-BENZ|SPRINTER 3500",
+      "first_alert_category": "brakes",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE20016",
+      "split": "dev",
+      "investigation": "PE20016",
+      "note": "Electric Vehicle Battery Fires",
+      "groups": [
+        "CHEVROLET|BOLT EV"
+      ],
+      "target_categories": [
+        "fire_thermal",
+        "loss_of_power",
+        "electrical_failure"
+      ],
+      "odate": "2020-10-09",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE21005",
+      "split": "holdout",
+      "investigation": "PE21005",
+      "note": "Battery Hold Down Bracket Thermal Events",
+      "groups": [
+        "TOYOTA|RAV4"
+      ],
+      "target_categories": [
+        "fire_thermal",
+        "electrical_failure"
+      ],
+      "odate": "2021-02-25",
+      "result": "early",
+      "lead_days": 208,
+      "first_alert_month": "2020-07-01",
+      "first_alert_group": "TOYOTA|RAV4",
+      "first_alert_category": "electrical_failure",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE21009",
+      "split": "dev",
+      "investigation": "PE21009",
+      "note": "Engine Stall - Turbo Failure",
+      "groups": [
+        "AUDI|A8",
+        "AUDI|RS7",
+        "AUDI|S6",
+        "AUDI|S7",
+        "AUDI|S8"
+      ],
+      "target_categories": [
+        "engine_stall"
+      ],
+      "odate": "2021-03-29",
+      "result": "late",
+      "lead_days": -33,
+      "first_alert_month": "2021-04-01",
+      "first_alert_group": "AUDI|S6",
+      "first_alert_category": "engine_stall",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE21022",
+      "split": "dev",
+      "investigation": "PE21022",
+      "note": "Hood Latch/Bell Crank Assembly",
+      "groups": [
+        "NISSAN|PATHFINDER",
+        "NISSAN|PATHFINDER HYBRID"
+      ],
+      "target_categories": [
+        "structure_body"
+      ],
+      "odate": "2021-12-09",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE22008",
+      "split": "holdout",
+      "investigation": "PE22008",
+      "note": "Transmission fault leading to loss of motive power",
+      "groups": [
+        "CHRYSLER|PACIFICA",
+        "CHRYSLER|PACIFICA PLUG-IN HYBRID"
+      ],
+      "target_categories": [
+        "loss_of_power",
+        "transmission"
+      ],
+      "odate": "2022-07-22",
+      "result": "late",
+      "lead_days": -41,
+      "first_alert_month": "2022-08-01",
+      "first_alert_group": "CHRYSLER|PACIFICA",
+      "first_alert_category": "loss_of_power",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23001",
+      "split": "holdout",
+      "investigation": "PE23001",
+      "note": "Windshield trim molding Item detachment",
+      "groups": [
+        "FORD|EXPLORER",
+        "FORD|EXPLORER POLICE INTERCEPT",
+        "FORD|F-150"
+      ],
+      "target_categories": [
+        "structure_body"
+      ],
+      "odate": "2023-01-27",
+      "result": "early",
+      "lead_days": 26,
+      "first_alert_month": "2022-12-01",
+      "first_alert_group": "FORD|F-150",
+      "first_alert_category": "structure_body",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23002",
+      "split": "dev",
+      "investigation": "PE23002",
+      "note": "Complete Loss of High Beams",
+      "groups": [
+        "KIA|TELLURIDE"
+      ],
+      "target_categories": [
+        "lighting"
+      ],
+      "odate": "2023-01-27",
+      "result": "late",
+      "lead_days": -33,
+      "first_alert_month": "2023-02-01",
+      "first_alert_group": "KIA|TELLURIDE",
+      "first_alert_category": "lighting",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23006",
+      "split": "holdout",
+      "investigation": "PE23006",
+      "note": "Front seat belt anchor detachment",
+      "groups": [
+        "TESLA|MODEL S",
+        "TESLA|MODEL X"
+      ],
+      "target_categories": [
+        "seat_belt"
+      ],
+      "odate": "2023-03-24",
+      "result": "missed",
+      "lead_days": null,
+      "first_alert_month": null,
+      "first_alert_group": null,
+      "first_alert_category": null,
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23011",
+      "split": "holdout",
+      "investigation": "PE23011",
+      "note": "Loss of Motive Power",
+      "groups": [
+        "HYUNDAI|IONIQ 5"
+      ],
+      "target_categories": [
+        "loss_of_power",
+        "electrical_failure"
+      ],
+      "odate": "2023-06-08",
+      "result": "early",
+      "lead_days": 68,
+      "first_alert_month": "2023-03-01",
+      "first_alert_group": "HYUNDAI|IONIQ 5",
+      "first_alert_category": "electrical_failure",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23021",
+      "split": "dev",
+      "investigation": "PE23021",
+      "note": "Seat Belt Pretensioner Inadvertent Deployment",
+      "groups": [
+        "FORD|EXPEDITION",
+        "LINCOLN|NAVIGATOR"
+      ],
+      "target_categories": [
+        "seat_belt"
+      ],
+      "odate": "2023-11-22",
+      "result": "early",
+      "lead_days": 82,
+      "first_alert_month": "2023-08-01",
+      "first_alert_group": "FORD|EXPEDITION",
+      "first_alert_category": "seat_belt",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE23023",
+      "split": "holdout",
+      "investigation": "PE23023",
+      "note": "Complete loss of motive power due to engine failure",
+      "groups": [
+        "INFINITI|QX50",
+        "INFINITI|QX55",
+        "NISSAN|ALTIMA",
+        "NISSAN|REDUNDANT ROGUE",
+        "NISSAN|ROGUE"
+      ],
+      "target_categories": [
+        "loss_of_power"
+      ],
+      "odate": "2023-12-13",
+      "result": "early",
+      "lead_days": 256,
+      "first_alert_month": "2023-03-01",
+      "first_alert_group": "NISSAN|ROGUE",
+      "first_alert_category": "loss_of_power",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE24002",
+      "split": "holdout",
+      "investigation": "PE24002",
+      "note": "Loss of Motive Power",
+      "groups": [
+        "FORD|BRONCO SPORT"
+      ],
+      "target_categories": [
+        "loss_of_power",
+        "electrical_failure"
+      ],
+      "odate": "2024-01-31",
+      "result": "late",
+      "lead_days": -91,
+      "first_alert_month": "2024-04-01",
+      "first_alert_group": "FORD|BRONCO SPORT",
+      "first_alert_category": "electrical_failure",
+      "has_llm": false
+    },
+    {
+      "case_id": "PE24010",
+      "split": "holdout",
+      "investigation": "PE24010",
+      "note": "Failure to open door",
+      "groups": [
+        "FISKER|OCEAN"
+      ],
+      "target_categories": [
+        "structure_body"
+      ],
+      "odate": "2024-04-01",
+      "result": "late",
+      "lead_days": -30,
+      "first_alert_month": "2024-04-01",
+      "first_alert_group": "FISKER|OCEAN",
+      "first_alert_category": "structure_body",
+      "has_llm": false
+    }
+  ],
+  "controls": [
+    {
+      "group": "JEEP|COMPASS",
+      "ref_date": "2014-06-16",
+      "matched_to": "PE14017"
+    },
+    {
+      "group": "DODGE|CALIBER",
+      "ref_date": "2014-07-22",
+      "matched_to": "PE14022"
+    },
+    {
+      "group": "FORD|FIVE HUNDRED",
+      "ref_date": "2014-09-11",
+      "matched_to": "PE14028"
+    },
+    {
+      "group": "LINCOLN|TOWN CAR",
+      "ref_date": "2014-10-02",
+      "matched_to": "PE14030"
+    },
+    {
+      "group": "JEEP|PATRIOT 4X4",
+      "ref_date": "2015-01-13",
+      "matched_to": "PE15003"
+    },
+    {
+      "group": "SUBARU|FORESTER",
+      "ref_date": "2015-04-10",
+      "matched_to": "PE15012"
+    },
+    {
+      "group": "FORD|FREESTYLE",
+      "ref_date": "2015-08-10",
+      "matched_to": "PE15028"
+    },
+    {
+      "group": "HONDA|FIT",
+      "ref_date": "2015-08-18",
+      "matched_to": "PE15029"
+    },
+    {
+      "group": "FORD|WINDSTAR",
+      "ref_date": "2016-02-29",
+      "matched_to": "PE16003"
+    },
+    {
+      "group": "NISSAN|XTERRA",
+      "ref_date": "2016-09-28",
+      "matched_to": "PE16013"
+    },
+    {
+      "group": "SMART|FORTWO COUPE ELECTRIC",
+      "ref_date": "2016-12-16",
+      "matched_to": "PE16016"
+    },
+    {
+      "group": "HYUNDAI|ELANTRA",
+      "ref_date": "2016-12-27",
+      "matched_to": "PE16018"
+    },
+    {
+      "group": "JEEP|COMPASS 4X4",
+      "ref_date": "2017-06-01",
+      "matched_to": "PE17003"
+    },
+    {
+      "group": "FORD|TAURUS",
+      "ref_date": "2017-10-23",
+      "matched_to": "PE17007"
+    },
+    {
+      "group": "HYUNDAI|TUCSON",
+      "ref_date": "2018-03-16",
+      "matched_to": "PE18003"
+    },
+    {
+      "group": "MAZDA|MAZDA3",
+      "ref_date": "2018-05-21",
+      "matched_to": "PE18006"
+    },
+    {
+      "group": "FORD|RANGER",
+      "ref_date": "2018-08-03",
+      "matched_to": "PE18008"
+    },
+    {
+      "group": "FORD|MUSTANG GT",
+      "ref_date": "2018-08-21",
+      "matched_to": "PE18010"
+    },
+    {
+      "group": "FORD|FIESTA",
+      "ref_date": "2018-10-12",
+      "matched_to": "PE18011"
+    },
+    {
+      "group": "RAM|PROMASTER",
+      "ref_date": "2018-12-17",
+      "matched_to": "PE18016"
+    },
+    {
+      "group": "HYUNDAI|GENESIS",
+      "ref_date": "2019-03-29",
+      "matched_to": "PE19003"
+    },
+    {
+      "group": "KIA|RIO",
+      "ref_date": "2019-03-29",
+      "matched_to": "PE19004"
+    },
+    {
+      "group": "JEEP|CHEROKEE",
+      "ref_date": "2019-07-29",
+      "matched_to": "PE19008"
+    },
+    {
+      "group": "SUBARU|OUTBACK",
+      "ref_date": "2019-08-06",
+      "matched_to": "PE19009"
+    },
+    {
+      "group": "MERCEDES-BENZ|GLE350",
+      "ref_date": "2020-09-21",
+      "matched_to": "PE20014"
+    },
+    {
+      "group": "CHEVROLET|AVEO",
+      "ref_date": "2020-10-09",
+      "matched_to": "PE20016"
+    },
+    {
+      "group": "TOYOTA|CAMRY",
+      "ref_date": "2021-02-25",
+      "matched_to": "PE21005"
+    },
+    {
+      "group": "AUDI|A4 ALLROAD",
+      "ref_date": "2021-03-29",
+      "matched_to": "PE21009"
+    },
+    {
+      "group": "NISSAN|MURANO",
+      "ref_date": "2021-12-09",
+      "matched_to": "PE21022"
+    },
+    {
+      "group": "CHRYSLER|SEBRING",
+      "ref_date": "2022-07-22",
+      "matched_to": "PE22008"
+    },
+    {
+      "group": "FORD|F-250",
+      "ref_date": "2023-01-27",
+      "matched_to": "PE23001"
+    },
+    {
+      "group": "KIA|SEDONA",
+      "ref_date": "2023-01-27",
+      "matched_to": "PE23002"
+    },
+    {
+      "group": "HYUNDAI|SANTA CRUZ",
+      "ref_date": "2023-06-08",
+      "matched_to": "PE23011"
+    },
+    {
+      "group": "FORD|F-150 HYBRID",
+      "ref_date": "2023-11-22",
+      "matched_to": "PE23021"
+    },
+    {
+      "group": "INFINITI|QX60",
+      "ref_date": "2023-12-13",
+      "matched_to": "PE23023"
+    },
+    {
+      "group": "FORD|F-350",
+      "ref_date": "2024-01-31",
+      "matched_to": "PE24002"
+    }
+  ]
+}

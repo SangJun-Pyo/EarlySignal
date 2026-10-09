@@ -43,7 +43,7 @@
 ## 기술 스택
 - 파이프라인: Python 3.10+, duckdb, pandas, numpy, scipy, pyyaml, python-dotenv, openai, pytest
 - 웹: Next.js(App Router, `output: "export"` 정적 사이트) + TypeScript + Tailwind CSS v4 + Recharts
-- 배포: 정적 `web/out`을 Vercel(또는 GitHub Pages)에 올린다. 서버 없음. 데이터는 `web/public/data/*.json`.
+- 배포: 사용자 선택(2026-10-09)에 따라 정적 `web/out`을 Cloudflare Pages에 올린다. 서버 없음. 데이터는 `web/public/data/*.json`.
 
 ## 심사 기준과 이 저장소의 대응 (작업 우선순위 판단에 사용)
 | 심사 항목 | 저장소에서 보여줄 것 |
