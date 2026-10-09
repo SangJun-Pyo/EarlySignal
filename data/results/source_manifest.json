@@ -1,0 +1,53 @@
+{
+  "observed_local_date": "2026-10-09",
+  "sources": [
+    {
+      "file": "COMPLAINTS_RECEIVED_2010-2014.zip",
+      "bytes": 72410158,
+      "sha256": "545c60a30d7f81351dfdd512828d7d8e176c12eaee067d704258cf89843ea724",
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2010-2014.txt",
+          "bytes": 312804703,
+          "crc32": "52d18479"
+        }
+      ]
+    },
+    {
+      "file": "COMPLAINTS_RECEIVED_2015-2019.zip",
+      "bytes": 81302724,
+      "sha256": "d8d95b377ad5e40f014c83030102f5c43b4cd7c0f804d4a66d4b6f4239e94f60",
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2015-2019.txt",
+          "bytes": 357305037,
+          "crc32": "22cfedc7"
+        }
+      ]
+    },
+    {
+      "file": "COMPLAINTS_RECEIVED_2020-2024.zip",
+      "bytes": 75874027,
+      "sha256": "9bf4ebdb8f72369ebf9d04d24e8dec2d5fa02b34f59ca46d6cf65945de8a8821",
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2020-2024.txt",
+          "bytes": 326690754,
+          "crc32": "dace4619"
+        }
+      ]
+    },
+    {
+      "file": "FLAT_INV.zip",
+      "bytes": 4300608,
+      "sha256": "bb8492f89faf3a2cae02816424476a78cf6aef477b872140bd9426c20a2f38ac",
+      "members": [
+        {
+          "name": "FLAT_INV.txt",
+          "bytes": 390648920,
+          "crc32": "d2ba2b25"
+        }
+      ]
+    }
+  ]
+}
