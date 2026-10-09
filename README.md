@@ -6,9 +6,12 @@
 
 **진행 상태:** 전체 7,502건의 LLM 분류·출력 검사와 같은 모집단 비교를 완료하고 Cloudflare에 배포했습니다. 대표 신고 AI 요약은 18개 경보 중 16개에 기존 요약을 그대로 인용하고 번호를 연결합니다. 나머지 2개는 수량 표현 검사에서 거부돼 요약 없이 근거를 제공합니다. 공개 JSON 45개가 검수본과 일치하고 실제 요청서 저장·다운로드·재접속 후 이력 유지를 확인했습니다. Python 224개·웹 26개 검사와 타입·정적 빌드를 통과했습니다. 38사례 주 백테스트는 **키워드 기준선**이며, 사람 정답 기준 분류 정확도는 미측정입니다. [공개 데모](https://earlysignal.pages.dev/) · [공개 배포 검증 기록](data/results/deployment_llm_verification.json)
 
-- [4분 예선 발표 초안](docs/presentation/output/pdf/EarlySignal-preliminary-4min-DRAFT.pdf)
-- [결선 8분 발표 + 2분 질의응답 초안](docs/presentation/output/pdf/EarlySignal-finals-10min-DRAFT.pdf)
+- [4분 예선 발표 자료: 본문9장 + 부록9장](docs/presentation/output/pdf/EarlySignal-preliminary-4min-DRAFT.pdf)
+- [결선 8분 발표 + 2분 질의응답: 본문9장 + 부록12장](docs/presentation/output/pdf/EarlySignal-finals-10min-DRAFT.pdf)
+- [발표자 노트·60초 데모 조작안](docs/presentation/speaker-notes.md) · [39페이지 독립 검수](docs/Reviews/R09-final-presentation.md)
 - [Codex 작업 기록](docs/CODEX_LOG.md) · [독립 검수](docs/Reviews/R01-methodology.md) · [현재 진행 상태](docs/Development/STATUS.md)
+
+발표는 실제 미국 현대·기아 사건에서 시작해 LLM·통계·사람의 역할, 제품 데모, 월별 추이와 포아송, 결과·실패, 도입과 Codex 협업으로 이어집니다. 파일명의 `DRAFT`는 기존 링크를 유지하기 위한 접미사이며 PDF 내부 초안 표기는 제거했습니다. 4분·8분은 배분안으로, 실제 발화와 조작을 포함한 타이머 리허설은 아직 하지 않았습니다.
 
 ## 필요한 이유와 업무
 
