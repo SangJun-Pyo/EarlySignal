@@ -52,6 +52,8 @@ AI는 원문을 정해진 증상과 상황으로 정리하고, 통계는 같은 
 
 **사람 검수 미완료:** 독립 30건의 검수 자료를 준비하고 사용자가 검수를 시도했으나, 도메인 지식과 공모전 시간 제약으로 이번 제출에서는 진행하지 않기로 했습니다. 사람 정답 기준 정확도는 미측정입니다. AI가 대신 정답을 작성하지 않았습니다([ADR-020](docs/ADR/ADR-020-independent-blind-human-review.md), [S23](docs/Sessions/S23-human-review-deferred.md)).
 
+제출 기획과 현재 구현의 차이, 보완 이유는 [ADR-017](docs/ADR/ADR-017-submitted-proposal-and-delivery-scope.md)에 기록했습니다. 유사 과거 사례 검색은 원래 기획의 미구현 항목이며, 분류 검증을 먼저 하고 RAG 근거 검색으로 보완하는 설계만 승인됐습니다.
+
 **다음:** 후속 전문가의 독립 사람 검수, 요청서 업무의 사용자 평가, 고객 상담·보증 수리·생산 기록 연동. 대조군 구성과 차종 단위 분할 개선은 기존 평가와 구분한 새 실험으로 설계합니다.
 
 ## 도입 가설
@@ -139,8 +141,32 @@ python -m es.cli export --method llm --output build/llm-export
 
 ## 외부 자산
 
-데이터: [NHTSA ODI](https://static.nhtsa.gov/odi/ffdd/) 공개 신고·조사 파일. 원본은 저장소에 포함하지 않습니다. 구조화 식별정보를 제외하고 자유서술의 알려진 식별값·이메일·전화·VIN·주소 등을 검사합니다. 정규식 검사가 완전한 익명화를 보장하지는 않습니다.
+실제 적재한 NHTSA ODI 공개 파일입니다. 파일별 SHA256은 [출처 manifest](data/results/source_manifest.json), 다운로드 경로는 [ingest.py](pipeline/es/ingest.py)에 기록했습니다.
 
-기술: Python, DuckDB, pandas, SciPy, OpenAI SDK, Next.js, React, Tailwind CSS, Recharts. PDF: ReportLab, IBM Plex Sans KR ([OFL](docs/presentation/assets/OFL.txt)). 분류 모델: `gpt-4.1-mini-2025-04-14`(전체 7,502건 출력 검사 완료, 사람 정답 정확도 미측정).
+| 원본 파일 · 공식 직접 링크 | 사용 용도 |
+|---|---|
+| [COMPLAINTS_RECEIVED_2010-2014.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2010-2014.zip) | 2010~2014년 접수 신고 적재, 사례·대조군 평가 범위 추출 |
+| [COMPLAINTS_RECEIVED_2015-2019.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2015-2019.zip) | 2015~2019년 접수 신고 적재, 사례 평가와 현대·기아 데모 범위 추출 |
+| [COMPLAINTS_RECEIVED_2020-2024.zip](https://static.nhtsa.gov/odi/ffdd/cmpl/COMPLAINTS_RECEIVED_2020-2024.zip) | 2020~2024년 접수 신고 적재, 사례 평가와 볼트 EV 데모 범위 추출 |
+| [FLAT_INV.zip](https://static.nhtsa.gov/odi/ffdd/inv/FLAT_INV.zip) | 조사 기록 적재·확인, 조사 개시일 등 사후 비교 자료 |
 
-제출 기획과 현재 구현의 차이, 보완 이유는 [ADR-017](docs/ADR/ADR-017-submitted-proposal-and-delivery-scope.md)에 기록했습니다. 유사 과거 사례 검색은 원래 기획의 미구현 항목이며, 분류 검증을 먼저 하고 RAG 근거 검색으로 보완하는 설계만 승인됐습니다.
+ZIP의 전체 수집 기간을 모두 LLM으로 분류한 것은 아닙니다. LLM 분류는 [SPEC Step 2](docs/SPEC.md#step-2-범위)의 현대·기아와 볼트 EV 고정 데모 범위 7,502건이며, 공개 콘솔은 현대·기아 9개 차종의 2018-03~10 접수월을 제공합니다. 조사 파일의 사후 정보는 탐지 입력으로 쓰지 않습니다.
+
+원본은 저장소에 포함하지 않습니다. 구조화 식별정보를 제외하고 자유서술의 알려진 식별값·이메일·전화·VIN·주소 등을 검사합니다. 정규식 검사가 완전한 익명화를 보장하지는 않습니다.
+
+다음 공식 자료는 실제 사건 설명과 지정 PE 대비 선행 기간 해석에 사용했습니다([ADR-025](docs/ADR/ADR-025-designated-pe-comparison-context.md), [발표 근거표](docs/presentation/evidence-manifest.md), [발표자 노트](docs/presentation/speaker-notes.md)). 탐지 입력이 아니며, 개별 데모 신고의 원인을 사후 리콜과 동일시하지 않습니다.
+
+| 공식 사건 설명 자료 | 사용 용도 |
+|---|---|
+| [현대 PE19-003 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19003-2613.PDF) · [기아 PE19-004 개시서](https://static.nhtsa.gov/odi/inv/2019/INOA-PE19004-4727.PDF) | 비충돌 화재 조사와 지정 예비조사 개시일 2019-03-29 확인 |
+| [DP18-003 종료 문서](https://static.nhtsa.gov/odi/inv/2018/INCLA-DP18003-5116.PDF) | 앞선 청원·검토·기존 리콜 조사 이력 확인, 기관 최초 발견과의 비교가 아님을 설명 |
+| [기아18V907 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V907-3425.PDF) · [현대18V934 보고서](https://static.nhtsa.gov/odi/rcl/2018/RCLRPT-18V934-2602.PDF) · [18V934 공식 안내문](https://static.nhtsa.gov/odi/rcl/2018/RCONL-18V934-4890.pdf) | 이전 리콜로 엔진을 교체한 일부 차량의 연료관 문제를 별도 실제 사건 예시로 설명 |
+
+| 실제 사용 기술·자산 | 사용 위치·용도 |
+|---|---|
+| Python, DuckDB, pandas, NumPy, SciPy, PyYAML, python-dotenv, jsonschema, OpenAI SDK | 적재·집계·통계·설정·출력 검사·LLM 호출. [파이프라인 의존성](pyproject.toml) |
+| Next.js, React, TypeScript, Tailwind CSS, Recharts | 정적 웹 제품·타입 검사·화면·추이 차트. [웹 의존성](web/package.json) |
+| ReportLab, Matplotlib | [PDF 구성](docs/presentation/build_decks.py)과 [통계 그림 생성](docs/presentation/figures/build_stat_figures.py) |
+| IBM Plex Sans KR, IBM Plex Mono | 웹 한글 본문과 숫자·코드 표시, PDF·그림에는 Sans KR 사용. [웹 폰트 적용](web/app/layout.tsx) · [OFL](docs/presentation/assets/OFL.txt) |
+
+분류·대표 신고 선택 모델은 `gpt-4.1-mini-2025-04-14`입니다. 전체 7,502건 출력 검사를 완료했으며 사람 정답 정확도는 미측정입니다.
