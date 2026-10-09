@@ -14,14 +14,14 @@
 ## 당일 정확성 보완 (2026-10-09)
 - `data_source.downloaded_at`는 실제 다운로드일이 확인되지 않은 제공 ZIP이면 null, `observed_local_date`는 해당 파일을 로컬에서 확인한 날짜다. 관측일을 다운로드일로 바꾸어 말하지 않는다.
 - 키워드 신고의 `severity`는 null(미측정), `console.flag_sources`는 각 발생 상황 필드가 NHTSA·키워드·미측정 중 어디서 나온 것인지 명시한다.
-- 상황 요약 첫 문장은 실제 경보 수치로 만든 고정 통계문이다. 나머지 자유 서술에는 #신고번호 외의 숫자를 허용하지 않는다. 근거 문장의 의미는 담당자 검토가 필요하다.
+- 대표 신고 요약(ADR-024)의 첫 문장은 실제 경보 수치로 만든 고정 통계문이다. 그 뒤는 모델이 선택한 1~3개 신고의 기존 `summary_ko`를 한 줄씩 `(#번호) 기존 요약`으로 그대로 인용한다. 새 종합 서술을 생성하거나 기존 요약을 고치지 않는다. 기존 수량·개인정보·단정 검사를 유지하고 #신고번호 외 숫자를 허용하지 않는다. 기존 AI 요약의 의미는 담당자가 원문과 대조해야 하며 분류 정확도는 미측정이다. 공개 `briefs`는 기존 문자열 계약 그대로다.
 - 예시의 모든 숫자는 예시이며 실제 출력으로 대체한다. 현재 미측정인 모델·비용·정답 수는 `null`, 실제 검수/라벨 건수는 0으로 표현한다. 0% 정확도나 비용 0원으로 해석하지 않는다.
 - `console.labeler`: `keyword|llm`, `console.labeling_note`: 표시용 출처 설명. `complaints[id].label_source`: `keyword|llm`를 추가한다. 라벨 일부만 있는 상태에서 전체를 LLM 결과로 내보내지 않는다.
 - LLM 완성 캐시를 사용하는 경우에도 `meta.validation`·`cases.json`의 38사례 주 결과는 키워드 기준선이다. 세 대표 LLM 상세는 `cases_llm/`에 별도로 내보내며 `coverage`에 실제 demo 시작·종료일과 등록 전체 창 미충족을 표시한다. `console.reveal`은 해당 콘솔의 labeler 결과를 사용한다.
 - LLM fire/crash/injury 플래그는 NHTSA 기록 OR LLM hazard이며 `flag_sources`에 두 출처를 모두 명시한다.
 - `meta.validation_notes`: 검증 설계와 미검증 한계 문자열 배열. `meta.labels.llm_model`, `cost_per_1k_usd`, human_check의 정확한 판정 수는 미측정 시 null 허용.
 - 키워드 기반의 발생 상황 집계와 규칙 기반 문장은 AI 요약으로 표시하지 않는다. `briefs={}`는 정상적인 미생성 상태다.
-- `excluded`는 `cited`뿐 아니라 `brief_cited`와도 겹치지 않는다. 제외한 번호를 인용하는 AI 요약은 요청서에서 통째로 제외하고 그 상태를 표시한다. 통계 경보·집계는 원본 분류 모집단 기준으로 유지하며 제외가 재계산을 의미하지 않음을 표시한다.
+- `excluded`는 `cited`뿐 아니라 `brief_cited`와도 겹치지 않는다. 제외한 번호를 인용하는 대표 신고 요약은 요청서에서 통째로 제외하고 그 상태를 표시한다. 통계 경보·집계는 원본 분류 모집단 기준으로 유지하며 제외가 재계산을 의미하지 않음을 표시한다.
 - `decision.made`는 **실제 저장 시각 ISO8601**, `analysis_available`는 접수월 다음달 1일이다. 과거에 실제 문서를 작성한 것처럼 표시하지 않는다.
 - 문서번호는 증상 코드 전체와 브랜드·모델을 사용한다: `ES-20180901-HYUNDAI-SONATA-FIRE_THERMAL`. 예전의 범주 첫 단어 규칙은 engine_stall/engine_failure가 충돌하므로 폐기한다.
 - 원문은 알려진 식별값과 표준 패턴 검사를 거친 발췌다. 알려진 VIN·도시·딜러·전화·운전자 값은 검사 함수에만 전달하고 JSON에는 넣지 않는다.
@@ -104,6 +104,7 @@
 - `complaints`는 기준 월 범위(9개 차종) 신고 전부. `flags` ∈ {fire, smoke, driving, parked, crash, injury, severe}(LLM hazards + NHTSA FIRE/CRASH/INJURED 필드 + severity≥3). 원문은 520자까지, 금지 필드 없음.
 - `evidence`는 기준 월 범위에서 신고 3건 이상인 (grp, category, 월) 칸만. `agg`는 `flags` 집계, `ids`는 그 칸 신고 전부(화재 > 부상 > 충돌 > 심각도 순). 집계를 누르면 `ids` 중 그 플래그가 있는 신고만 보여준다.
 - `briefs`의 모든 `#번호`는 같은 키의 `evidence.ids`에 있어야 한다(`tests/test_request.py`).
+- 대표 요약의 선택 번호는 해당 호출에 제공한 최대 10개 근거 안에서 중복 없이 선택한다. 캐시를 읽을 때 선택 번호와 현재 `summary_ko`로 재구성한 문자열이 정확히 일치해야 공개하며 이전 자유 서술 캐시는 재사용하지 않는다. 선택된 신고는 대표 인용이며 전체 신고의 동일 상황·빈도·공통 원인을 뜻하지 않는다. 화면·요청서 표시명은 “대표 신고 요약 (AI 요약 인용·담당자 검토)”다.
 - `alerts`는 배수(ratio) 내림차순. 우선순위 점수(SPEC §5)는 쓰지 않아도 된다(쓰면 '가정' 표시).
 
 ## 조사 요청서 (브라우저에서 생성 · 저장)
