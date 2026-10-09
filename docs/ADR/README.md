@@ -29,6 +29,7 @@
 | [ADR-023](ADR-023-structured-brief-citations.md) | 문장별 상황 서술 실험 — ADR-024로 대체 |
 | [ADR-024](ADR-024-source-summary-selection.md) | 대표 ID 선택과 기존 신고별 AI 요약 그대로 인용 |
 | [ADR-025](ADR-025-designated-pe-comparison-context.md) | 선행 기간은 지정 예비조사(PE) 개시일과 비교 |
+| [ADR-027](ADR-027-compact-web-pdf-accent.md) | 컴팩트 장식 차량 이미지와 제목·주요 버튼의 PDF 청록 강조 |
 
 ## 기록을 읽는 기준
 
