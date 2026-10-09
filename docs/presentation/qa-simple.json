@@ -1,0 +1,126 @@
+{
+  "file": "docs/presentation/output/pdf/EarlySignal-preliminary-4min-simple.pdf",
+  "sha256": "b5c1335b217f65ab285bda191f448a2c4e987185eedbec0deb77d128ab00958a",
+  "pages": 22,
+  "main_pages": 7,
+  "appendix_pages": 15,
+  "timing_seconds": 240,
+  "demo_seconds": 60,
+  "actual_rehearsal_completed": false,
+  "checks": [
+    {
+      "page": 1,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 2,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 3,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 4,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 5,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 6,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 7,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 8,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 9,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 10,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 11,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 12,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 13,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 14,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 15,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 16,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 17,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 18,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 19,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 20,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 21,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    },
+    {
+      "page": 22,
+      "outside_chars": 0,
+      "replacement_chars": 0
+    }
+  ],
+  "figure_evidence_tests_passed": 6,
+  "python_syntax_check": "PASS",
+  "independent_review": "docs/Reviews/R14-presentation-simple.md",
+  "preserved_finals_sha256": "5a9e5698fda320a7f634ac32f9d68e9ffae1f557576875d7ca9692738dca2212"
+}

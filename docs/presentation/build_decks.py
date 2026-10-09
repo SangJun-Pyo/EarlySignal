@@ -586,17 +586,17 @@ def adoption_codex(c,s):
 def validation_graph(c, s):
     # Counts originate in the current pipeline export, not illustrative chart data.
     vals = MEASURED['validation']
-    x0, scale = 233, 34
+    x0, track_width = 233, 646
     rows = [('dev','개발용 사례','case',CYAN), ('dev','개발용 대조','control',MUTED),
             ('holdout','검증용 사례','case',CYAN), ('holdout','검증용 대조','control',AMBER)]
     for i, (split, title, group, accent) in enumerate(rows):
         y = 292 + i*65
         value = vals[split][group]
         text(c, title, 61, y+7, 21, TEXT, True)
-        box(c,x0,y,19*scale,35,fill='#152A3D',stroke='#152A3D',radius=4)
+        box(c,x0,y,track_width,35,fill='#152A3D',stroke='#152A3D',radius=4)
         if value['hits']:
-            box(c,x0,y,value['hits']*scale,35,fill=accent,stroke=accent,radius=4)
-        text(c,f"{value['hits']} / {value['n']}",x0+19*scale+15,y+6,24,accent,True)
+            box(c,x0,y,track_width*value['hits']/value['n'],35,fill=accent,stroke=accent,radius=4)
+        text(c,f"{value['hits']} / {value['n']}",x0+track_width+15,y+6,24,accent,True)
     text(c,'등록 기간의 표적 경보 발생 비율 · 일반 정확도나 포아송 적합성 검사는 아님',60,563,18,MUTED)
     box(c,997,279,231,278)
     text(c,'지정 PE 대비',1016,301,22,CYAN,True)

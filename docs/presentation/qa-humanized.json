@@ -1,0 +1,146 @@
+{
+  "sha256": "991cf65af1d8299d1e8daf08b6c6cc2759b6d1ef55fba0af80be45e5e96a3a32",
+  "pages": 22,
+  "main_pages": 7,
+  "appendix_pages": 15,
+  "seconds": 240,
+  "demo_seconds": 60,
+  "checks": [
+    {
+      "page": 1,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 2,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": false
+    },
+    {
+      "page": 3,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": false
+    },
+    {
+      "page": 4,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 5,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 6,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 7,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": false
+    },
+    {
+      "page": 8,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 9,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 10,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 11,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 12,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 13,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 14,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 15,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 16,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 17,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 18,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 19,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 20,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 21,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    },
+    {
+      "page": 22,
+      "outside_chars": 0,
+      "replacement_chars": 0,
+      "text_unchanged": true
+    }
+  ],
+  "humanize_gate": "PASS; light; change_rate=0.0037; six self-checks",
+  "actual_rehearsal_completed": false,
+  "prior_pdf_preserved": "docs/presentation/output/pdf/EarlySignal-preliminary-4min-simple.pdf",
+  "independent_review": "docs/Reviews/R15-presentation-copy.md"
+}

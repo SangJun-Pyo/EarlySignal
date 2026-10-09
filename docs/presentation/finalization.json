@@ -1,0 +1,6 @@
+{
+  "presenter": "표상준",
+  "source_qa": "qa-v2.json",
+  "issue": "https://github.com/SangJun-Pyo/EarlySignal/issues/39",
+  "design_decision": "기존 구도 유지. 발표자 이름과 7쪽 그래프 분모별 비율만 수정."
+}

@@ -1,0 +1,62 @@
+Source: https://github.com/epoko77-ai/im-not-ai
+Commit: 2f3d943d08056b612a92e12bfb72ea94dd2acd18
+Mode: light; genre: presentation (essay metric proxy)
+Scope: spoken text, after separate rubric clarification; metric not AI-authorship/quality evidence.
+[P0 문자율] 0.4% [전문] — OK (경고 30% / 중단 50%)
+[P1 목표달성] ending_comma_rate: z +5.46 → -0.52  달성
+[P2 전멸] C-8 대구 0 → 0 — 스킵 (원문 대구 < 5)
+[P3 golden] PASS (수치 주입·각주·인용·register 이상 없음)
+[P4 터치율] 21.4% (9/42 문장) — 보고 전용
+[P5 서법] 소실 0문장 (참고 총수: 당위 3→3 / 완곡 3→3) — OK
+gate: OK — 수렴
+{
+  "genre": "essay",
+  "change_rate": {
+    "rate": 0.0037,
+    "scope": "전문",
+    "verdict": "OK"
+  },
+  "s1_targets": [
+    {
+      "metric": "ending_comma_rate",
+      "z_before": 5.46,
+      "z_after": -0.52,
+      "verdict": "달성"
+    }
+  ],
+  "antithesis": {
+    "before": 0,
+    "after": 0,
+    "verdict": "스킵 (원문 대구 < 5)"
+  },
+  "golden": [],
+  "sentence_touch": {
+    "rate": 0.2143,
+    "touched": 9,
+    "total": 42
+  },
+  "numbers_dropped": [],
+  "modality": {
+    "lost_pairs": [],
+    "uncertain_pairs": [],
+    "counts": {
+      "deontic": {
+        "before": 3,
+        "after": 3
+      },
+      "hedge": {
+        "before": 3,
+        "after": 3
+      }
+    },
+    "verdict": "OK"
+  },
+  "gate": {
+    "verdict": "OK — 수렴",
+    "exit_code": 0
+  }
+}
+
+01_input.txt sha256=e8af323c230d0432396dc94b0b826b1011e30bc70172530ca8fac36ee92b9b29
+final.md sha256=dc2eb92e9688be415117c577e10996523353c95e92c2c40cbe1e8cda63882864
+Self-check: 6/6; grade B (conservative lexical edits); no warnings.

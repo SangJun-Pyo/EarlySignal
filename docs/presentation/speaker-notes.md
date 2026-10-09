@@ -1,6 +1,6 @@
 # 발표자 노트 · 고객의 목소리를, 조사의 근거로.
 
-> 현재 읽을 대본은 [전체 발표 스크립트](speaker-script.md)와 [인쇄용 PDF](output/pdf/EarlySignal-presentation-script.pdf)를 사용한다. 아래는 기본 근거판의 설명 노트다. 3D v2에는 연식 부록이 추가되어 예선20쪽·결선23쪽이며, 새 부록은 각각19·20쪽/22·23쪽이다. 본문9장과240/480초 배분은 유지한다.
+> 현재 예선은 [7장·4분 대본 Markdown](speaker-script-4min.md)과 [22쪽 PDF](output/pdf/EarlySignal-preliminary-4min-humanized.pdf)를 사용한다. 결선은 [기존 대본의 결선 부분](speaker-script-final.md)을 사용한다. 아래9장 예선 설명은 이전 구성의 기술 참고자료다. 연식 부록은 새 예선21·22쪽, 결선22·23쪽이다.
 
 문서 상태: 발표자료. 최종 PDF 이름은 발표 README를 따른다. 기존 DRAFT 이름은 같은 내용의 호환본이며 내부 초안 표기는 없다.
 

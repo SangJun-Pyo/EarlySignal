@@ -1,0 +1,47 @@
+{
+  "outputs": [
+    {
+      "file": "EarlySignal-preliminary-4min-final.pdf",
+      "pages": 20,
+      "sha256": "7f0ab7a1c3755a489df719b414c363db63c2a480ead73811c2387aaa99e3b925",
+      "source_file": "EarlySignal-preliminary-4min-3d-v2.pdf",
+      "source_sha256": "4b16deab85ab8237bfb285286ea8aada9746aebb8feccd41bbcbdbb4a831c3db",
+      "changed_pages": [
+        1,
+        7,
+        9
+      ],
+      "presenter": "표상준"
+    },
+    {
+      "file": "EarlySignal-finals-8min-qa2min-final.pdf",
+      "pages": 23,
+      "sha256": "5a9e5698fda320a7f634ac32f9d68e9ffae1f557576875d7ca9692738dca2212",
+      "source_file": "EarlySignal-finals-8min-qa2min-3d-v2.pdf",
+      "source_sha256": "58163259c686680ff157eb9c994f70131272a4a2a3113249b4907d9499d63f18",
+      "changed_pages": [
+        1,
+        7,
+        9
+      ],
+      "presenter": "표상준"
+    },
+    {
+      "file": "EarlySignal-presentation-script-final.pdf",
+      "pages": 10,
+      "sha256": "c9340391c13bee6d705cabe1f988c2885124dffde6d2869adf27b4262ebb437c",
+      "source_file": "EarlySignal-presentation-script.pdf",
+      "source_sha256": "00730aed51988169a555713f50b52f061de0068d41e7ffc82c65ebb882fd050a",
+      "changed_pages": [
+        1
+      ],
+      "presenter": "표상준"
+    }
+  ],
+  "presenter": "표상준",
+  "issue": "https://github.com/SangJun-Pyo/EarlySignal/issues/39",
+  "preliminary_seconds": 240,
+  "finals_seconds": 480,
+  "qa_seconds": 120,
+  "actual_rehearsal_completed": false
+}

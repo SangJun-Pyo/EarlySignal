@@ -1,6 +1,25 @@
 # EarlySignal 발표자료
 
-## 현재 제출용: 3D v2 + 모델연도 부록 + 발표 대본
+## 현재 예선: 4분 발표 7장
+
+- [예선 4분 PDF](output/pdf/EarlySignal-preliminary-4min-humanized.pdf): 본문7 + 부록15 = 22쪽. 발표자 표상준.
+- [4분 대본 Markdown](speaker-script-4min.md): 읽을 문장과 조작 메모. 대본 PDF는 새로 만들지 않는다.
+- 문제→역할→60초 시연→증가 신호→검증 범위→마무리 순서다. 상세 통계·키워드/LLM 비교·도입/Codex는 부록으로 옮겼다. 기존11개 부록도 보존하며 이슈#35는21·22쪽이다.
+- 시간은20·30·25·60·35·40·30초=240초 배분이며 실제 리허설은 미완료다.
+- 재생성: `python docs/presentation/build_simple_deck.py --storyboard docs/presentation/storyboard-humanized.json --manifest docs/presentation/humanized-build-manifest.json`. 원본은 `storyboard-humanized.json`, 근거·해시는 `humanized-build-manifest.json`, 검수는 `qa-humanized.json`·[R15](../Reviews/R15-presentation-copy.md).
+- 심사 기준01·02에 맞춰2장의 담당자·키워드 한계,3장의AI 입력과 역할을 명시했다. im-not-ai light 윤문 게이트 통과. 이전7장 PDF와 R14/qa-simple, 이전 대본 history는 보존한다.
+- 결선은 아래23쪽 최종본과 기존 결선 대본을 사용한다. 이전 예선20쪽과 검수는 보존한다.
+
+## 결선 최종본·이전 예선 보존본
+
+- [이전 예선 4분 PDF](output/pdf/EarlySignal-preliminary-4min-final.pdf): 본문9 + 부록11 = 20쪽.
+- [결선 8분 + 질의응답 2분 PDF](output/pdf/EarlySignal-finals-8min-qa2min-final.pdf): 본문9 + 부록14 = 23쪽.
+- [기존9장 구성 발표 대본 PDF](output/pdf/EarlySignal-presentation-script-final.pdf): 10쪽. [편집용 Markdown](speaker-script-final.md).
+- 표지·본문 마무리·대본 첫 쪽과 PDF 작성자에 표상준을 표기했다. 추가 장식 없이 기존 구도를 유지하고 7쪽의 검증 대조 막대를 실제 1/17 비율에 맞췄다. 수치·문구·시간 배분은 유지한다.
+- 재생성: `python docs/presentation/finalize_pdfs.py`. 발표자 설정은 `finalization.json`, 입력은 아래 보존본과 `qa-v2.json`이다. 입력 SHA256이 바뀌면 중단한다. 대본을 편집할 때에는 `speaker-script.json`에서 시작하고 새 입력 PDF의 검수·해시도 갱신해야 한다.
+- 근거와 출력 해시는 `final-build-manifest.json`, 순서는 `storyboard-final.json`, 검수는 `qa-final.json`·[R13](../Reviews/R13-presentation-final.md)이다. 이전 검수 스냅샷과 PDF는 보존한다.
+
+## 이전 3D v2: 모델연도 부록 + 발표 대본 (보존)
 
 - [예선 4분 PDF](output/pdf/EarlySignal-preliminary-4min-3d-v2.pdf): 본문 9 + 부록 11 = 20쪽. 새 연식 부록은 19·20쪽.
 - [결선 8분 + 질의응답 2분 PDF](output/pdf/EarlySignal-finals-8min-qa2min-3d-v2.pdf): 본문 9 + 부록 14 = 23쪽. 새 연식 부록은 22·23쪽.
@@ -29,7 +48,7 @@
 | `output/pdf/EarlySignal-preliminary-4min.pdf` | 본문 9장 + 부록 9장 | 발표·데모 240초 |
 | `output/pdf/EarlySignal-finals-8min-qa2min.pdf` | 본문 9장 + 부록 12장 | 발표·데모 480초 + 질의응답 120초 |
 
-위 표는 R09에서 검수한 기본 근거판이며, 현재 제출용 파일은 문서 상단의 3D v2다. 이전 `DRAFT` 파일은 기본 근거판과 같은 바이트의 호환본으로 유지한다. 부록은 시간 외 참고자료다. 시간은 배분안이며 실제 타이머 리허설 완료를 뜻하지 않는다. 예선 제품 조작은 60초, 결선은 100초(후속 조사 설계 설명 10초 포함)다.
+위 표는 R09에서 검수한 기본 근거판이며, 현재 제출용 파일은 문서 상단의 발표자 표기 최종본이다. 이전 `DRAFT` 파일은 기본 근거판과 같은 바이트의 호환본으로 유지한다. 부록은 시간 외 참고자료다. 시간은 배분안이며 실제 타이머 리허설 완료를 뜻하지 않는다. 예선 제품 조작은 60초, 결선은 100초(후속 조사 설계 설명 10초 포함)다.
 
 ## 실제 결과와 한계
 
