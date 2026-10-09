@@ -1,5 +1,16 @@
 # EarlySignal 발표자료
 
+## 3D 디자인 버전 (2026-10-09)
+
+사용자가 제공한 Truve 레퍼런스의 남색 배경·유리 소재 3D 표현을 EarlySignal의 청록색에 맞췄다. 표지·문제 설명·역할 분담·마무리(1·2·3·9쪽)에만 새 개념 이미지를 넣었다. 기존 최종본과 과거 검수 기록은 그대로 보존한다.
+
+- [예선 4분 3D 디자인 PDF](output/pdf/EarlySignal-preliminary-4min-3d.pdf): 본문 9 + 부록 9 = 18쪽.
+- [결선 8분 + 질의응답 2분 3D 디자인 PDF](output/pdf/EarlySignal-finals-8min-qa2min-3d.pdf): 본문 9 + 부록 12 = 21쪽.
+- [주요 디자인 미리보기](output/3d-design-preview.jpg).
+- 편집 원본: `build_3d_decks.py`. 기존 최종 PDF·storyboard를 입력으로 쓰며 `python docs/presentation/build_3d_decks.py`로 재생성한다. Python 패키지는 reportlab·pypdf가 필요하다.
+- 이미지: `assets/3d/`의 PNG 4개. built-in image_gen으로 제작했으며 최종 프롬프트는 `assets/3d/prompts.json`, 해시는 `output/pdf/3d-build-manifest.json`에 있다. 차량·문서·파형은 개념 이미지다.
+- 검수: `qa-3d.json`, [R11](../Reviews/R11-presentation-3d.md). 수정 8쪽 독립 시각 검수·영역 밖 문자 0개, 나머지 31쪽 원본 대비 픽셀·텍스트 일치. 6개 통계 근거 테스트 통과. 시간 배분과 수치·한계는 그대로이며 실제 리허설은 별도다.
+
 사용자가 확정한 “고객의 목소리를, 조사의 근거로.”의9장 서사다. LLM 분류 7,502건을 적용한 제품과 키워드 38사례 통계 검증을 구분한 발표자료다. 예선에서도 실제 월별 집계와 포아송 경보를 본문 두 장으로 설명한다. 사람 정답 기반 분류 정확도와 현업 효과는 미측정이다.
 
 ## 두 버전
